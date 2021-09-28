@@ -6,7 +6,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "seed": "chec-seed seeds"
+    "seed": "chec-seed seeds",
+    "export": "next build && next export"
   },
   "dependencies": {
     "@chec/commerce.js": "2.2.0",
