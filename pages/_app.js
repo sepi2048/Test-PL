@@ -17,6 +17,7 @@ import { CheckoutProvider } from "../context/checkout";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal";
 
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );

@@ -78,7 +78,7 @@ function BillingForm() {
       <div className="md:w-1/2">
         <fieldset className="mb-3 md:mb-4">
           <legend className="text-black font-medium text-lg md:text-xl py-3 block">
-            Billing address
+            Billing Info
           </legend>
 
           {collects?.shipping_address && (

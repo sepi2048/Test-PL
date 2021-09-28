@@ -1,9 +1,17 @@
 import Button from "../Button";
+import WatermarkPDF from '../../src/components/WatermarkPDF'
 
-function CheckoutSummary({ has, fulfillment, order }) {
+
+
+function CheckoutSummary({ has, fulfillment, order, id }) {
   const { subtotal, tax, shipping, line_items, total } = order;
+  const url = "/api/getPDF?id="+id;
 
   const count = line_items.length;
+
+  const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
+  console.log(checSecretAPIKey);
+
 
   return (
     <div className="py-6">
@@ -22,6 +30,8 @@ function CheckoutSummary({ has, fulfillment, order }) {
               </li>
             )}
           </ol>
+
+
         </div>
         {has.digital_fulfillment && (
           <div className="w-full md:w-1/2 md:flex md:items-end md:justify-end space-y-3 md:space-y-0 md:space-x-3">
@@ -30,15 +40,21 @@ function CheckoutSummary({ has, fulfillment, order }) {
                 className="md:flex space-y-3 md:space-y-0 md:space-x-3"
                 key={index}
               >
-                {download.packages.map(({ access_link, name }, index) => (
+                {download.packages.map(({ name }, index) => (      
+                  
+                  /*<WatermarkPDF index={index} url={access_link} filename={name} fullname={fullname} order_id={customer_reference} />*/
+
+
                   <Button
-                    key={index}
-                    href={access_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download {name}
-                  </Button>
+                  key={index}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download {name}
+                </Button>
+
+
                 ))}
               </div>
             ))}

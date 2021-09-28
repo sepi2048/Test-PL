@@ -21,7 +21,7 @@ function Breadcrumbs({ inCart }) {
           <span className="text-lg md:text-xl">&rarr;</span>
           <span className="text-lg md:text-xl">Booking</span>
           <span className="text-lg md:text-xl opacity-50">&rarr;</span>
-          <span className="text-lg md:text-xl opacity-50">Shipping</span>
+          <span className="text-lg md:text-xl opacity-50">Billing &#38; Shipping</span>
           <span className="text-lg md:text-xl opacity-50">&rarr;</span>
           <span className="text-lg md:text-xl opacity-50">Payment</span>
         </>
@@ -37,7 +37,7 @@ function Breadcrumbs({ inCart }) {
             </>
           )}
           <span className="text-lg md:text-xl">&rarr;</span>
-          <span className="text-lg md:text-xl">Shipping</span>
+          <span className="text-lg md:text-xl">Billing &#38; Shipping</span>
           <span className="text-lg md:text-xl opacity-50">&rarr;</span>
           <span className="text-lg md:text-xl opacity-50">Payment</span>
         </>
@@ -52,7 +52,7 @@ function Breadcrumbs({ inCart }) {
             </>
           )}
           <span className="text-lg md:text-xl">&rarr;</span>
-          <span className="text-lg md:text-xl">Shipping</span>
+          <span className="text-lg md:text-xl">Billing &#38; Shipping</span>
           <span className="text-lg md:text-xl">&rarr;</span>
           <span className="text-lg md:text-xl">Payment</span>
         </>
