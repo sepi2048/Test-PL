@@ -89,9 +89,11 @@ exports.handler = async function(req, res) {
         template_id: 'd-e319802399914baba04f8dd3c82246cd'
     }
 
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-
+    let sgheaders = {
+        Authorization: `Bearer ${process.env.SENDGRID_SECRET}`,
+        "Content-Type": "application/json",
+    };
 
     let response = {};
     try {
@@ -99,7 +101,7 @@ exports.handler = async function(req, res) {
         response = await sgMailClient.send(emailPayload);
         return {
             statusCode: 200,
-            headers,
+            sgheaders,
             body: 'Email sent!'
         }
     } catch (err) {
