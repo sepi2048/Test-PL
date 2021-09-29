@@ -1,7 +1,7 @@
 // Create the API endpoint function with a req and res parameter
-exports.handler = async function(req, res) {
+//exports.handler = async function(req, res) {
 
-//export default async function handler(req, res) {
+export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
         return {
             status: 405,
