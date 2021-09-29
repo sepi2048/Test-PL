@@ -20,6 +20,7 @@
     "framer-motion": "2.9.4",
     "next": "10.0.2",
     "next-google-fonts": "1.2.1",
+    "node-fetch": "^3.0.0",
     "pdf-lib": "^1.16.0",
     "postcss": "8.1.14",
     "react": "17.0.1",

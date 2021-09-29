@@ -1,5 +1,10 @@
+
+
 // Create the API endpoint function with a req and res parameter
 exports.handler = async function(req, res) {
+
+const fetch = require("node-fetch");
+
 
 //export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
