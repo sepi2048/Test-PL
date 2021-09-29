@@ -1,7 +1,11 @@
-// Create the API endpoint function with a req and res parameter
-//exports.handler = async function(req, res) {
+import fetch from "node-fetch";
 
-export default async function handler(req, res) {
+
+
+// Create the API endpoint function with a req and res parameter
+exports.handler = async function(req, res) {
+
+//export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
         return {
             status: 405,
@@ -77,6 +81,10 @@ export default async function handler(req, res) {
     // https://mc.sendgrid.com/dynamic-templates
         template_id: 'd-e319802399914baba04f8dd3c82246cd'
     }
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+    
 
     let response = {};
     try {
