@@ -3,6 +3,8 @@
 // https://functional.works-hub.com/learn/setting-up-an-api-route-with-next-dot-js-7e8a9
 
 
+// api/hello?fname=John&lname=Doe
+
 export default (req, res) => {
 
     const {

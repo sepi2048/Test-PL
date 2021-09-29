@@ -48,7 +48,7 @@ function CheckoutSummary({ has, fulfillment, order, id }) {
                   <Button
                   key={index}
                   href={url}
-                  target="_blank"
+                  target="_self"
                   rel="noopener noreferrer"
                 >
                   Download {name}

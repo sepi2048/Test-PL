@@ -73,7 +73,7 @@ export default async function handler(req, res) {
         },
         // In addition to specifying the dynamic template data, you need to specify the template ID. This comes from your SendGrid dashboard when you create you dynamic template
     // https://mc.sendgrid.com/dynamic-templates
-        template_id: 'd-e319802399914baba04f8dd3c82246cd'
+        template_id: 'd-e319802399914baba04f8dd3c82246cd';
     }
 
     let response = {};
