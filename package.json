@@ -2,7 +2,6 @@
   "private": true,
   "name": "chopchop",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev": "next",
     "build": "next build",
