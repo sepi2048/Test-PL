@@ -101,7 +101,7 @@ exports.handler = async function(req, res) {
         response = await sgMailClient.send(emailPayload);
         return {
             statusCode: 200,
-            sgheaders,
+            headers: sgheaders,
             body: 'Email sent!'
         }
     } catch (err) {
