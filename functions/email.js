@@ -3,6 +3,16 @@
 // Create the API endpoint function with a req and res parameter
 exports.handler = async function(req, res) {
 
+    const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
+
+
+    let headers = {
+        "X-Authorization": checSecretAPIKey,
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+    };
+
+
 //export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
         return {
