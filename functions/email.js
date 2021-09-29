@@ -7,7 +7,6 @@ exports.handler = async function(req, res) {
 
 
     let headers = {
-        "X-Authorization": checSecretAPIKey,
         "Accept": "application/json",
         "Content-Type": "application/json",
     };
