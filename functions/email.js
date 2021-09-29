@@ -1,7 +1,3 @@
-import fetch from "node-fetch";
-
-
-
 // Create the API endpoint function with a req and res parameter
 exports.handler = async function(req, res) {
 
@@ -84,7 +80,7 @@ exports.handler = async function(req, res) {
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    
+
 
     let response = {};
     try {
