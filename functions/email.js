@@ -1,16 +1,10 @@
+const fetch = require("node-fetch");
+const sgMailClient = require("@sendgrid/mail");
+sgMailClient.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 // Create the API endpoint function with a req and res parameter
 exports.handler = async function(req, res) {
-
-    const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
-
-
-    let headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    };
-
 
 //export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
@@ -90,10 +84,10 @@ exports.handler = async function(req, res) {
     }
 
 
-    let sgheaders = {
+    /*let sgheaders = {
         Authorization: `Bearer ${process.env.SENDGRID_SECRET}`,
         "Content-Type": "application/json",
-    };
+    };*/
 
     let response = {};
     try {
@@ -101,7 +95,7 @@ exports.handler = async function(req, res) {
         response = await sgMailClient.send(emailPayload);
         return {
             statusCode: 200,
-            headers: sgheaders,
+            headers,
             body: 'Email sent!'
         }
     } catch (err) {
