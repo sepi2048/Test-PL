@@ -20,7 +20,6 @@ exports.handler = async function(req, res) {
 
     const { data } = JSON.parse(req.body);
 
-    curl -X GET -G "https://api.chec.io/v1/merchants" -H "X-Authorization: sk_test_27938d457bf49377c55aa7204d479c7b5aeb4bbcf320d"
 
     // Request for your merchant information so that you can use your email
     // to include as the 'from' property to send to the SendGrid API
