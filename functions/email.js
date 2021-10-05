@@ -20,11 +20,17 @@ exports.handler = async function(req, res) {
 
     const { data } = JSON.parse(req.body);
 
+    const merchant_url = new URL(
+        "https://api.chec.io/v1/merchants"
+    );
+
     // Request for your merchant information so that you can use your email
     // to include as the 'from' property to send to the SendGrid API
-    const merchant = axios.get(`${process.env.CHEC_API_URL}/v1/merchants`, {
+    const merchant = axios.get(merchant_url, {
         headers: {
-            'X-Authoriza†ion': process.env.CHEC_SECRET_KEY,
+            "X-Authoriza†ion": "{token}",
+            "Accept": "application/json",
+            "Content-Type": "application/json",
         },
     }).then((response) => response.json);
 
