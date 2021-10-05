@@ -11,7 +11,7 @@ exports.handler = async function(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
         return {
             status: 405,
-            headers,
+            headers: {},
             body: JSON.stringify({
                 status: 'Invalid HTTP method',
             }),
@@ -96,7 +96,7 @@ exports.handler = async function(req, res) {
         response = await sgMailClient.send(emailPayload);
         return {
             statusCode: 200,
-            headers,
+            headers: {},
             body: 'Email sent!'
         }
     } catch (err) {
