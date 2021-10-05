@@ -1,4 +1,5 @@
-const fetch = request("node-fetch").default;
+const axios = require('axios');
+//const fetch = request("node-fetch").default;
 const sgMailClient = require("@sendgrid/mail");
 sgMailClient.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -21,7 +22,7 @@ exports.handler = async function(req, res) {
 
     // Request for your merchant information so that you can use your email
     // to include as the 'from' property to send to the SendGrid API
-    const merchant = fetch(`${process.env.CHEC_API_URL}/v1/merchants`, {
+    const merchant = axios.get(`${process.env.CHEC_API_URL}/v1/merchants`, {
         headers: {
             'X-Authoriza†ion': process.env.CHEC_SECRET_KEY,
         },
