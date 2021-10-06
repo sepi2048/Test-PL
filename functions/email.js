@@ -30,12 +30,12 @@ exports.handler = async function(req, res) {
         },
     }).then((response) => response.json);
 
-    console.log(data)
+    console.log("reg.body:" + req.body);
 
     // Extract the signature from the registered `orders.create` webhook
-    const { signature } = data;
+    const { signing_key } = data;
 
-    delete data.signature;
+    delete data.signing_key;
 
     // Your Chec webhook signing key, from the Chec Dashboard webhooks view
     const webHookSigningKey = 'KEJlxz6cIlrWIpsX5jypcMeGl2uh7jJg';
@@ -45,7 +45,7 @@ exports.handler = async function(req, res) {
     const expectedSignature = crypto.createHmac('sha256', webHookSigningKey)
         .update(JSON.stringify(data))
         .digest('hex');
-    if (expectedSignature !== signature) {
+    if (expectedSignature !== signing_key) {
         console.error('Signature mismatched, skipping.')
     }
 
