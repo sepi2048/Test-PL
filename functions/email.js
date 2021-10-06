@@ -89,7 +89,6 @@ exports.handler = async function(req, res) {
         template_id: 'd-e319802399914baba04f8dd3c82246cd'
     }
 
-
     /*let sgheaders = {
         Authorization: `Bearer ${process.env.SENDGRID_SECRET}`,
         "Content-Type": "application/json",
