@@ -1,7 +1,8 @@
 const axios = require('axios');
-//const fetch = request("node-fetch").default;
 const sgMailClient = require("@sendgrid/mail");
 sgMailClient.setApiKey(process.env.SENDGRID_API_KEY);
+// Includes crypto module
+const crypto = require('crypto');
 
 
 // Create the API endpoint function with a req and res parameter
