@@ -18,7 +18,7 @@ exports.handler = async function(req, res) {
         }
     }
 
-    const { data } = JSON.parse(req.body);
+    const data = JSON.parse(req.body);
 
     // Request for your merchant information so that you can use your email
     // to include as the 'from' property to send to the SendGrid API
@@ -30,12 +30,12 @@ exports.handler = async function(req, res) {
         },
     }).then((response) => response.json);
 
-    console.log(JSON.parse(req.body));
+    console.log(data);
 
     // Extract the signature from the registered `orders.create` webhook
-    const { signing_key } = data;
+    const { signature } = data;
 
-    delete data.signing_key;
+    delete data.signature;
 
     // Your Chec webhook signing key, from the Chec Dashboard webhooks view
     const webHookSigningKey = 'KEJlxz6cIlrWIpsX5jypcMeGl2uh7jJg';
@@ -45,7 +45,7 @@ exports.handler = async function(req, res) {
     const expectedSignature = crypto.createHmac('sha256', webHookSigningKey)
         .update(JSON.stringify(data))
         .digest('hex');
-    if (expectedSignature !== signing_key) {
+    if (expectedSignature !== signature) {
         console.error('Signature mismatched, skipping.')
     }
 
