@@ -30,7 +30,7 @@ exports.handler = async function(req, res) {
         },
     }).then((response) => response.json);
 
-    console.log("reg.body:" + req.body);
+    console.log(JSON.parse(req.body));
 
     // Extract the signature from the registered `orders.create` webhook
     const { signing_key } = data;
