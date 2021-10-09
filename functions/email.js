@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 
 // Create the API endpoint function with a req and res parameter
-exports.handler = async function(req, res) {
+exports.handler = async function(req, res, next) {
 
 //export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
@@ -87,7 +87,7 @@ exports.handler = async function(req, res) {
         // In addition to specifying the dynamic template data, you need to specify the template ID. This comes from your SendGrid dashboard when you create you dynamic template
     // https://mc.sendgrid.com/dynamic-templates
         template_id: 'd-e319802399914baba04f8dd3c82246cd'
-    }
+    };
 
     /*let sgheaders = {
         Authorization: `Bearer ${process.env.SENDGRID_SECRET}`,
@@ -104,7 +104,8 @@ exports.handler = async function(req, res) {
             body: 'Email sent!'
         }
     } catch (err) {
-        console.error('Error', err)
+        console.error('Error from function: ', err)
+        console.error(err.response.body);
     }
     // Return the response from the request
     return res.status(200).json(response);
