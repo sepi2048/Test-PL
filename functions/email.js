@@ -67,7 +67,7 @@ exports.handler = async function(req, res, next) {
     // Create the email object payload to fire off to SendGrid
     const emailPayload = {
         to: data.payload.customer.email,
-        from: {"email": merchant.support_email},
+        from: merchant.support_email,
         subject: `Thank you for your order ${data.payload.customer.firstname}`,
         text: `Your order number is ${data.payload.customer_reference}`,
         // SendGrid expects a JSON blog containing the dynamic order data your template will use
@@ -106,7 +106,7 @@ exports.handler = async function(req, res, next) {
     } catch (err) {
         console.error('Error from function: ', err)
         console.error(err.response.body);
-        console.log(merchant.support_email);
+        console.log("Payload content: ", emailPayload );
     }
     // Return the response from the request
     return res.status(200).json(response);
