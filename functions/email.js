@@ -73,7 +73,7 @@ exports.handler = async function(req, res) {
         from: data.payload.merchant.support_email,
         subject: `Thank you for your order ${data.payload.customer.firstname}`,
         text: `Your order number is ${data.payload.customer_reference}`,
-        content: ['text/html', 'test'],
+        html: `&nbsp;`,
 
         // SendGrid expects a JSON blog containing the dynamic order data your template will use
         // More information below in 'What's next?' on how to configure your dynamic template in SendGrid
@@ -89,15 +89,9 @@ exports.handler = async function(req, res) {
             zip : data.payload.billing.postal_zip_code,
             orderId : data.payload.id,
         },
-        // In addition to specifying the dynamic template data, you need to specify the template ID. This comes from your SendGrid dashboard when you create you dynamic template
-    // https://mc.sendgrid.com/dynamic-templates
         template_id: 'd-e319802399914baba04f8dd3c82246cd'
     };
 
-    /*let sgheaders = {
-        Authorization: `Bearer ${process.env.SENDGRID_SECRET}`,
-        "Content-Type": "application/json",
-    };*/
 
     let response = {};
     try {
@@ -115,6 +109,4 @@ exports.handler = async function(req, res) {
         console.error(err.response.body);
         console.log("Payload content: ", emailPayload );
     }
-    // Return the response from the request
-    //return res.status(200).json(response);
 }
