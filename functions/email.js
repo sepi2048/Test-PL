@@ -60,11 +60,14 @@ exports.handler = async function(req, res) {
     // Note that we are keeping the data structure minimal here
     const orderLineItems = data.payload.order.line_items.map((lineItem) => ({
         text: lineItem.product_name,
+        qty: lineItem.quantity,
         price: lineItem.line_total.formatted_with_symbol,
     }));
 
-
-
+    var expiry = new Date();
+    expiry.setDate(expiry.getDate() + 30);
+    expiry = expiry.toDateString();
+    expiry = expiry.substr(expiry.indexOf(" ") + 1);
 
     // Signature is verified, continue to send data to SendGrid
     // Create the email object payload to fire off to SendGrid
@@ -88,6 +91,8 @@ exports.handler = async function(req, res) {
             state: data.payload.billing.county_state,
             zip : data.payload.billing.postal_zip_code,
             orderId : data.payload.id,
+            expiry: expiry,
+            customerRef : data.payload.customer_reference,
         },
         template_id: 'd-e319802399914baba04f8dd3c82246cd'
     };
