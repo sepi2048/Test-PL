@@ -63,6 +63,9 @@ exports.handler = async function(req, res) {
         price: lineItem.line_total.formatted_with_symbol,
     }));
 
+
+
+
     // Signature is verified, continue to send data to SendGrid
     // Create the email object payload to fire off to SendGrid
     const emailPayload = {
@@ -70,6 +73,8 @@ exports.handler = async function(req, res) {
         from: data.payload.merchant.support_email,
         subject: `Thank you for your order ${data.payload.customer.firstname}`,
         text: `Your order number is ${data.payload.customer_reference}`,
+        content: {type: 'text/html', value: 'test'},
+
         // SendGrid expects a JSON blog containing the dynamic order data your template will use
         // More information below in 'What's next?' on how to configure your dynamic template in SendGrid
         // The property key names will depend on what dynamic template you create in SendGrid
