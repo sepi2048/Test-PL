@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 
 // Create the API endpoint function with a req and res parameter
-exports.handler = async function(req, res, next) {
+exports.handler = async function(req, res) {
 
 //export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
@@ -31,7 +31,7 @@ exports.handler = async function(req, res, next) {
         },
     }).then((response) => response.json);
 
-    console.log(data);
+    //console.log(data);
 
     // Extract the signature from the registered `orders.create` webhook
     const { signature } = data;
@@ -67,7 +67,7 @@ exports.handler = async function(req, res, next) {
     // Create the email object payload to fire off to SendGrid
     const emailPayload = {
         to: data.payload.customer.email,
-        from: merchant.support_email,
+        from: data.payload.merchant.support_email,
         subject: `Thank you for your order ${data.payload.customer.firstname}`,
         text: `Your order number is ${data.payload.customer_reference}`,
         // SendGrid expects a JSON blog containing the dynamic order data your template will use
@@ -77,11 +77,11 @@ exports.handler = async function(req, res, next) {
             total: data.payload.order.subtotal.formatted_with_symbol,
             items: orderLineItems,
             receipt: true,
-            name: data.payload.shipping.name,
-            address01: data.payload.shipping.street,
-            city: data.payload.shipping.town_city,
-            state: data.payload.shipping.county_state,
-            zip : data.payload.shipping.postal_zip_code,
+            name: data.payload.billing.name,
+            address01: data.payload.billing.street,
+            city: data.payload.billing.town_city,
+            state: data.payload.billing.county_state,
+            zip : data.payload.billing.postal_zip_code,
             orderId : data.payload.id,
         },
         // In addition to specifying the dynamic template data, you need to specify the template ID. This comes from your SendGrid dashboard when you create you dynamic template
@@ -101,7 +101,9 @@ exports.handler = async function(req, res, next) {
         return {
             statusCode: 200,
             headers: {},
-            body: 'Email sent!'
+            body: JSON.stringify({
+                status: 'Email sent!',
+            }),
         }
     } catch (err) {
         console.error('Error from function: ', err)
@@ -109,5 +111,5 @@ exports.handler = async function(req, res, next) {
         console.log("Payload content: ", emailPayload );
     }
     // Return the response from the request
-    return res.status(200).json(response);
+    //return res.status(200).json(response);
 }
