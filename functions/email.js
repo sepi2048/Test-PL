@@ -73,7 +73,7 @@ exports.handler = async function(req, res) {
         from: data.payload.merchant.support_email,
         subject: `Thank you for your order ${data.payload.customer.firstname}`,
         text: `Your order number is ${data.payload.customer_reference}`,
-        content: {type: 'text/html', value: 'test'},
+        content: ['text/html', 'test'],
 
         // SendGrid expects a JSON blog containing the dynamic order data your template will use
         // More information below in 'What's next?' on how to configure your dynamic template in SendGrid
