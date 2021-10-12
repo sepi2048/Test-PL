@@ -64,10 +64,27 @@ exports.handler = async function(req, res) {
         price: lineItem.line_total.formatted_with_symbol,
     }));
 
-    var expiry = new Date();
-    expiry.setDate(expiry.getDate() + 30);
-    expiry = expiry.toDateString();
-    expiry = expiry.substr(expiry.indexOf(" ") + 1);
+
+    // Get eebok expiry date if exists
+    let expiry = false;
+    if (data.fulfillment.digital.downloads[0].packages[0].access_expires !== null) {
+
+        const getExpiryDate = data.fulfillment.digital.downloads[0].packages[0].access_expires;
+        const milliseconds = getExpiryDate * 1000;
+        const dateObject = new Date(milliseconds);
+        const humanDateFormat = dateObject.toLocaleString();
+        expiry = humanDateFormat.substr(humanDateFormat.indexOf(" ") + 1);
+    } 
+
+    // Order created at
+    const orderCreated = data.created;    
+    let options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    const created = new Date(orderCreated * 1000).toLocaleString('default', options);
+
+    // 1) created on January 20, 2020 5:40 PM .toLocaleString or 
+    // 2) export/imort html template sendgrid
+    // test, test, test
+
 
     // Signature is verified, continue to send data to SendGrid
     // Create the email object payload to fire off to SendGrid
@@ -91,10 +108,11 @@ exports.handler = async function(req, res) {
             state: data.payload.billing.county_state,
             zip : data.payload.billing.postal_zip_code,
             orderId : data.payload.id,
-            expiry: expiry,
+            expiry : expiry,
             customerRef : data.payload.customer_reference,
+            orderCreated : created,
         },
-        template_id: 'd-e319802399914baba04f8dd3c82246cd'
+        template_id: 'd-98eb7f60399e42eba8a2c258d2222d0c'
     };
 
 
