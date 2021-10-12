@@ -31,7 +31,7 @@ exports.handler = async function(req, res) {
         },
     }).then((response) => response.json);
 
-    console.log(data);
+    //console.log(data);
 
     // Extract the signature from the registered `orders.create` webhook
     const { signature } = data;
@@ -76,7 +76,7 @@ exports.handler = async function(req, res) {
         expiry = humanDateFormat.substr(humanDateFormat.indexOf(" ") + 1);
     } 
 
-    console.log("getExpiryDate: " + getExpiryDate);
+    console.log("lifespan: " + data.payload.fulfillment.digital.lifespan);
 
     // Order created at
     const orderCreated = data.payload.created;    
