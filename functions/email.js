@@ -67,17 +67,19 @@ exports.handler = async function(req, res) {
 
     // Get ebook expiry date if exists
     let expiry = false;
-    if (data.fulfillment.digital.downloads[0].packages[0].access_expires !== null) {
+    if (data.payload.fulfillment.digital.expiry_date !== null) {
 
-        const getExpiryDate = data.fulfillment.digital.downloads[0].packages[0].access_expires;
+        const getExpiryDate = data.payload.fulfillment.digital.expiry_date;
         const milliseconds = getExpiryDate * 1000;
         const dateObject = new Date(milliseconds);
         const humanDateFormat = dateObject.toLocaleString();
         expiry = humanDateFormat.substr(humanDateFormat.indexOf(" ") + 1);
     } 
 
+    console.log("getExpiryDate: " + getExpiryDate);
+
     // Order created at
-    const orderCreated = data.created;    
+    const orderCreated = data.payload.created;    
     let options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
     const created = new Date(orderCreated * 1000).toLocaleString('default', options);
 
