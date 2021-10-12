@@ -31,7 +31,7 @@ exports.handler = async function(req, res) {
         },
     }).then((response) => response.json);
 
-    //console.log(data);
+    console.log(data);
 
     // Extract the signature from the registered `orders.create` webhook
     const { signature } = data;
@@ -65,7 +65,7 @@ exports.handler = async function(req, res) {
     }));
 
 
-    // Get eebok expiry date if exists
+    // Get ebook expiry date if exists
     let expiry = false;
     if (data.fulfillment.digital.downloads[0].packages[0].access_expires !== null) {
 
