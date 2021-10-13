@@ -67,16 +67,16 @@ exports.handler = async function(req, res) {
 
     // Get ebook expiry date if exists
     let expiry = false;
-    if (data.payload.fulfillment.digital.downloads.lifespan.expiry_date !== null) {
+    if (data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date !== null) {
 
-        const getExpiryDate = data.payload.fulfillment.digital.downloads.lifespan.expiry_date;
+        const getExpiryDate = data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date;
         const milliseconds = getExpiryDate * 1000;
         const dateObject = new Date(milliseconds);
         const humanDateFormat = dateObject.toLocaleString();
         expiry = humanDateFormat.substr(humanDateFormat.indexOf(" ") + 1);
     } 
 
-    console.log("Digital: " + JSON.stringify(data.payload.fulfillment.digital.downloads.lifespan.expiry_date,null,2)); // 4) c1c34441 INFO   lifespan: undefined
+    console.log("Digital: " + JSON.stringify(data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date,null,2)); // 4) c1c34441 INFO   lifespan: undefined
 
     // Order created at
     const orderCreated = data.created;    
