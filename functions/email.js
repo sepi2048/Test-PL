@@ -31,7 +31,7 @@ exports.handler = async function(req, res) {
         },
     }).then((response) => response.json);
 
-    console.log(JSON.stringify(data, null, 2));
+    //console.log(JSON.stringify(data, null, 2));
 
     // Extract the signature from the registered `orders.create` webhook
     const { signature } = data;
@@ -76,15 +76,15 @@ exports.handler = async function(req, res) {
         expiry = humanDateFormat.substr(humanDateFormat.indexOf(" ") + 1);
     } 
 
-    console.log("Digital: " + JSON.stringify(data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date,null,2)); // 4) c1c34441 INFO   lifespan: undefined
+    console.log("expiry: " + expiry); 
 
     // Order created at
-    const orderCreated = data.created;    
+    const createdAt = data.created;    
     let options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    const created = new Date(orderCreated * 1000).toLocaleString('default', options);
+    const created = new Date(createdAt * 1000).toLocaleString('default', options);
     // 3) Email tml output data?
 
-    console.log("orderCreated: " + orderCreated);
+    console.log("order created: " + created);
 
 
     // 1) created on January 20, 2020 5:40 PM .toLocaleString or 
