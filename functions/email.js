@@ -67,21 +67,25 @@ exports.handler = async function(req, res) {
 
     // Get ebook expiry date if exists
     let expiry = false;
-    if (data.payload.fulfillment.digital.expiry_date !== null) {
+    if (data.payload.order.fulfillment.digital.expiry_date !== null) {
 
-        const getExpiryDate = data.payload.fulfillment.digital.expiry_date;
+        const getExpiryDate = data.payload.order.fulfillment.digital.expiry_date;
         const milliseconds = getExpiryDate * 1000;
         const dateObject = new Date(milliseconds);
         const humanDateFormat = dateObject.toLocaleString();
         expiry = humanDateFormat.substr(humanDateFormat.indexOf(" ") + 1);
     } 
 
-    console.log("lifespan: " + data.payload.fulfillment.digital.lifespan);
+    console.log("Digital: " + JSON.stringify(data.payload.order.fulfillment.digital.lifespan,null,2)); // 4) c1c34441 INFO   lifespan: undefined
 
     // Order created at
     const orderCreated = data.payload.created;    
     let options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
     const created = new Date(orderCreated * 1000).toLocaleString('default', options);
+    // 3) Email tml output data?
+
+    console.log("orderCreated: " + orderCreated);
+
 
     // 1) created on January 20, 2020 5:40 PM .toLocaleString or 
     // 2) export/imort html template sendgrid
