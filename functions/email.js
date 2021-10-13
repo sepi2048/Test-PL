@@ -31,7 +31,7 @@ exports.handler = async function(req, res) {
         },
     }).then((response) => response.json);
 
-    //console.log(data);
+    console.log(JSON.stringify(data, null, 2));
 
     // Extract the signature from the registered `orders.create` webhook
     const { signature } = data;
@@ -67,16 +67,16 @@ exports.handler = async function(req, res) {
 
     // Get ebook expiry date if exists
     let expiry = false;
-    if (data.payload.order.fulfillment.digital.expiry_date !== null) {
+    if (data.payload.order.fulfillment.digital.lifespan.expiry_date !== null) {
 
-        const getExpiryDate = data.payload.order.fulfillment.digital.expiry_date;
+        const getExpiryDate = data.payload.order.fulfillment.digital.lifespan.expiry_date;
         const milliseconds = getExpiryDate * 1000;
         const dateObject = new Date(milliseconds);
         const humanDateFormat = dateObject.toLocaleString();
         expiry = humanDateFormat.substr(humanDateFormat.indexOf(" ") + 1);
     } 
 
-    console.log("Digital: " + JSON.stringify(data.payload.order.fulfillment.digital.lifespan,null,2)); // 4) c1c34441 INFO   lifespan: undefined
+    console.log("Digital: " + JSON.stringify(data.payload.order.fulfillment.digital.lifespan.expiry_date,null,2)); // 4) c1c34441 INFO   lifespan: undefined
 
     // Order created at
     const orderCreated = data.payload.created;    
