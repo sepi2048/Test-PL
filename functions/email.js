@@ -71,7 +71,7 @@ exports.handler = async function(req, res) {
 
         const getExpiryDate = data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date;
         let expiry_options = { year: 'numeric', month: 'short', day: 'numeric'};
-        expiry = new Date(orderCreated * 1000).toLocaleString('default', expiry_options); // TEST
+        expiry = new Date(getExpiryDate * 1000).toLocaleString('default', expiry_options); // TEST
     } 
 
     console.log("expiry: " + expiry); 
