@@ -70,19 +70,16 @@ exports.handler = async function(req, res) {
     if (data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date !== null) {
 
         const getExpiryDate = data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date;
-        const milliseconds = getExpiryDate * 1000;
-        const dateObject = new Date(milliseconds);
-        const humanDateFormat = dateObject.toLocaleString();
-        expiry = humanDateFormat.substr(humanDateFormat.indexOf(" ") + 1);
+        let expiry_options = { year: 'numeric', month: 'short', day: 'numeric'};
+        expiry = new Date(orderCreated * 1000).toLocaleString('default', expiry_options); // TEST
     } 
 
     console.log("expiry: " + expiry); 
 
     // Order created at
-    const createdAt = data.created;    
-    let options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    const created = new Date(createdAt * 1000).toLocaleString('default', options);
-    // 3) Email tml output data?
+    const getCreatedAt = data.created;    
+    let created_options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    const created = new Date(getCreatedAt * 1000).toLocaleString('default', created_options);
 
     console.log("order created: " + created);
 
@@ -136,6 +133,5 @@ exports.handler = async function(req, res) {
     } catch (err) {
         console.error('Error from function: ', err)
         console.error(err.response.body);
-        console.log("Payload content: ", emailPayload );
     }
 }
