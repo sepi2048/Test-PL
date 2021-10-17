@@ -78,7 +78,7 @@ exports.handler = async function(req, res) {
 
     // Order created at
     const getCreatedAt = data.created;    
-    let created_options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    let created_options = { year: 'numeric', month: 'long', day: 'numeric'};
     const created = new Date(getCreatedAt * 1000).toLocaleString('default', created_options);
 
     console.log("order created: " + created);
@@ -115,7 +115,7 @@ exports.handler = async function(req, res) {
             customerRef : data.payload.customer_reference,
             orderCreated : created,
         },
-        template_id: 'd-98eb7f60399e42eba8a2c258d2222d0c'
+        template_id: [process.env.SENDGRID_TEMPLATE_ID]
     };
 
 
@@ -134,4 +134,21 @@ exports.handler = async function(req, res) {
         console.error('Error from function: ', err)
         console.error(err.response.body);
     }
+
+
+    const mail = data.payload.customer.email;
+    // add to mailinglist
+    axios
+    .put("api/mailingList", {
+      mail,
+    })
+    .then((result) => {
+      if (result.status === 200) {
+        toast.success(result.data.message);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
 }
