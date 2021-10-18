@@ -29,7 +29,7 @@ export default async function handler(req, res) {
          message:
            "Oups, there was a problem with your subscription, please try again or contact us",
        });
-       console.error(err.response.body);
+       console.error(err);
      });
  //}
 }
