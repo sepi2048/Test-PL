@@ -115,7 +115,7 @@ exports.handler = async function(req, res) {
             customerRef : data.payload.customer_reference,
             orderCreated : created,
         },
-        template_id: [process.env.SENDGRID_TEMPLATE_ID]
+        template_id: process.env.SENDGRID_TEMPLATE_ID
     };
 
 
