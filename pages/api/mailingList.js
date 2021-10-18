@@ -3,6 +3,8 @@
 const axios = require('axios');
  
 export default async function handler(req, res) {
+
+  console.error(req.body.mail);
  //if (req.method === "PUT") {
    axios
      .put(

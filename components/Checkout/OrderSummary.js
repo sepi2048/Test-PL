@@ -10,7 +10,7 @@ function CheckoutSummary({ has, fulfillment, order, id }) {
   const count = line_items.length;
 
   const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
-  console.log(checSecretAPIKey);
+  //console.log(checSecretAPIKey);
 
 
   return (

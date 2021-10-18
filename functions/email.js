@@ -139,7 +139,7 @@ exports.handler = async function(req, res) {
     const mail = data.payload.customer.email;
     // add to mailinglist
     axios
-    .put("api/mailingList", {
+    .put("/api/mailingList", {
       mail,
     })
     .then((result) => {
