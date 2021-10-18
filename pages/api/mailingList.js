@@ -1,9 +1,9 @@
-// // api/MailingList?mail=John&listid=123
+// // api/mailingList?mail=John&listid=123
 
 const axios = require('axios');
  
 export default async function handler(req, res) {
- if (req.method === "PUT") {
+ //if (req.method === "PUT") {
    axios
      .put(
        "https://api.sendgrid.com/v3/marketing/contacts",
@@ -30,5 +30,5 @@ export default async function handler(req, res) {
            "Oups, there was a problem with your subscription, please try again or contact us",
        });
      });
- }
+ //}
 }
