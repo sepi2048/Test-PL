@@ -4,13 +4,16 @@ const axios = require('axios');
  
 export default async function handler(req, res) {
 
-  console.error(req.body.mail);
+
+// ef80d1c9 <- mail undefined
+
+  console.error(req.query);
  //if (req.method === "PUT") {
    axios
      .put(
        "https://api.sendgrid.com/v3/marketing/contacts",
        {
-         contacts: [{ email: `${req.body.mail}` }],
+         contacts: [{ email: `${req.query.mail}` }],
          list_ids: [process.env.SENDGRID_MAILING_ID_BOOTCAMP],
        },
        {
