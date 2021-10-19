@@ -147,6 +147,7 @@ exports.handler = async function(req, res) {
     })
     .catch((err) => {
       console.log(err);
+      console.error(err.response.body);
     });
 
 }
