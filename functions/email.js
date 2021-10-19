@@ -74,14 +74,14 @@ exports.handler = async function(req, res) {
         expiry = new Date(getExpiryDate * 1000).toLocaleString('default', expiry_options); // TEST
     } 
 
-    console.log("expiry: " + expiry); 
+    //console.log("expiry: " + expiry); 
 
     // Order created at
     const getCreatedAt = data.created;    
     let created_options = { year: 'numeric', month: 'long', day: 'numeric'};
     const created = new Date(getCreatedAt * 1000).toLocaleString('default', created_options);
 
-    console.log("order created: " + created);
+    //console.log("order created: " + created);
 
 
     // 1) created on January 20, 2020 5:40 PM .toLocaleString or 
@@ -138,7 +138,7 @@ exports.handler = async function(req, res) {
 
     const mail = data.payload.customer.email;
     // add to mailinglist
-    axios
+    const mailingList = axios
     .put("/api/mailingList?mail="+mail)
     .then((result) => {
       if (result.status === 200) {
@@ -149,5 +149,7 @@ exports.handler = async function(req, res) {
       console.log(err);
       console.error(err.response.body);
     });
+
+    console.log(mailingList);
 
 }
