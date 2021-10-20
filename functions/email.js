@@ -136,20 +136,4 @@ exports.handler = async function(req, res) {
     }
 
 
-    const mail = data.payload.customer.email;
-    // add to mailinglist
-    const mailingList = axios
-    .put("/api/mailingList?mail="+mail)
-    .then((result) => {
-      if (result.status === 200) {
-        toast.success(result.data.message);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      console.error(err.response.body);
-    });
-
-    console.log(mailingList);
-
 }
