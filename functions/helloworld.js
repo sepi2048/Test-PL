@@ -18,7 +18,7 @@ exports.handler = (event, context, callback) => {
 
 
     // call mailingList API
-    const mail = "ludde@gmail.com";
+    //const mail = "ludde@gmail.com";
     let list = {};
     try {
         list = axios.put("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail);
@@ -34,5 +34,7 @@ exports.handler = (event, context, callback) => {
         console.error(err.list.body);
       }
 
+
+      
 
   };
