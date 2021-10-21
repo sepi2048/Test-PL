@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-exports.handler = async function(event, context) {
+export default async function handler(req, res) {
 
     // how to call nextjs API from with netlify function?
 
