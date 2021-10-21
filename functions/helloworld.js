@@ -6,7 +6,7 @@ exports.handler = async function(event, context) {
 
     const mail = "helloworld@gmail.com";
     // add to mailinglist
-    axios
+    return axios
     .put("/api/mailingList?mail="+mail)
     .then((result) => {
       if (result.status === 200) {
@@ -16,5 +16,7 @@ exports.handler = async function(event, context) {
     .catch((err) => {
       console.log(err);
     });
+
+    
 
 }
