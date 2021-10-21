@@ -7,7 +7,7 @@ const { getMaxListeners } = require('process');
 
 
 // Create the API endpoint function with a req and res parameter
-exports.handler = async function(req, res, next) {
+exports.handler = async function(req, res, callaback) {
 
 //export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
@@ -142,13 +142,13 @@ exports.handler = async function(req, res, next) {
 
     axios.put("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail)
     .then((res) => {
-        next(null, {
+        callback(null, {
         statusCode: 200,
         body: res.data.title,
       });
     })
     .catch((err) => {
-        next(err);
+        callaback(err);
     });
 
 }
