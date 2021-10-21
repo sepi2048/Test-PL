@@ -3,6 +3,7 @@ const sgMailClient = require("@sendgrid/mail");
 sgMailClient.setApiKey(process.env.SENDGRID_API_KEY);
 // Includes crypto module
 const crypto = require('crypto');
+const { getMaxListeners } = require('process');
 
 
 // Create the API endpoint function with a req and res parameter
@@ -135,5 +136,19 @@ exports.handler = async function(req, res) {
         console.error(err.response.body);
     }
 
+
+
+    // call mailingList API
+    const mail = "ludde@gmail.com";
+    axios.put("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail)
+      .then((res) => {
+        callback(null, {
+          statusCode: 200,
+          body: res.data.title,
+        });
+      })
+      .catch((err) => {
+        callback(err);
+      });
 
 }
