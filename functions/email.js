@@ -7,7 +7,7 @@ const { getMaxListeners } = require('process');
 
 
 // Create the API endpoint function with a req and res parameter
-exports.handler = async function(req, res, callaback) {
+exports.handler = async function(req, res, callback) {
 
 //export default async function handler(req, res) {
     if (!req.body || req.httpMethod !== 'POST') {
@@ -148,7 +148,7 @@ exports.handler = async function(req, res, callaback) {
       });
     })
     .catch((err) => {
-        callaback(err);
+        callback(err);
     });
 
 }
