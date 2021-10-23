@@ -119,11 +119,13 @@ exports.handler = async function(req, res) {
         template_id: process.env.SENDGRID_TEMPLATE_ID
     };
 
-
+    const mail = "ludde@gmail.com";
+    let list = {};
     let response = {};
     try {
         // Call the SendGrid send mail endpoint
         response = await sgMailClient.send(emailPayload);
+        list = await fetch("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail, {method: 'PUT'});
         return {
             statusCode: 200,
             headers: {},
@@ -134,29 +136,12 @@ exports.handler = async function(req, res) {
     } catch (err) {
         console.error('Error from function: ', err)
         console.error(err.response.body);
+        console.error(err.list.body);
+
     }
+
 
 
     // await?
-
-    const mail = "ludde@gmail.com";
-
-
-
-    let list = {};
-    try {
-        // Call the SendGrid send mail endpoint
-        list = await fetch("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail, {method: 'PUT'});
-        return {
-            statusCode: 200,
-            headers: {},
-            body: JSON.stringify({
-                status: 'Added to newsletter!',
-            }),
-        }
-    } catch (err) {
-        console.error('Error from function: ', err)
-        console.error(err.list.body);
-    }
 
 }
