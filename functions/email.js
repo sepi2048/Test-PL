@@ -25,13 +25,13 @@ exports.handler = async function(req, res) {
 
     // Request for your merchant information so that you can use your email
     // to include as the 'from' property to send to the SendGrid API
-    const merchant = axios.get(`${process.env.CHEC_API_URL}/v1/merchants`, {
+    /*const merchant = axios.get(`${process.env.CHEC_API_URL}/v1/merchants`, {
         headers: {
             'X-Authorization': process.env.CHEC_SECRET_KEY,
             "Accept": "application/json",
             "Content-Type": "application/json",
         },
-    }).then((response) => response.json);
+    }).then((response) => response.json); */
 
     //console.log(JSON.stringify(data, null, 2));
 
@@ -83,18 +83,14 @@ exports.handler = async function(req, res) {
     let created_options = { year: 'numeric', month: 'long', day: 'numeric'};
     const created = new Date(getCreatedAt * 1000).toLocaleString('default', created_options);
 
-    //console.log("order created: " + created);
+    //console.log("order created: " + created);    
 
-
-    // 1) created on January 20, 2020 5:40 PM .toLocaleString or 
-    // 2) export/imort html template sendgrid
-    // test, test, test
-
+    const mail = data.payload.customer.email;
 
     // Signature is verified, continue to send data to SendGrid
     // Create the email object payload to fire off to SendGrid
     const emailPayload = {
-        to: data.payload.customer.email,
+        to: mail,
         from: data.payload.merchant.support_email,
         subject: `Thank you for your order ${data.payload.customer.firstname}`,
         text: `Your order number is ${data.payload.customer_reference}`,
@@ -124,23 +120,20 @@ exports.handler = async function(req, res) {
     try {
         // Call the SendGrid send mail endpoint
         response = await sgMailClient.send(emailPayload);
-        console.log(response);
+        //console.log(response);
 
     } catch (err) {
         console.error('Error from function: ', err)
     }
 
-
-    const mail = "ludde@gmail.com";
     let list = {};
     try {
         // Call the SendGrid send mail endpoint
         list = await axios.put("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail)
-        console.log(list);
+        //console.log(list);
 
     } catch (err) {
         console.error('Error from function: ', err)
     }
-
 
 }
