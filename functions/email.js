@@ -124,11 +124,10 @@ exports.handler = async function(req, res) {
     try {
         // Call the SendGrid send mail endpoint
         response = await sgMailClient.send(emailPayload);
-        console.log(response.json());
+        console.log(response);
 
     } catch (err) {
         console.error('Error from function: ', err)
-        console.error(err.response.body);
     }
 
 
@@ -137,11 +136,10 @@ exports.handler = async function(req, res) {
     try {
         // Call the SendGrid send mail endpoint
         list = await axios.put("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail)
-        console.log(list.json());
+        console.log(list);
 
     } catch (err) {
         console.error('Error from function: ', err)
-        console.error(err.list.body);
     }
 
 
