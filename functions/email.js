@@ -4,6 +4,7 @@ sgMailClient.setApiKey(process.env.SENDGRID_API_KEY);
 // Includes crypto module
 const crypto = require('crypto');
 const { getMaxListeners } = require('process');
+const { componentsToColor } = require('pdf-lib');
 
 
 // Create the API endpoint function with a req and res parameter
@@ -119,29 +120,29 @@ exports.handler = async function(req, res) {
         template_id: process.env.SENDGRID_TEMPLATE_ID
     };
 
-    const mail = "ludde@gmail.com";
-    let list = {};
     let response = {};
     try {
         // Call the SendGrid send mail endpoint
         response = await sgMailClient.send(emailPayload);
-        list = await fetch("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail, {method: 'PUT'});
-        return {
-            statusCode: 200,
-            headers: {},
-            body: JSON.stringify({
-                status: 'Email sent!',
-            }),
-        }
+        console.log(response.json());
+
     } catch (err) {
         console.error('Error from function: ', err)
         console.error(err.response.body);
-        console.error(err.list.body);
-
     }
 
 
+    const mail = "ludde@gmail.com";
+    let list = {};
+    try {
+        // Call the SendGrid send mail endpoint
+        list = await axios.put("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail)
+        console.log(list.json());
 
-    // await?
+    } catch (err) {
+        console.error('Error from function: ', err)
+        console.error(err.list.body);
+    }
+
 
 }
