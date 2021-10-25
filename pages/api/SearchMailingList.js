@@ -27,9 +27,8 @@ export default async function handler(req, res) {
      .then((result) => {
        res.status(200).send({
          message:
-           "Your email has been succesfully added to the mailing list. Welcome 👋",
+           "contact_count: " + result.data.contact_count,
        });
-       console.log(result.data.contact_count);
      })
      .catch((err) => {
        res.status(500).send({
