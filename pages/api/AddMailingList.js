@@ -6,6 +6,10 @@ export default async function handler(req, res) {
 
  const { mail } = req.query;
 
+ console.log(mail);
+ console.log(req);
+ console.log(req.body);
+
  const listID = req.query.listid;
 
  if (req.method === "PUT") {
