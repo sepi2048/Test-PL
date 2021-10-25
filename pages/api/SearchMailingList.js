@@ -9,6 +9,9 @@ export default async function handler(req, res) {
   const { mail } = req.query;
   const listID = req.query.listid;
 
+  console.log(mail);
+
+
  if (req.method === "POST") {
 
 
