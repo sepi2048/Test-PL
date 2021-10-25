@@ -6,8 +6,8 @@ const axios = require('axios');
  
 export default async function handler(req, res) {
 
- const mail = req.query.mail;
- const listID = req.query.listid;
+  const { mail } = req.query;
+  const listID = req.query.listid;
 
  if (req.method === "POST") {
 
