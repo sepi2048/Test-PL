@@ -1,7 +1,7 @@
 
 const axios = require('axios');
 
-const mail = "ludde@gmail.com";
+const mail = "fiisen@gmail.com";
 
 
 exports.handler = (event, context, callback) => {

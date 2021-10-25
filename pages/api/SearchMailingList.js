@@ -6,17 +6,9 @@ const axios = require('axios');
  
 export default async function handler(req, res) {
 
-  const { mail } = req.body;
-  const listID = req.query.listid;
-
-  console.log(mail);
-  console.log(req);
-  console.log(req.body.mail);
-
+  const { mail, listID } = req.body;
 
  if (req.method === "POST") {
-
-
 // https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
 
   const search = axios
@@ -38,7 +30,6 @@ export default async function handler(req, res) {
            "Your email has been succesfully added to the mailing list. Welcome 👋",
        });
        console.log(result.data.contact_count);
-       console.log("email LIKE '"+ mail +"%' AND CONTAINS(list_ids, '"+ process.env.SENDGRID_MAILING_ID_BOOTCAMP +"')");
      })
      .catch((err) => {
        res.status(500).send({
@@ -47,8 +38,6 @@ export default async function handler(req, res) {
        });
        console.error(err);
      });
-
-     //return search;
 
   }
 }
