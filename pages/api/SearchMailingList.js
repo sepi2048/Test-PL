@@ -6,11 +6,12 @@ const axios = require('axios');
  
 export default async function handler(req, res) {
 
-  const { mail } = req.query;
+  const { mail } = req.body;
   const listID = req.query.listid;
 
   console.log(mail);
-  console.log(req.body);
+  console.log(req);
+  console.log(req.body.mail);
 
 
  if (req.method === "POST") {
