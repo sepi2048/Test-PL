@@ -23,16 +23,6 @@ exports.handler = async function(req, res) {
 
     const data = JSON.parse(req.body);
 
-    // Request for your merchant information so that you can use your email
-    // to include as the 'from' property to send to the SendGrid API
-    /*const merchant = axios.get(`${process.env.CHEC_API_URL}/v1/merchants`, {
-        headers: {
-            'X-Authorization': process.env.CHEC_SECRET_KEY,
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-        },
-    }).then((response) => response.json); */
-
     //console.log(JSON.stringify(data, null, 2));
 
     // Extract the signature from the registered `orders.create` webhook
@@ -129,7 +119,7 @@ exports.handler = async function(req, res) {
     let list = {};
     try {
         // Call the SendGrid send mail endpoint
-        list = await axios.put("https://stoic-payne-386d66.netlify.app/api/mailingList?mail="+mail)
+        list = await axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail)
         //console.log(list);
 
     } catch (err) {

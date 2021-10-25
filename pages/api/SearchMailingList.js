@@ -1,18 +1,24 @@
 // // api/mailingList?mail=John&listid=123
 
 const axios = require('axios');
+
+
  
 export default async function handler(req, res) {
 
- console.log(req.query.mail);
+ const mail = req.query.mail;
+ const listID = req.query.listid;
 
- if (req.method === "PUT") {
-   axios
-     .put(
-       "https://api.sendgrid.com/v3/marketing/contacts",
+ if (req.method === "POST") {
+
+
+// https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
+
+  const search = axios
+     .post(
+       "https://api.sendgrid.com/v3/marketing/contacts/search",
        {
-         contacts: [{ email: `${req.query.mail}` }],
-         list_ids: [process.env.SENDGRID_MAILING_ID_BOOTCAMP],
+        query: "email LIKE '"+ mail +"%' AND CONTAINS(list_ids, '"+ process.env.SENDGRID_MAILING_ID_BOOTCAMP +"')"
        },
        {
          headers: {
@@ -26,6 +32,7 @@ export default async function handler(req, res) {
          message:
            "Your email has been succesfully added to the mailing list. Welcome 👋",
        });
+       console.error(result);
      })
      .catch((err) => {
        res.status(500).send({
@@ -34,5 +41,8 @@ export default async function handler(req, res) {
        });
        console.error(err);
      });
+
+     //return search;
+
   }
 }
