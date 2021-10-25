@@ -34,6 +34,9 @@ export default async function handler(req, res) {
        });
        console.log(result.data.contact_count);
        console.log("email LIKE '"+ mail +"%' AND CONTAINS(list_ids, '"+ process.env.SENDGRID_MAILING_ID_BOOTCAMP +"')");
+       console.log(req.query.mail);
+       console.log(req.query);
+       console.log(req);
      })
      .catch((err) => {
        res.status(500).send({
