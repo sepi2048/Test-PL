@@ -32,7 +32,8 @@ export default async function handler(req, res) {
          message:
            "Your email has been succesfully added to the mailing list. Welcome 👋",
        });
-       console.error(result);
+       console.log(result.data.contact_count);
+       console.log("email LIKE '"+ mail +"%' AND CONTAINS(list_ids, '"+ process.env.SENDGRID_MAILING_ID_BOOTCAMP +"')");
      })
      .catch((err) => {
        res.status(500).send({
