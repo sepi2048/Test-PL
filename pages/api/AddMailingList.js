@@ -7,7 +7,8 @@ export default async function handler(req, res) {
   const { mail, list_id } = req.body;
 
   console.log(req.body);
-  console.log(list_id );
+  console.log(req.body.list_id);
+  console.log(mail, list_id );
   console.log(typeof list_id );
 
  if (req.method === "PUT") {
