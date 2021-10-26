@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   const { mail, listID } = req.body;
 
-  consloge.log(req.body);
+  console.log(req.body);
   console.log(listID);
   console.log(typeof listID);
 
