@@ -4,15 +4,15 @@ const axios = require('axios');
  
 export default async function handler(req, res) {
 
-  const { mail, listID } = req.body;
+  const { mail, list_id } = req.body;
 
   console.log(req.body);
-  console.log(listID);
-  console.log(typeof listID);
+  console.log(list_id );
+  console.log(typeof list_id );
 
  if (req.method === "PUT") {
 
-  if (listID == process.env.SENDGRID_MAILING_ID_BOOTCAMP) { // prøver "NEWSLETTER" befinner seg i "NEWSLETTER PAYED"
+  if (list_id  == process.env.SENDGRID_MAILING_ID_BOOTCAMP) { // prøver "NEWSLETTER" befinner seg i "NEWSLETTER PAYED"
     // Befinner mail seg i NEWSLETTER PAYED?
     // search return
     let search = {};
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
     //}
   
 
-  } else if (listID === process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)  {
+  } else if (list_id  === process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)  {
     // Befinner mail seg i NEWSLETTER?
     // search return
 
