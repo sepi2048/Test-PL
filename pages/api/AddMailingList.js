@@ -6,9 +6,12 @@ export default async function handler(req, res) {
 
   const { mail, listID } = req.body;
 
+  console.log(listID);
+  console.log(typeof listID);
+
  if (req.method === "PUT") {
 
-  if (listID === process.env.SENDGRID_MAILING_ID_NEWSLETTER) { // prøver "NEWSLETTER" befinner seg i "NEWSLETTER PAYED"
+  if (listID == process.env.SENDGRID_MAILING_ID_BOOTCAMP) { // prøver "NEWSLETTER" befinner seg i "NEWSLETTER PAYED"
     // Befinner mail seg i NEWSLETTER PAYED?
     // search return
     let search = {};
