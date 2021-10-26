@@ -6,7 +6,7 @@ const axios = require('axios');
  
 export default async function handler(req, res) {
 
-  const { mail, listID } = req.body;
+  const { mail, list_id} = req.body;
 
  if (req.method === "POST") {
 // https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
