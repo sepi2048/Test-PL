@@ -26,6 +26,7 @@ export default async function handler(req, res) {
      )
      .then((result) => {
        res.status(200).send(result.data.contact_count);
+       return result.data.contact_count;
      })
      .catch((err) => {
        res.status(500).send({
