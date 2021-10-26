@@ -11,6 +11,17 @@ export default async function handler(req, res) {
   if (listID === process.env.SENDGRID_MAILING_ID_NEWSLETTER) { // prøver "NEWSLETTER" befinner seg i "NEWSLETTER PAYED"
     // Befinner mail seg i NEWSLETTER PAYED?
     // search return
+    let search = {};
+    try {
+        // Call the SendGrid send mail endpoint
+        search = await axios.put("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
+        //console.log(list);
+
+    } catch (err) {
+        console.error('Error from function: ', err)
+    }
+
+    console.log(search);
 
     //if (contact_count >= 1 ) {
     //  return "You are already subscribed to this newsletter"; // exit rest of script

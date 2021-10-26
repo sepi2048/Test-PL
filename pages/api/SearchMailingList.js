@@ -25,10 +25,7 @@ export default async function handler(req, res) {
        }
      )
      .then((result) => {
-       res.status(200).send({
-         message:
-           "contact_count: " + result.data.contact_count,
-       });
+       res.status(200).send(result.data.contact_count);
      })
      .catch((err) => {
        res.status(500).send({
