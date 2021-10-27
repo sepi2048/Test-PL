@@ -25,7 +25,7 @@ export default async function handler(req, res) {
        }
      )
      .then((result) => {
-      res.status(200).send(result);
+      res.status(200).send(result.data);
       console.log(search);
        //res.status(200).send(result.data.contact_count);
        //return result.data.contact_count;
