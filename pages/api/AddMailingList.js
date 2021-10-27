@@ -17,13 +17,13 @@ export default async function handler(req, res) {
         search = await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
         //search.status(200).send(result.data.contact_count);
         //console.log("Search content: " + JSON.stringify(search));
-        console.log(JSON.stringify(search, null, 2));
 
     } catch (err) {
         console.error('Error from function: ', err)
     }
 
     //console.log(search);
+    console.log(JSON.stringify(search, null, 2));
 
     //if (contact_count >= 1 ) {
     //  return "You are already subscribed to this newsletter"; // exit rest of script
