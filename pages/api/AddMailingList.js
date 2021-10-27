@@ -22,8 +22,8 @@ export default async function handler(req, res) {
         console.error('Error from function: ', err)
     }
 
-    //console.log(search);
-    console.log(JSON.stringify(search, null, 2));
+    console.log(search);
+    //console.log(JSON.stringify(search, null, 2));
 
     //if (contact_count >= 1 ) {
     //  return "You are already subscribed to this newsletter"; // exit rest of script
