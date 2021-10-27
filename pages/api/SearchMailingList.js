@@ -8,8 +8,8 @@ export default async function handler(req, res) {
 
   //const { mail, list_id} = req.body;
 
-  const { mail, list_id}  = req.query.mail;
-  
+  //const { mail, list_id}  = req.query.mail;
+
   console.log(req);
   console.log("From AddMailingList: " + req.query.mail);
   
