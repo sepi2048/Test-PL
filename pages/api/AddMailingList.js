@@ -11,18 +11,25 @@ export default async function handler(req, res) {
   if (list_id  == process.env.SENDGRID_MAILING_ID_BOOTCAMP) { // prøver "NEWSLETTER" befinner seg i "NEWSLETTER PAYED"
     // Befinner mail seg i NEWSLETTER PAYED?
     // search return
-    let search = {};
-    try {
-        // Call the SendGrid send mail endpoint
-        await search = axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
-        //search.status(200).send(result.data.contact_count);
-        //console.log("Search content: " + JSON.stringify(search));
+    // Call the SendGrid send mail endpoint
+    axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
 
-    } catch (err) {
-        console.error('Error from function: ', err)
-    }
+    .then((result) => {
+      res.status(200).send(result.data);
+      //console.log(search);
+       //res.status(200).send(result.data.contact_count);
+       //return result.data.contact_count;
+     })
+     .catch((err) => {
+       res.status(500).send({
+         message:
+           "Oups, there was a problem with your subscription, please try again or contact us",
+       });
+       console.error(err);
+      });
+  
 
-    console.log(search.data.contact_count);
+    //console.log(search.data.contact_count);
     //console.log(JSON.stringify(search, null, 2));
 
     //if (contact_count >= 1 ) {
