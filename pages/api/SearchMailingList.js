@@ -31,7 +31,7 @@ export default async function handler(req, res) {
       //console.log(search);
        //res.status(200).send(result.data.contact_count);
        //return result.data.contact_count;
-       console.log(result.data);
+       console.log(result);
      })
      .catch((err) => {
        res.status(500).send({
