@@ -4,11 +4,14 @@ const axios = require('axios');
 
 
  
-export default async function handler(req, res) {
+export default async function handler(req, res, event) {
 
   const { mail, list_id} = req.body;
 
   console.log(req);
+  console.log(event);
+  
+
   console.log(mail);
 
  if (req.method === "POST") {
