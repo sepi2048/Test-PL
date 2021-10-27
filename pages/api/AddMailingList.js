@@ -15,8 +15,8 @@ export default async function handler(req, res) {
     axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
 
     .then((result) => {
-      res.status(200).send(result.data);
-      //console.log(search);
+      //res.status(200).send(result.data);
+      console.log(result.data);
        //res.status(200).send(result.data.contact_count);
        //return result.data.contact_count;
      })
