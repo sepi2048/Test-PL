@@ -11,7 +11,7 @@ export default async function handler(req, res) {
  if (req.method === "POST") {
 // https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
 
-  await axios
+  axios
      .post(
        "https://api.sendgrid.com/v3/marketing/contacts/search",
        {
