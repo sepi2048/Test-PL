@@ -8,6 +8,8 @@ export default async function handler(req, res) {
 
   const { mail, list_id} = req.body;
 
+  console.log(mail);
+
  if (req.method === "POST") {
 // https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
 
@@ -25,7 +27,7 @@ export default async function handler(req, res) {
        }
      )
      .then((result) => {
-      res.status(200).send({message : result.data});
+      res.status(200).send(result.data);
       //console.log(search);
        //res.status(200).send(result.data.contact_count);
        //return result.data.contact_count;
