@@ -6,11 +6,6 @@ export default async function handler(req, res) {
 
   const { mail, list_id } = req.body;
 
-  console.log(req.body);
-  console.log(req.body.list_id);
-  console.log(mail, list_id );
-  console.log(typeof list_id );
-
  if (req.method === "PUT") {
 
   if (list_id  == process.env.SENDGRID_MAILING_ID_BOOTCAMP) { // prøver "NEWSLETTER" befinner seg i "NEWSLETTER PAYED"
@@ -20,7 +15,8 @@ export default async function handler(req, res) {
     try {
         // Call the SendGrid send mail endpoint
         search = await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
-        //console.log(list);
+        //search.status(200).send(result.data.contact_count);
+        console.log("Search content: " + search);
 
     } catch (err) {
         console.error('Error from function: ', err)
