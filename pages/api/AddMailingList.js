@@ -12,9 +12,7 @@ export default async function handler(req, res) {
     // Befinner mail seg i NEWSLETTER PAYED?
     // search return
     // Call the SendGrid send mail endpoint
-    axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList", {
-      mail: mail
-    })
+    axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
 
     .then((result) => {
       //res.status(200).send(result.data);
