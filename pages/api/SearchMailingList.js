@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const { mail, list_id}  = req.query.mail;
 
   console.log(req);
-  console.log("From AddMailingList: " + req.body.mail);
+  console.log("From AddMailingList: " + query.mail);
   
 
   console.log("Drirect from curl " + mail);
