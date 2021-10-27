@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     let search = {};
     try {
         // Call the SendGrid send mail endpoint
-        search = axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
+        await search = axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
         //search.status(200).send(result.data.contact_count);
         //console.log("Search content: " + JSON.stringify(search));
 
