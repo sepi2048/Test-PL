@@ -11,7 +11,7 @@ export default async function handler(req, res) {
  if (req.method === "POST") {
 // https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
 
-  const search = axios
+  const search = await axios
      .post(
        "https://api.sendgrid.com/v3/marketing/contacts/search",
        {
@@ -26,6 +26,7 @@ export default async function handler(req, res) {
      )
      .then((result) => {
       res.status(200).send(result);
+      console.log(search);
        //res.status(200).send(result.data.contact_count);
        //return result.data.contact_count;
      })
