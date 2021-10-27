@@ -16,13 +16,13 @@ export default async function handler(req, res) {
         // Call the SendGrid send mail endpoint
         search = await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
         //search.status(200).send(result.data.contact_count);
-        console.log("Search content: " + JSON.stringify(search, null, 2));
+        console.log("Search content: " + search);
 
     } catch (err) {
         console.error('Error from function: ', err)
     }
 
-    console.log(search);
+    //console.log(search);
 
     //if (contact_count >= 1 ) {
     //  return "You are already subscribed to this newsletter"; // exit rest of script
