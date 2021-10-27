@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     // Call the SendGrid send mail endpoint
     axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList", {
       mail: mail,
-    });
+    })
 
     .then((result) => {
       //res.status(200).send(result.data);
