@@ -4,15 +4,15 @@ const axios = require('axios');
 
 
  
-export default async function handler(req, res, event) {
+export default async function handler(req, res) {
 
   const { mail, list_id} = req.body;
 
   console.log(req);
-  console.log(event);
+  console.log("From AddMailingList: " + req.query.mail);
   
 
-  console.log(mail);
+  console.log("Drirect from curl" + mail);
 
  if (req.method === "POST") {
 // https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
