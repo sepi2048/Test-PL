@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   const { mail, list_id} = req.body;
 
-  console.log(req.body);
+  console.log(req);
   console.log(mail);
 
  if (req.method === "POST") {
