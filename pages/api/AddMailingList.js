@@ -15,8 +15,8 @@ export default async function handler(req, res) {
     axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
 
     .then((result) => {
-      res.status(200).send(result.data.data.contact_count);
-      console.log(result.data.data.contact_count);
+      res.status(200).send(result.data.contact_count);
+      console.log(result.data.contact_count);
      })
      .catch((err) => {
        res.status(500).send({
@@ -62,6 +62,7 @@ export default async function handler(req, res) {
          message:
            "Your email has been succesfully added to the mailing list. Welcome 👋",
        });
+       console.log(result.data.contact_count);
      })
      .catch((err) => {
        res.status(500).send({
