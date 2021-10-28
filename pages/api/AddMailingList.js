@@ -12,13 +12,17 @@ export default async function handler(req, res) {
     // Befinner mail seg i NEWSLETTER PAYED?
     // search return
     // Call the SendGrid send mail endpoint
-    let contact_count = 0;
 
     axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail)
 
     .then((result) => {
-      contact_count = result.data.contact_count;
-      //res.status(200).send(result.data.contact_count);
+      
+      console.log(result.data.contact_count);
+      
+      if (result.data.contact_count <= 1 ) {
+        return "You are already subscribed to this newsletter"; // exit rest of script
+      }
+
      })
      .catch((err) => {
        res.status(500).send({
@@ -28,8 +32,7 @@ export default async function handler(req, res) {
        console.error(err);
       });
   
-    console.log("After .then " + contact_count);      
-
+  
     //console.log(search.data.contact_count);
     //console.log(JSON.stringify(search, null, 2));
 
