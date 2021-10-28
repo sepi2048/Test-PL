@@ -19,7 +19,6 @@ export default async function handler(req, res) {
     .then((result) => {
       contact_count = result.data.contact_count;
       //res.status(200).send(result.data.contact_count);
-      console.log(result.data.contact_count);
      })
      .catch((err) => {
        res.status(500).send({
@@ -29,7 +28,7 @@ export default async function handler(req, res) {
        console.error(err);
       });
   
-    console.log(contact_count);      
+    console.log("After .then " + contact_count);      
 
     //console.log(search.data.contact_count);
     //console.log(JSON.stringify(search, null, 2));
