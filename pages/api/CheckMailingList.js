@@ -19,6 +19,8 @@ export default async function handler(req, res) {
     axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
 
     .then((result) => {
+
+      console.log(result.data.contact_coun);
       
       // SEARCH RESULT: email does already exists in NEWSLETTER PAYED
       if (result.data.contact_count <= 1 ) {
