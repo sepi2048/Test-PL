@@ -8,6 +8,9 @@ export default async function handler(req, res) {
 
   const { mail, list_id } = req.body;
 
+  console.log("CheckMailinglist: " + mail + " " + list_id);
+
+
  if (req.method === "POST") {
 
   if (list_id  === process.env.SENDGRID_MAILING_ID_NEWSLETTER) {

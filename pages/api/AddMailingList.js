@@ -6,6 +6,8 @@ export default async function handler(req, res) {
 
   const { mail, list_id } = req.body;
 
+  console.log("AddMailinglist: " + mail + " " + list_id);
+
  if (req.method === "PUT") {
 
   axios
@@ -13,7 +15,7 @@ export default async function handler(req, res) {
        "https://api.sendgrid.com/v3/marketing/contacts",
        {
          contacts: [{ email: `${mail}` }],
-         list_ids: [process.env.SENDGRID_MAILING_ID_BOOTCAMP],
+         list_ids: [list_id],
        },
        {
          headers: {
