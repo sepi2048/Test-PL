@@ -16,7 +16,7 @@ export default async function handler(req, res) {
      .post(
        "https://api.sendgrid.com/v3/marketing/contacts/search",
        {
-        query: "email LIKE '"+ mail +"%' AND CONTAINS(list_ids, '"+ process.env.SENDGRID_MAILING_ID_BOOTCAMP +"')"
+        query: "email LIKE '"+ mail +"%' AND CONTAINS(list_ids, '"+ list_id +"')"
        },
        {
          headers: {
@@ -27,10 +27,7 @@ export default async function handler(req, res) {
      )
      .then((result) => {
       res.status(200).send(result.data);
-      //console.log(search);
-       //res.status(200).send(result.data.contact_count);
-       //return result.data.contact_count;
-       console.log(result);
+       //console.log(result);
      })
      .catch((err) => {
        res.status(500).send({
