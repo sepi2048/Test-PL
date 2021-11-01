@@ -6,8 +6,8 @@ const axios = require('axios');
  
 export default async function handler(req, res) {
 
-  const { mail, list_id} = req.body;
-  //const { mail, list_id }  = req.query;
+  const { mail, list_id} = req.body; // via API
+  //const { mail, list_id }  = req.query; // via url 
 
   console.log("SearchMailinglist: " + mail + " " + list_id);
 
