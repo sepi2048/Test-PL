@@ -10,8 +10,7 @@ export default async function handler(req, res) {
 
  if (req.method === "POST") {
 
-  if (list_id  == process.env.SENDGRID_MAILING_ID_BOOTCAMP) { 
-  //if (list_id  === process.env.SENDGRID_MAILING_ID_NEWSLETTER) {
+  if (list_id  === process.env.SENDGRID_MAILING_ID_NEWSLETTER) {
 
     // SEARCH: does email already exists in NEWSLETTER PAYED?
     axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
