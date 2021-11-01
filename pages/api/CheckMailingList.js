@@ -75,6 +75,11 @@ export default async function handler(req, res) {
         console.error(err);
       });
 
+  } else {
+
+    // Email does NOT already exists in NEWSLETTER (also deleted), add to NEWSLETTER PAYED
+    axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+list_id)
+
   }
 
   }
