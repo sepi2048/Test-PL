@@ -21,6 +21,8 @@ export default async function handler(req, res) {
     .then((result) => {
 
       console.log(result.data.contact_count);
+      console.log(typeof result.data.contact_count);
+
       
       // SEARCH RESULT: email does already exists in NEWSLETTER PAYED
       if (result.data.contact_count >= 1 ) {
