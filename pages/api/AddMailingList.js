@@ -30,7 +30,7 @@ export default async function handler(req, res) {
          message:
            "Your email has been succesfully added to the mailing list. Welcome 👋",
        });
-       console.log(result.data.contact_count);
+       console.log(result);
      })
      .catch((err) => {
        res.status(500).send({

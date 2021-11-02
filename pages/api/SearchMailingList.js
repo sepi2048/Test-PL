@@ -6,8 +6,8 @@ const axios = require('axios');
  
 export default async function handler(req, res) {
 
-  const { mail, list_id} = req.body; // via API
-  //const { mail, list_id }  = req.query; // via url 
+  //const { mail, list_id} = req.body; // via API
+  const { mail, list_id }  = req.query; // via url 
 
   console.log("SearchMailinglist: " + mail + " " + list_id);
 
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
        }
      )
      .then((result) => {
-      res.status(200).send(result.data);
+      res.status(200).send(result.data.contact_count);
        //console.log(result);
      })
      .catch((err) => {
