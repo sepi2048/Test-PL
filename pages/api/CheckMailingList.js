@@ -51,6 +51,8 @@ export default async function handler(req, res) {
 
     .then((result) => {
 
+      console.log(result);
+
       // SEARCH RESULT: email does already exists in NEWSLETTER
       if (result.data.contact_count <= 1 ) {
         // DELETE from NEWSLETTER
@@ -83,7 +85,7 @@ export default async function handler(req, res) {
 
   } else {
 
-    // Email does NOT already exists in NEWSLETTER (also deleted), add to NEWSLETTER PAYED
+    // list_id Email NOT NEWSLETTER or NEWSLETTER PAYED
     axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+list_id)
 
   }
