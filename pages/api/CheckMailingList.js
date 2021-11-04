@@ -52,6 +52,7 @@ export default async function handler(req, res) {
 
       // SEARCH RESULT: email does already exists in NEWSLETTER
       if (result.data.contact_count >= 1 ) {
+        console.log("Inside else-if if statement");
         // DELETE from NEWSLETTER
         axios.delete(
           "https://api.sendgrid.com/v3/marketing/contacts",
