@@ -20,9 +20,6 @@ export default async function handler(req, res) {
 
     .then((result) => {
 
-      console.log(result.data.contact_count);
-      console.log(typeof result.data.contact_count);
-
       
       // SEARCH RESULT: email does already exists in NEWSLETTER PAYED
       if (result.data.contact_count >= 1 ) {
@@ -68,7 +65,7 @@ export default async function handler(req, res) {
               Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
             },
           }
-        )
+        ) .then((output) => { console.log(output) })
       } 
 
       // Email does NOT already exists in NEWSLETTER (also deleted), add to NEWSLETTER PAYED
