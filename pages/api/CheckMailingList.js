@@ -29,8 +29,7 @@ export default async function handler(req, res) {
         return "You are already subscribed to this newsletter"; // exit rest of script lambda error
       } else {
         // Email does NOT already exists in NEWSLETTER PAYED, add to NEWSLETTER
-        await axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+list_id)
-        .then((resultAdd) => { console.log(resultAdd)})
+        axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+list_id)
       }
 
       console.log(result);
