@@ -48,7 +48,7 @@ export default async function handler(req, res) {
 
     .then((result) => {
 
-      search = JSON.parse(result);
+      const search = JSON.parse(JSON.stringify(result));
 
       console.log(search);
       console.log(search.data.result.id);
