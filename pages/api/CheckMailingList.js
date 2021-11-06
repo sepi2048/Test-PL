@@ -48,9 +48,10 @@ export default async function handler(req, res) {
 
     .then((result) => {
 
-      const search = JSON.parse(result.data);
+      let search =  result.json();
+      console.log(search);
 
-      console.log(JSON.stringify(search, null, 2));
+      //console.log(JSON.stringify(search, null, 2));
       console.log(search.result.id);
 
       // SEARCH RESULT: email does already exists in NEWSLETTER
