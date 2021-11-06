@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     .then((result) => {
 
       //console.log(JSON.stringify(search, null, 2));
-      console.log(result.data.result.id);
+      console.log(result.data.result[0].id);
 
       // SEARCH RESULT: email does already exists in NEWSLETTER
       if (result.data.contact_count >= 1 ) {
@@ -58,7 +58,7 @@ export default async function handler(req, res) {
         axios.delete(
           "https://api.sendgrid.com/v3/marketing/lists/"+list_id+"/contacts",
         {
-          contact_ids : result.data.result.id,
+          contact_ids : result.data.result[0].id,
         },
         {
           headers: {
