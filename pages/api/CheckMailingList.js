@@ -56,7 +56,7 @@ export default async function handler(req, res) {
         console.log("Inside else-if if statement");
         // REMOVE from NEWSLETTER
         axios.delete(
-          "https://api.sendgrid.com/v3/marketing/lists/"+mail+"/contacts",
+          "https://api.sendgrid.com/v3/marketing/lists/"+list_id+"/contacts",
         {
           contact_ids : result.data.result.id,
         },
