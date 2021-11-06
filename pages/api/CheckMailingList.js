@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     .then((result) => {
 
       //console.log(JSON.stringify(search, null, 2));
-      console.log(result.data.result);
+      console.log(result.data.result.id);
 
       // SEARCH RESULT: email does already exists in NEWSLETTER
       if (result.data.contact_count >= 1 ) {
