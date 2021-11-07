@@ -29,8 +29,7 @@ export default async function handler(req, res) {
        }
      )
      .then((result) => {
-      /*res.status(202).send(result);*/
-      res.status(202).send({
+      result.status(202).send({
          message:
            "Your email has been succesfully added to the mailing list. Welcome 👋",
        });

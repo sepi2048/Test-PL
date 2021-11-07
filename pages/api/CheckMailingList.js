@@ -2,6 +2,13 @@
 
 // https://sendgrid.api-docs.io/v3.0/contacts
 
+/*
+* handler = event context?
+* error decoding lambda response: invalid status code returned from lambda: 0?
+* Checkout checkbox? (tutorial)
+* Correct error handelig? (getPDF and PDFWatermark)
+*/
+
 const axios = require('axios');
  
 export default async function handler(req, res) {
@@ -33,7 +40,7 @@ export default async function handler(req, res) {
 
      })
      .catch((err) => {
-       res.status(500).send({
+      result.status(500).send({
          message:
             "Oups, there was a problem with checking your subscription",
         });
@@ -48,8 +55,7 @@ export default async function handler(req, res) {
 
     .then((result) => {
 
-      //console.log(JSON.stringify(search, null, 2));
-      console.log(result.data.result[0].id);
+      //console.log(result.data.result[0].id);
 
       // SEARCH RESULT: email does already exists in NEWSLETTER
       if (result.data.contact_count >= 1 ) {
@@ -57,16 +63,16 @@ export default async function handler(req, res) {
         // REMOVE from NEWSLETTER
         axios.delete(
           "https://api.sendgrid.com/v3/marketing/lists/"+process.env.SENDGRID_MAILING_ID_NEWSLETTER+"/contacts?contact_ids="+result.data.result[0].id,
-    /*    {
-          contact_ids : result.data.result[0].id,
-        },*/
         {
           headers: {
             "content-type": "application/json",
             Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
           },
         }
-        ) .then((output) => { console.log(output) })
+        ) .then((output) => { output.status(202).send({
+          message:
+            "Email removed from Newsletter Signup Form",
+        }); })
       } 
 
       // Email does NOT already exists in NEWSLETTER (also deleted), add to NEWSLETTER PAYED
