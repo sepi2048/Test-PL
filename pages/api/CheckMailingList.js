@@ -69,10 +69,12 @@ export default async function handler(req, res) {
             Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
           },
         }
-        ) .then((output) => { output.status(202).send({
-          message:
-            "Email removed from Newsletter Signup Form",
-        }); })
+        ) .then((output) => { 
+          output.status(202).send({
+            message:
+              "Email removed from Newsletter Signup Form",
+          }); 
+        });
       } 
 
       // Email does NOT already exists in NEWSLETTER (also deleted), add to NEWSLETTER PAYED
