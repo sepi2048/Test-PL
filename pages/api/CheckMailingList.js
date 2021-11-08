@@ -43,7 +43,7 @@ export default async function handler(req, res) {
 
      })
      .catch((err) => {
-      result.status(500).send({
+      res.status(500).send({
          message:
             "Oups, there was a problem with checking your subscription",
         });
@@ -72,8 +72,8 @@ export default async function handler(req, res) {
             Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
           },
         }
-        ) .then((output) => { 
-          output.status(202).send({
+        ) .then((res) => { 
+          res.status(202).send({
             message:
               "Email removed from Newsletter Signup Form",
           }); 
