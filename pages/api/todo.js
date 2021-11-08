@@ -1,7 +1,9 @@
 const axios = require('axios');
 
+// https://travishorn.com/netlify-lambda-functions-from-scratch-1186f61c659e
+
 exports.handler = (event, context, callback) => {
-  axios.get('https://jsonplaceholder.typicode.com/todos/1')
+  await axios.get('https://jsonplaceholder.typicode.com/todos/1')
     .then((res) => {
       callback(null, {
         statusCode: 200,
@@ -12,3 +14,5 @@ exports.handler = (event, context, callback) => {
       callback(err);
     });
 };
+
+
