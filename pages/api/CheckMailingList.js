@@ -30,7 +30,10 @@ export default async function handler(req, res) {
       
       // SEARCH RESULT: email does already exists in NEWSLETTER PAYED
       if (result.data.contact_count >= 1 ) {
-        return "You are already subscribed to this newsletter"; // exit rest of script lambda error
+          return {
+            statusCode: 200,
+            body: "You are already subscribed to this newsletter"
+          };
       } else {
         // Email does NOT already exists in NEWSLETTER PAYED, add to NEWSLETTER
         axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+list_id)
