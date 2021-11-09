@@ -2,7 +2,7 @@ const axios = require('axios');
 
 // https://travishorn.com/netlify-lambda-functions-from-scratch-1186f61c659e
 
-exports.handler = (event, context, callback) => {
+exports.handler = function(event, context, callback) {
   axios.get('https://jsonplaceholder.typicode.com/todos/1')
     .then((res) => {
       callback(null, {
