@@ -1,4 +1,4 @@
-exports.handler = async function (req, res) {
+export default async function handler(event, context) {
   return {
     statusCode: 200,
     body: 'Hello, world!',
