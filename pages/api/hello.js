@@ -5,8 +5,8 @@
 
 // api/hello?fname=John&lname=Doe
 
-export default (req, res) => {
-
+export default async function handler(req, res) {
+  
     const {
         fname,
         lname,
