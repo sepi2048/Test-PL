@@ -9,6 +9,6 @@ export default async function handler(req, res) {
       });
     })
     .catch((err) => {
-      callback(err);
+      console.log(err);
     });
 }
