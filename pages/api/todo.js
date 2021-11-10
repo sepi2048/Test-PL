@@ -6,8 +6,10 @@ export default async function handler(req, res) {
 
   try {
     const result = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
-    res.statusCode = 200
-    res.send(result.data.title)
+    res.status(200).send({
+      message:
+      result.data.title,
+    });
   } catch (err) {
       console.error('Error from function: ', err)
   }
