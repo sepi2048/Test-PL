@@ -1,23 +1,10 @@
 const axios = require('axios');
 
 export default async function handler(req, res) {
-  return axios.get('https://jsonplaceholder.typicode.com/todos/1')
-
-  .then((res) => {
-    console.log("data", res.data);
-    return {
-      statusCode: 200,
-      body: JSON.stringify(res.data),
-    };
-  })
-  .catch((error) => {
-    console.log(error);
-    return {
-      statusCode: 502,
-      body: JSON.stringify(error.message),
-    };
-  });
-
+  const result = axios.get('https://jsonplaceholder.typicode.com/todos/1')
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(result))
 }
 
 
