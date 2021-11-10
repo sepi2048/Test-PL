@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   .catch((error) => {
     console.log(error);
     return {
-      statusCode: 500,
+      statusCode: 502,
       body: JSON.stringify(error.message),
     };
   });
