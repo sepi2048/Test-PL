@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export default async function handler(req, res) {
-  axios.get('https://jsonplaceholder.typicode.com/todos/1')
+  await axios.get('https://jsonplaceholder.typicode.com/todos/1')
     .then((res) => {
       res.status(200).send({
         message:
