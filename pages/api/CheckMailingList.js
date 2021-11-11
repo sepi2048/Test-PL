@@ -31,7 +31,7 @@ export default async function handler(req, res) {
 
       // SEARCH RESULT: email does already exists in NEWSLETTER PAYED
       if (search_result.data.contact_count >= 1 ) {
-          res.write({
+          res.send({
             message:
             "You are already subscribed to this newsletter",
           });
@@ -39,7 +39,7 @@ export default async function handler(req, res) {
         try {
           // Email does NOT already exists in NEWSLETTER PAYED, add to NEWSLETTER
           await axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+list_id)
-          res.write({
+          res.send({
             message:
             "You are added to this newsletter",
           });
