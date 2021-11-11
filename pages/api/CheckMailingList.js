@@ -22,33 +22,33 @@ export default async function handler(req, res) {
 
   if (list_id  === process.env.SENDGRID_MAILING_ID_NEWSLETTER) {
 
-    // SEARCH: does email already exists in NEWSLETTER PAYED?
-    axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
+    try {
 
-    .then((result) => {
-
-      
+      // SEARCH: does email already exists in NEWSLETTER PAYED?
+      const search_result = await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
+    
       // SEARCH RESULT: email does already exists in NEWSLETTER PAYED
-      if (result.data.contact_count >= 1 ) {
-          return {
-            statusCode: 200,
-            body: "You are already subscribed to this newsletter"
-          };
+      if (search_result.data.contact_count >= 1 ) {
+          res.write({
+            message:
+            "You are already subscribed to this newsletter",
+          });
       } else {
-        // Email does NOT already exists in NEWSLETTER PAYED, add to NEWSLETTER
-        axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+list_id)
+        try {
+          // Email does NOT already exists in NEWSLETTER PAYED, add to NEWSLETTER
+          await axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+list_id)
+          res.write({
+            message:
+            "You are added to this newsletter",
+          });
+        } catch (err) {
+            console.error('Could not add email to malinglist: ', err)
+        }
       }
 
-      console.log(result);
-
-     })
-     .catch((err) => {
-      res.status(500).send({
-         message:
-            "Oups, there was a problem with checking your subscription",
-        });
-       console.error(err);
-      });
+    } catch (err) {    
+        console.error('There was a problem with checking your subscription: ', err)
+    }
 
 
   } else if (list_id  === process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)  {
@@ -72,8 +72,8 @@ export default async function handler(req, res) {
             Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
           },
         }
-        ) .then((res) => { 
-          res.status(202).send({
+        ) .then((result) => { 
+          res.status(202).write({
             message:
               "Email removed from Newsletter Signup Form",
           }); 
