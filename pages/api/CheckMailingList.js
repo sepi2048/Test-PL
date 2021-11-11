@@ -25,8 +25,10 @@ export default async function handler(req, res) {
     try {
 
       // SEARCH: does email already exists in NEWSLETTER PAYED?
-      const search_result = axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
+      const search_result = await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
     
+      console.log(search_result);
+      
       // SEARCH RESULT: email does already exists in NEWSLETTER PAYED
       if (search_result.data.contact_count >= 1 ) {
           res.write({
