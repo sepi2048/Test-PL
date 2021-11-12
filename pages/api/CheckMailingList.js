@@ -28,12 +28,12 @@ export default async function handler(req, res) {
       try {
 
         // SEARCH: does email already exists in NEWSLETTER PAYED?
-        const search_result = await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
+        const search_result_payed = await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
       
-        console.log(search_result.data.contact_count);
+        console.log(search_result_payed.data.contact_count);
 
         // SEARCH RESULT: email does already exists in NEWSLETTER PAYED
-        if (search_result.data.contact_count >= 1 ) {
+        if (search_result_payed.data.contact_count >= 1 ) {
             res.send({
               message:
               "You are already subscribed to NEWSLETTER PAYED",
@@ -62,12 +62,12 @@ export default async function handler(req, res) {
         try {
 
         // SEARCH: does email already exists in NEWSLETTER?
-        await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER)
+        const search_result_newsletter = await axios.post("https://stoic-payne-386d66.netlify.app/api/SearchMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER)
 
         //console.log(result.data.result[0].id);
 
         // SEARCH RESULT: email does already exists in NEWSLETTER
-        if (result.data.contact_count >= 1 ) {
+        if (search_result_newsletter.data.contact_count >= 1 ) {
 
           try {  
             // REMOVE from NEWSLETTER
