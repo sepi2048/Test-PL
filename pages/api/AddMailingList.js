@@ -32,6 +32,7 @@ export default async function handler(req, res) {
         )
 
         res.status(202).send(result);
+        console.log(result);
         console.log('Added: ', mail ," to mailinglist: ", list_id)
 
     } catch (err) {
