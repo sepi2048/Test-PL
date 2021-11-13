@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   // Delete email from spesific list
 
     try {
-      await axios
+      const result = await axios
         .put(
           "https://api.sendgrid.com/v3/marketing/contacts",
           {
@@ -31,6 +31,7 @@ export default async function handler(req, res) {
           }
         )
 
+        res.status(200).send(result);
         console.log('Added: ', mail ," to mailinglist: ", list_id)
 
     } catch (err) {
