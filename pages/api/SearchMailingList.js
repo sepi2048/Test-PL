@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 // https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
 
      try {
-        await axios
+        const result = await axios
         .post(
           "https://api.sendgrid.com/v3/marketing/contacts/search",
           {
@@ -28,11 +28,12 @@ export default async function handler(req, res) {
             },
           }
         )
-
+        
+        res.status(200).send(result.data);
         console.log('Searched for: ', mail ," in mailinglist: ", list_id)
 
     } catch (err) {
         console.error('Error from function: ', err)
-    }     
+    }   
   }
 }
