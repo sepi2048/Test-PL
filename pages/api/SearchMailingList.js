@@ -14,30 +14,25 @@ export default async function handler(req, res) {
  if (req.method === "POST") {
 // https://docs.sendgrid.com/api-reference/contacts/add-or-update-a-contact
 
-  axios
-     .post(
-       "https://api.sendgrid.com/v3/marketing/contacts/search",
-       {
-        query: "email LIKE '"+ mail +"%' AND CONTAINS(list_ids, '"+ list_id +"')"
-       },
-       {
-         headers: {
-           "content-type": "application/json",
-           Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
-         },
-       }
-     )
-     .then((result) => {
-      res.status(200).send(result.data);
-      console.log(result);
-     })
-     .catch((err) => {
-       res.status(500).send({
-         message:
-           "Oups, there was a problem with your subscription, please try again or contact us",
-       });
-       console.error(err);
-     });
+     try {
+        await axios
+        .post(
+          "https://api.sendgrid.com/v3/marketing/contacts/search",
+          {
+          query: "email LIKE '"+ mail +"%' AND CONTAINS(list_ids, '"+ list_id +"')"
+          },
+          {
+            headers: {
+              "content-type": "application/json",
+              Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
+            },
+          }
+        )
 
+        console.log('Searched for: ', mail ," in mailinglist: ", list_id)
+
+    } catch (err) {
+        console.error('Error from function: ', err)
+    }     
   }
 }
