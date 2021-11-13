@@ -72,7 +72,7 @@ export default async function handler(req, res) {
           try {  
             // REMOVE from NEWSLETTER
             axios.delete(
-              "https://api.sendgrid.com/v3/marketing/lists/"+process.env.SENDGRID_MAILING_ID_NEWSLETTER+"/contacts?contact_ids="+result.data.result[0].id,
+              "https://api.sendgrid.com/v3/marketing/lists/"+process.env.SENDGRID_MAILING_ID_NEWSLETTER+"/contacts?contact_ids="+search_result_newsletter.data.result[0].id,
             {
               headers: {
                 "content-type": "application/json",
