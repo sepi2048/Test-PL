@@ -118,13 +118,14 @@ export async function modifyPDF(fullname, access_url, ref_id) {
 
 export default async function handler(req, res) {
 
+
     try {
 
         const {id} = req.query;
         const jsonData = await getAPI(id);
 
-        fullname = jsonData.billing.name;
-        access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
+        const fullname = jsonData.billing.name;
+        const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
 
         const ref_id = jsonData.customer_reference.split("-").pop(); // remove customer_reference prefix
 
@@ -133,16 +134,12 @@ export default async function handler(req, res) {
         filename = filename.split(".").shift(); // Remove file extention
         filename = filename + "-(" + ref_id + ").pdf";
 
-    } catch (e) {
-        console.log(e);
-    }
-
-    try {
         const pdfBuffer = await modifyPDF(fullname, access_url, ref_id);
         res.status(200); 
         res.setHeader('Content-Type', 'application/pdf');  // Displsay
         res.setHeader('Content-Disposition', 'attachment; filename='+filename);
         res.send(pdfBuffer);
+        
     } catch (e) {
         console.log(e);
     }
