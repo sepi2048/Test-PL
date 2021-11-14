@@ -118,23 +118,24 @@ export async function modifyPDF(fullname, access_url, ref_id) {
 
 export default async function handler(req, res) {
 
-    const {id} = req.query;
-
     try {
-        jsonData = await getAPI(id);
+
+        const {id} = req.query;
+        const jsonData = await getAPI(id);
+
+        const fullname = jsonData.billing.name;
+        const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
+
+        const ref_id = jsonData.customer_reference.split("-").pop(); // remove customer_reference prefix
+
+        // add ref_id to filename
+        let filename  = jsonData.fulfillment.digital.downloads[0].packages[0].name;
+        filename = filename.split(".").shift(); // Remove file extention
+        filename = filename + "-(" + ref_id + ").pdf";
+
     } catch (e) {
         console.log(e);
     }
-
-    const fullname = jsonData.billing.name;
-    const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
-
-    const ref_id = jsonData.customer_reference.split("-").pop(); // remove customer_reference prefix
-
-    // add ref_id to filename
-    let filename  = jsonData.fulfillment.digital.downloads[0].packages[0].name;
-    filename = filename.split(".").shift(); // Remove file extention
-    filename = filename + "-(" + ref_id + ").pdf";
 
     try {
         const pdfBuffer = await modifyPDF(fullname, access_url, ref_id);
