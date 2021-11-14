@@ -87,8 +87,6 @@ export async function getAPI(id) {
 
 }
 
-
-
 export async function modifyPDF(fullname, access_url, ref_id) {
 
     try {
