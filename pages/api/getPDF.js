@@ -123,8 +123,8 @@ export default async function handler(req, res) {
         const {id} = req.query;
         const jsonData = await getAPI(id);
 
-        const fullname = jsonData.billing.name;
-        const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
+        fullname = jsonData.billing.name;
+        access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
 
         const ref_id = jsonData.customer_reference.split("-").pop(); // remove customer_reference prefix
 
