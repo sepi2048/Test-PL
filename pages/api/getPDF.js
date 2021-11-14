@@ -18,32 +18,39 @@ import {PDFDocument, rgb, StandardFonts  } from 'pdf-lib';
 
 export async function getAPI(id) {
 
-    const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
-    let headers = {
-        "X-Authorization": checSecretAPIKey,
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    };
+    try {
 
-    // https://commercejs.com/docs/api/?javascript#get-order
-    const response = await fetch("https://api.chec.io/v1/orders/"+id, {
-        method: "GET",
-        headers: headers,
-    })
+        const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
+        let headers = {
+            "X-Authorization": checSecretAPIKey,
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        };
+
+        // https://commercejs.com/docs/api/?javascript#get-order
+        const response = await fetch("https://api.chec.io/v1/orders/"+id, {
+            method: "GET",
+            headers: headers,
+        })
+        
+        const jsonData = await response.json()
+
+        let is_expired = jsonData.fulfillment.digital.downloads[0].is_expired; // (if not exist) or (if exists and true) = True, (If exist and false) = True
+        if ( (typeof is_expired === 'undefined') || (is_expired == false) ) { 
+            is_expired = false;
+        } else {
+            is_expired = true;
+            res.status(200).send({
+                message:
+                "Link has Expired",
+            });
+        }
     
-    const jsonData = await response.json()
-    let msg = "Downloading.. "
+        return jsonData;
 
-    let is_expired = jsonData.fulfillment.digital.downloads[0].is_expired; // (if not exist) or (if exists and true) = True, (If exist and false) = True
-    if ( (typeof is_expired === 'undefined') || (is_expired == false) ) { 
-        is_expired = false;
-    } else {
-        is_expired = true;
-        msg = "Download link has expired"
+    } catch (e) {
+        console.log(e);
     }
-
-    
-    return jsonData;
 
 }
 
@@ -51,56 +58,61 @@ export async function getAPI(id) {
 
 export async function modifyPDF(fullname, access_url, ref_id) {
 
-    const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
-    let headers = {
-        "X-Authorization": checSecretAPIKey,
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    };
+    try {
 
-  
-    const existingPdfBytes = await fetch(access_url, {
-        method: "GET",
-        headers: headers,
-    }).then((res) => res.arrayBuffer());
-    const pdfDoc = await PDFDocument.load(existingPdfBytes);
-    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
-
-
-    const watermark = fullname + " (OrderID: " + ref_id + ")";
+        const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
+        let headers = {
+            "X-Authorization": checSecretAPIKey,
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        };
 
     
-     // Set Document Metadata
-     pdfDoc.setSubject(watermark);
+        const existingPdfBytes = await fetch(access_url, {
+            method: "GET",
+            headers: headers,
+        }).then((res) => res.arrayBuffer());
+        const pdfDoc = await PDFDocument.load(existingPdfBytes);
+        const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
-     // Get pages
-     const pages = pdfDoc.getPages();
- 
-     // Iterate every page, skip first
-     //pages.slice(1).forEach(page => {
-     pages.forEach(page => {
-   
-       
-       // Get the width and height of the page
-       const {
-         width,
-         height
-       } = page.getSize()
- 
-       // Watermark the page
-       page.drawText(watermark, {
-             x: 70,
-             y: 8,
-             size: 10,
-             font: helveticaFont,
-             color: rgb(0.95, 0.1, 0.1),
-       })
-     })
-         
-     const pdfBytes = await pdfDoc.save();
-     return Buffer.from(pdfBytes.buffer, 'binary');
- 
 
+        const watermark = fullname + " (OrderID: " + ref_id + ")";
+
+        
+        // Set Document Metadata
+        pdfDoc.setSubject(watermark);
+
+        // Get pages
+        const pages = pdfDoc.getPages();
+    
+        // Iterate every page, skip first
+        //pages.slice(1).forEach(page => {
+        pages.forEach(page => {
+    
+        
+        // Get the width and height of the page
+        const {
+            width,
+            height
+        } = page.getSize()
+    
+        // Watermark the page
+        page.drawText(watermark, {
+                x: 70,
+                y: 8,
+                size: 10,
+                font: helveticaFont,
+                color: rgb(0.95, 0.1, 0.1),
+        })
+        })
+            
+        const pdfBytes = await pdfDoc.save();
+        return Buffer.from(pdfBytes.buffer, 'binary');
+
+    } catch (e) {
+        console.log(e);
+    }
+ 
 }
 
 
@@ -108,7 +120,11 @@ export default async function handler(req, res) {
 
     const {id} = req.query;
 
-    const jsonData = await getAPI(id);
+    try {
+        jsonData = await getAPI(id);
+    } catch (e) {
+        console.log(e);
+    }
 
     const fullname = jsonData.billing.name;
     const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
@@ -120,13 +136,16 @@ export default async function handler(req, res) {
     filename = filename.split(".").shift(); // Remove file extention
     filename = filename + "-(" + ref_id + ").pdf";
 
+    try {
+        const pdfBuffer = await modifyPDF(fullname, access_url, ref_id);
+        res.status(200); 
+        res.setHeader('Content-Type', 'application/pdf');  // Displsay
+        res.setHeader('Content-Disposition', 'attachment; filename='+filename);
+        res.send(pdfBuffer);
+    } catch (e) {
+        console.log(e);
+    }
 
-    const pdfBuffer = await modifyPDF(fullname, access_url, ref_id);
-
-    res.status(200); 
-    res.setHeader('Content-Type', 'application/pdf');  // Displsay
-    res.setHeader('Content-Disposition', 'attachment; filename='+filename);
-    res.send(pdfBuffer);
 }
 
 
