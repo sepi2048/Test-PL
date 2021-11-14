@@ -16,6 +16,39 @@ import {PDFDocument, rgb, StandardFonts  } from 'pdf-lib';
 // GET /v1/orders/{order_id}
 
 
+
+export default async function handler(req, res) {
+
+
+    try {
+
+        const {id} = req.query;
+        const jsonData = await getAPI(id);
+
+        const fullname = jsonData.billing.name;
+        const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
+
+        const ref_id = jsonData.customer_reference.split("-").pop(); // remove customer_reference prefix
+
+        // add ref_id to filename
+        let filename  = jsonData.fulfillment.digital.downloads[0].packages[0].name;
+        filename = filename.split(".").shift(); // Remove file extention
+        filename = filename + "-(" + ref_id + ").pdf";
+
+        const pdfBuffer = await modifyPDF(fullname, access_url, ref_id);
+        res.status(200); 
+        res.setHeader('Content-Type', 'application/pdf');  // Displsay
+        res.setHeader('Content-Disposition', 'attachment; filename='+filename);
+        res.send(pdfBuffer);
+        
+    } catch (e) {
+        console.log(e);
+    }
+
+}
+
+
+
 export async function getAPI(id) {
 
     try {
@@ -116,35 +149,7 @@ export async function modifyPDF(fullname, access_url, ref_id) {
 }
 
 
-export default async function handler(req, res) {
 
-
-    try {
-
-        const {id} = req.query;
-        const jsonData = await getAPI(id);
-
-        const fullname = jsonData.billing.name;
-        const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
-
-        const ref_id = jsonData.customer_reference.split("-").pop(); // remove customer_reference prefix
-
-        // add ref_id to filename
-        let filename  = jsonData.fulfillment.digital.downloads[0].packages[0].name;
-        filename = filename.split(".").shift(); // Remove file extention
-        filename = filename + "-(" + ref_id + ").pdf";
-
-        const pdfBuffer = await modifyPDF(fullname, access_url, ref_id);
-        res.status(200); 
-        res.setHeader('Content-Type', 'application/pdf');  // Displsay
-        res.setHeader('Content-Disposition', 'attachment; filename='+filename);
-        res.send(pdfBuffer);
-        
-    } catch (e) {
-        console.log(e);
-    }
-
-}
 
 
 
