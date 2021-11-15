@@ -19,9 +19,8 @@ function Breadcrumbs({ inCart }) {
         <>
           <span className="text-lg md:text-xl">Shopping Bag</span>
           <span className="text-lg md:text-xl">&rarr;</span>
-          <span className="text-lg md:text-xl">Booking</span>
           <span className="text-lg md:text-xl opacity-50">&rarr;</span>
-          <span className="text-lg md:text-xl opacity-50">Billing &#38; Shipping</span>
+          <span className="text-lg md:text-xl">Billing &#38; Shipping</span>
           <span className="text-lg md:text-xl opacity-50">&rarr;</span>
           <span className="text-lg md:text-xl opacity-50">Payment</span>
         </>
@@ -29,13 +28,6 @@ function Breadcrumbs({ inCart }) {
       {currentStep === "shipping" && (
         <>
           <span className="text-lg md:text-xl">Shopping Bag</span>
-
-          {extrafields.length > 0 && (
-            <>
-              <span className="text-lg md:text-xl">&rarr;</span>
-              <span className="text-lg md:text-xl">Booking</span>
-            </>
-          )}
           <span className="text-lg md:text-xl">&rarr;</span>
           <span className="text-lg md:text-xl">Billing &#38; Shipping</span>
           <span className="text-lg md:text-xl opacity-50">&rarr;</span>
@@ -45,12 +37,6 @@ function Breadcrumbs({ inCart }) {
       {currentStep === "billing" && (
         <>
           <span className="text-lg md:text-xl">Shopping Bag</span>
-          {extrafields.length > 0 && (
-            <>
-              <span className="text-lg md:text-xl">&rarr;</span>
-              <span className="text-lg md:text-xl">Booking</span>
-            </>
-          )}
           <span className="text-lg md:text-xl">&rarr;</span>
           <span className="text-lg md:text-xl">Billing &#38; Shipping</span>
           <span className="text-lg md:text-xl">&rarr;</span>
