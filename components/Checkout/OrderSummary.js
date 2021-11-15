@@ -42,8 +42,6 @@ function CheckoutSummary({ has, fulfillment, order, id }) {
               >
                 {download.packages.map(({ name }, index) => (      
                   
-                  /*<WatermarkPDF index={index} url={access_link} filename={name} fullname={fullname} order_id={customer_reference} />*/
-
 
                   <Button
                   key={index}

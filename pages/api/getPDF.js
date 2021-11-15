@@ -16,6 +16,9 @@ import {PDFDocument, rgb, StandardFonts  } from 'pdf-lib';
 // GET /v1/orders/{order_id}
 
 
+// Be aware of timeouts (10 sec) when buying
+
+
 
 export default async function handler(req, res) {
 
