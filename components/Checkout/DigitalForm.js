@@ -158,4 +158,4 @@ function DigitalForm() {
   );
 }
 
-export default BillingForm;
+export default ExtraFieldsForm;
