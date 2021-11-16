@@ -158,4 +158,4 @@ function DigitalForm() {
   );
 }
 
-export default ExtraFieldsForm;
+export default DigitalForm;
