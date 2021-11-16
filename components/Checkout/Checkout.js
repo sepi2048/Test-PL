@@ -5,6 +5,7 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { useCartDispatch } from "../../context/cart";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
+import ExtraFieldsForm from "./ExtraFieldsForm";
 import ShippingForm from "./ShippingForm";
 import BillingForm from "./BillingForm";
 import Success from "./Success";
@@ -161,6 +162,7 @@ function Checkout({ cartId }) {
         onSubmit={handleSubmit(onSubmit)}
         className="h-full flex flex-col justify-between pt-6 md:pt-12"
       >
+        {currentStep === "extrafields" && <ExtraFieldsForm />}
         {currentStep === "shipping" && <ShippingForm />}
         {currentStep === "billing" && <BillingForm />}
         {currentStep === "success" && <Success {...order} />}
