@@ -6,6 +6,7 @@ import { useCartDispatch } from "../../context/cart";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import ExtraFieldsForm from "./ExtraFieldsForm";
+import DigitalForm from "./DigitalForm";
 import ShippingForm from "./ShippingForm";
 import BillingForm from "./BillingForm";
 import Success from "./Success";
