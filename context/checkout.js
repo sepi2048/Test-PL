@@ -79,6 +79,8 @@ export const CheckoutProvider = ({ children }) => {
 
   const nextStepFrom = (currentStep) => {
     switch (currentStep) {
+      case "extrafields":
+        return state.collects.shipping_address ? "shipping" : "billing";
       case "shipping":
       default:
         return "billing";

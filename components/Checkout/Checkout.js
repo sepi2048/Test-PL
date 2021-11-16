@@ -162,7 +162,7 @@ function Checkout({ cartId }) {
         onSubmit={handleSubmit(onSubmit)}
         className="h-full flex flex-col justify-between pt-6 md:pt-12"
       >
-        {currentStep === "extrafields" && <ExtraFieldsForm />}
+        {currentStep === "extrafields" && <DigitalForm />}
         {currentStep === "shipping" && <ShippingForm />}
         {currentStep === "billing" && <BillingForm />}
         {currentStep === "success" && <Success {...order} />}

@@ -26,7 +26,7 @@ const style = {
   },
 };
 
-function BillingForm() {
+function DigitalForm() {
   const [countries, setCountries] = useState();
   const [subdivisions, setSubdivisions] = useState();
   const methods = useFormContext();
@@ -80,32 +80,27 @@ function BillingForm() {
       <div className="md:w-1/2">
         <fieldset className="mb-3 md:mb-4">
           <legend className="text-black font-medium text-lg md:text-xl py-3 block">
-            Billing Info
+            Customer Details
           </legend>
 
-          {collects?.shipping_address && (
-            <FormCheckbox
-              label="Same as shipping address"
-              name="billingIsShipping"
-              onChange={({ target: { checked } }) =>
-                checked && setValue("billing", shipping)
-              }
-            />
-          )}
-
-          <AddressFields
-            prefix="billing"
-            countries={countries}
-            subdivisions={subdivisions}
-          />
-        </fieldset>
-      </div>
-
-      <div className="md:w-1/2">
-        <fieldset>
-          <legend className="text-black font-medium text-lg md:text-xl py-3">
-            Payment
-          </legend>
+          <div className="md:flex md:items-start md:space-x-4">
+            <div className="md:w-1/2">
+              <FormInput
+                label="First name"
+                name={`${prefix}.firstname`}
+                placeholder="First name"
+                required
+              />
+            </div>
+            <div className="md:w-1/2">
+              <FormInput
+                label="Last name"
+                name={`${prefix}.lastname`}
+                placeholder="Last name"
+                required
+              />
+            </div>
+          </div>
 
           <FormInput
             type="email"
@@ -120,6 +115,14 @@ function BillingForm() {
               },
             }}
           />
+
+        </fieldset>
+
+        <fieldset>
+          <legend className="text-black font-medium text-lg md:text-xl py-3">
+            Payment
+          </legend>
+
 
           <div className="space-y-3">
             <div>
