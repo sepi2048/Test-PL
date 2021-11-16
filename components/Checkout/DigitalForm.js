@@ -87,7 +87,7 @@ function DigitalForm() {
             <div className="md:w-1/2">
               <FormInput
                 label="First name"
-                name={`${prefix}.firstname`}
+                name="billing.firstname"
                 placeholder="First name"
                 required
               />
@@ -95,7 +95,7 @@ function DigitalForm() {
             <div className="md:w-1/2">
               <FormInput
                 label="Last name"
-                name={`${prefix}.lastname`}
+                name="billing.lastname"
                 placeholder="Last name"
                 required
               />
