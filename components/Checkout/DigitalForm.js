@@ -12,7 +12,7 @@ import { commerce } from "../../lib/commerce";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
 import { FormCheckbox, FormInput, FormError } from "../Form";
-import AddressFields from "./AddressFields";
+
 
 const style = {
   base: {
@@ -36,39 +36,6 @@ function DigitalForm() {
 
 
   const { watch, setValue, clearErrors } = methods;
-
-  const shipping = watch("shipping");
-  const [watchCountry] = useDebounce(watch("billing.country"), 600);
-
-  useEffect(() => {
-    fetchCountries();
-  }, []);
-
-  useEffect(() => {
-    watchCountry && fetchSubdivisions(watchCountry);
-  }, [watchCountry]);
-
-  const fetchCountries = async () => {
-    try {
-      const { countries } = await commerce.services.localeListCountries();
-
-      setCountries(countries);
-    } catch (err) {
-      // noop
-    }
-  };
-
-  const fetchSubdivisions = async (country) => {
-    try {
-      const { subdivisions } = await commerce.services.localeListSubdivisions(
-        country
-      );
-
-      setSubdivisions(subdivisions);
-    } catch (err) {
-      // noop
-    }
-  };
 
   const onStripeChange = () => {
     clearErrors("stripe");

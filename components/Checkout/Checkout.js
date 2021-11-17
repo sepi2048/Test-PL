@@ -56,7 +56,7 @@ function Checkout({ cartId }) {
         name: `${billing.firstname} ${billing.lastname}`,
         email: customer.email,
       },
-    });
+    },[]);
 
     if (error) {
       setError("stripe", { type: "manual", message: error.message });
