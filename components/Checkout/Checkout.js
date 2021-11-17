@@ -56,7 +56,7 @@ function Checkout({ cartId }) {
         name: `${billing.firstname} ${billing.lastname}`,
         email: customer.email,
       },
-    },[]);
+    });
 
     if (error) {
       setError("stripe", { type: "manual", message: error.message });
@@ -144,7 +144,9 @@ function Checkout({ cartId }) {
   };
 
   const onSubmit = (values) => {
-    if (currentStep === "billing") return captureOrder(values);
+    if (currentStep === "billing" || currentStep === "extrafields") {
+      return captureOrder(values);
+    }
 
     return setCurrentStep(nextStepFrom(currentStep));
   };
