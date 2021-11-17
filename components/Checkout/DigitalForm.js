@@ -34,6 +34,13 @@ function DigitalForm() {
   const { setError } = useCheckoutDispatch();
   const { extrafields } = useCheckoutState();
 
+  useEffect(() => {
+    if (extrafields.length === 0) {
+      setCurrentStep(nextStepFrom("extrafields"));
+    }
+    return null;
+  }, [extrafields]);
+
 
   const { watch, setValue, clearErrors } = methods;
 
