@@ -146,7 +146,7 @@ exports.handler = async function(req, res) {
         let MailingList = {};
         try {
             // Call the SendGrid send mail endpoint
-            MailingList = await axios.put("https://stoic-payne-386d66.netlify.app/api/CheckMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
+            MailingList = await axios.post("https://stoic-payne-386d66.netlify.app/api/CheckMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
             //console.log(list);
     
         } catch (err) {
