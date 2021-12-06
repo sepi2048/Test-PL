@@ -15,6 +15,8 @@ import OrderSummary from "./OrderSummary";
 
 import LoadingSVG from "../../svg/loading.svg";
 
+
+
 function Checkout({ cartId }) {
   const [order, setOrder] = useState();
   const { reset: resetCart } = useCartDispatch();
@@ -45,6 +47,7 @@ function Checkout({ cartId }) {
     const {
       customer,
       shipping,
+      extra_fields,
       billing: { firstname, lastname, region: county_state, ...billing },
       ...data
     } = values;
@@ -77,12 +80,21 @@ function Checkout({ cartId }) {
           name: `${shipping.firstname} ${shipping.lastname}`,
         },
       }),
+      // http://support.commercejs.com/en/articles/5445627-adding-extra-fields
+      ...(extra_fields && {
+
+        extra_fields: extra_fields
+
+      }),
       billing: {
         ...billing,
         name: `${firstname} ${lastname}`,
         county_state,
       },
     };
+
+    console.log(checkoutPayload);
+
 
     try {
       const newOrder = await capture({
@@ -94,6 +106,9 @@ function Checkout({ cartId }) {
           },
         },
       });
+
+
+
 
       handleOrderSuccess(newOrder);
       setProcessing(false);
@@ -136,6 +151,8 @@ function Checkout({ cartId }) {
       }
     }
   };
+
+  //console.log("useCheckoutState() from Checkout.js: ", useCheckoutState());
 
   const handleOrderSuccess = (order) => {
     setOrder(order);

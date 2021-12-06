@@ -1,20 +1,25 @@
 import Button from "../Button";
-import WatermarkPDF from '../../src/components/WatermarkPDF'
 
 
 
-function CheckoutSummary({ has, fulfillment, order, id }) {
+function CheckoutSummary({ has, fulfillment, order, id, extra_fields }) {
   const { subtotal, tax, shipping, line_items, total } = order;
   const url = "/api/getPDF?id="+id;
 
   const count = line_items.length;
 
-  const checSecretAPIKey = process.env.CHEC_SECRET_KEY;
-  //console.log(checSecretAPIKey);
 
 
   return (
     <div className="py-6">
+{/* 
+      {extra_fields.map(( {id, value} ) => {
+
+      console.log(id, " ", value);
+      console.log(extra_fields);
+
+      })} */}
+
       <div className="md:flex md:justify-between md:space-x-6">
         <div className="w-full md:w-1/2">
           <ol>
@@ -30,6 +35,9 @@ function CheckoutSummary({ has, fulfillment, order, id }) {
               </li>
             )}
           </ol>
+
+
+
 
 
         </div>

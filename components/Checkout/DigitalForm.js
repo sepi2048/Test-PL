@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useDebounce } from "use-debounce";
+import getConfig from 'next/config'
+
 import {
   CardNumberElement,
   CardExpiryElement,
@@ -11,7 +13,7 @@ import { commerce } from "../../lib/commerce";
 
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
-import { FormCheckbox, FormInput, FormError } from "../Form";
+import { FormCheckbox, FormInput, FormError, FormTextarea } from "../Form";
 
 
 const style = {
@@ -33,6 +35,9 @@ function DigitalForm() {
   const { collects } = useCheckoutState();
   const { setError } = useCheckoutDispatch();
   const { extrafields } = useCheckoutState();
+    //const [ extrafields, setextrafields ] = useState();
+  
+
 
   useEffect(() => {
     if (extrafields.length === 0) {
@@ -49,8 +54,14 @@ function DigitalForm() {
     setError(null);
   };
 
+
+
+
   return (
     <div className="md:flex md:space-x-12 lg:space-x-24">
+      <div className="md:w-1/4"></div>
+
+
       <div className="md:w-1/2">
         <fieldset className="mb-3 md:mb-4">
           <legend className="text-black font-medium text-lg md:text-xl py-3 block">
@@ -89,6 +100,32 @@ function DigitalForm() {
               },
             }}
           />
+
+
+          {extrafields.map(({ id }) => {
+
+            const mailinglist = "extr_8XO3wpMeqoYAzQ";
+
+            if (id === mailinglist) {
+
+            const computedFieldName = `extra_fields.${id}`;
+
+              return (
+                <FormCheckbox
+                  key={id}
+                  id={computedFieldName}
+                  name={computedFieldName}
+                  label="Subscribe to newsletter"
+                />
+              );
+
+            }
+
+          })} 
+
+
+
+
 
         </fieldset>
 

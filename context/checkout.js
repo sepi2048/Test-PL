@@ -41,7 +41,12 @@ const reducer = (state, action) => {
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
+
 };
+
+
+
+
 
 export const CheckoutProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -89,6 +94,8 @@ export const CheckoutProvider = ({ children }) => {
 
   const capture = (values) => commerce.checkout.capture(state.id, values);
 
+
+
   const setProcessing = (payload) =>
     dispatch({ type: SET_PROCESSING, payload });
 
@@ -96,7 +103,7 @@ export const CheckoutProvider = ({ children }) => {
 
   const reset = () => dispatch({ type: RESET });
 
-  return (
+  return ( 
     <CheckoutDispatchContext.Provider
       value={{
         generateToken,
@@ -110,7 +117,7 @@ export const CheckoutProvider = ({ children }) => {
       }}
     >
       <CheckoutStateContext.Provider value={state}>
-        {children}
+        {children} 
       </CheckoutStateContext.Provider>
     </CheckoutDispatchContext.Provider>
   );

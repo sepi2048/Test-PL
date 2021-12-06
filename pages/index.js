@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import ProductList from "../components/ProductList";
 import ProductGrid from "../components/ProductGrid";
 
+
 export async function getStaticProps() {
   const { data } = await commerce.products.list();
 

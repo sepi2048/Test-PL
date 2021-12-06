@@ -81,7 +81,10 @@ exports.handler = async function(req, res) {
     // Create the email object payload to fire off to SendGrid
     const emailPayload = {
         to: mail,
-        from: data.payload.merchant.support_email,
+        from: {
+            email: data.payload.merchant.support_email,
+            name: 'PokerLighthouse'
+        },
         subject: `Thank you for your order ${data.payload.customer.firstname}`,
         text: `Your order number is ${data.payload.customer_reference}`,
         html: `&nbsp;`,
@@ -106,10 +109,10 @@ exports.handler = async function(req, res) {
         template_id: process.env.SENDGRID_TEMPLATE_ID
     };
 
-    let response = {};
+    let confirmationMail = {};
     try {
         // Call the SendGrid send mail endpoint
-        response = await sgMailClient.send(emailPayload);
+        confirmationMail = await sgMailClient.send(emailPayload);
         //console.log(response);
 
     } catch (err) {
@@ -119,11 +122,33 @@ exports.handler = async function(req, res) {
     let list = {};
     try {
         // Call the SendGrid send mail endpoint
-        list = await axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail)
+        list = await axios.put("https://stoic-payne-386d66.netlify.app/api/AddMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_BOOTCAMP)
         //console.log(list);
 
     } catch (err) {
         console.error('Error from function: ', err)
     }
+
+    const extrafield = data.payload.extra_fields;
+
+    const mailinglist = process.env.MAILINGLIST_EXTRA_FIELD_ID;
+    
+    const index = extrafield.findIndex( (element) => element.id === mailinglist);
+
+    const signup = extrafield[index].value;
+
+    if (signup) {
+        let MailingList = {};
+        try {
+            // Call the SendGrid send mail endpoint
+            MailingList = await axios.put("https://stoic-payne-386d66.netlify.app/api/CheckMailingList?mail="+mail+"&list_id="+process.env.SENDGRID_MAILING_ID_NEWSLETTER_PURCHASE)
+            //console.log(list);
+    
+        } catch (err) {
+            console.error('Error from function: ', err)
+        }
+         
+    }
+
 
 }
