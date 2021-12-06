@@ -135,11 +135,11 @@ exports.handler = async function(req, res) {
     
     const index = extrafield.findIndex( (element) => element.id === mailinglist);
 
-    //const signup = extrafield[index].value;
-    const signup = extrafield[0].value;
+    const signup = extrafield[index].value;
+    //const signup = extrafield[0].value;
 
 
-    console.log(extrafield,mailinglist, index);
+    //console.log(extrafield,mailinglist, index);
 
 
     if (signup) {
