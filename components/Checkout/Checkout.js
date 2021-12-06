@@ -93,7 +93,7 @@ function Checkout({ cartId }) {
       },
     };
 
-    console.log(checkoutPayload);
+    //console.log(checkoutPayload);
 
 
     try {
