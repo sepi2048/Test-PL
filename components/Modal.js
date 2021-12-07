@@ -11,7 +11,9 @@ import Cart from "./Cart";
 import Checkout from "./Checkout";
 
 function CurrentStep({ step }) {
-  const { id } = useCartState();
+  const { id, has } = useCartState();
+
+  console.log(has);
 
   switch (step) {
     case "cart":
