@@ -16,12 +16,10 @@ function FormTextarea({
   return (
     <div className="py-2">
       <textarea
-        ref={register({ required: isRequired, ...validation })}
         id={name}
-        name={name}
+        {...register(name, { required: isRequired, ...validation })}
         className="appearance-none bg-transparent placeholder-faded-black border border-faded-black focus:border-black focus:outline-none rounded-md w-full text-base px-1.5 py-1"
-        {...props}
-      />
+        {...props} />
       <FormError name={name} />
     </div>
   );

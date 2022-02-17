@@ -2,11 +2,17 @@ import cc from "classcat";
 
 import { useCheckoutState } from "../../context/checkout";
 
+import { useCartState } from "../../context/cart";
+
+
 import Button from "../Button";
 
 function CheckoutSummary({ subtotal, tax, shipping, line_items = [], total }) {
   const { processing, error } = useCheckoutState();
   const count = line_items.length;
+
+  //console.log(subtotal);
+
 
   return (
     <div className="py-6">
@@ -14,7 +20,7 @@ function CheckoutSummary({ subtotal, tax, shipping, line_items = [], total }) {
         <div className="w-full md:w-1/2">
           <ol>
             {subtotal && <li>Subtotal: {subtotal.formatted_with_symbol}</li>}
-            {tax && <li>Tax: {tax.amount.formatted_with_symbol}</li>}
+            {tax && <li>Taxx: {tax.amount.formatted_with_symbol}</li>}
             {shipping && (
               <li>Shipping: {shipping.price.formatted_with_symbol}</li>
             )}

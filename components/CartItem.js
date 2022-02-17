@@ -5,9 +5,12 @@ import { toast } from "react-toastify";
 import { commerce } from "../lib/commerce";
 import { useCartDispatch } from "../context/cart";
 
-function CartItem({ id, media, name, quantity, line_total, selected_options }) {
+
+function CartItem({ id, media, name, quantity, line_total, selected_options, product_id, digital_ids }) {
   const { setCart } = useCartDispatch();
   const hasVariants = selected_options.length >= 1;
+
+  var isDigital = digital_ids.includes(product_id) ? true : false;
 
   const handleUpdateCart = ({ cart }) => {
     setCart(cart);
@@ -81,20 +84,30 @@ function CartItem({ id, media, name, quantity, line_total, selected_options }) {
           </div>
           <div className="w-full flex md:flex-col items-center md:items-end justify-between">
             <div className="md:pb-4 lg:pb-5 inline-flex items-center">
-              <span className="pr-2">Quantity:</span>
-              <button
-                onClick={decrementQuantity}
-                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none hover:bg-black hover:text-white transition"
-              >
-                -
-              </button>
-              <span className="px-2 md:text-lg">{quantity}</span>
-              <button
-                onClick={incrementQuantity}
-                className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none hover:bg-black hover:text-white transition"
-              >
-                +
-              </button>
+              {isDigital && (
+                <div>
+                  <span className="pr-1">Quantity:</span>
+                  <span className="px-1 md:text-lg">{quantity}</span>
+                </div>
+              )}    
+              
+              {!isDigital && (
+                <div>
+                <span className="pr-2">Quantity:</span>
+                <button
+                  onClick={decrementQuantity}
+                  className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none hover:bg-black hover:text-white transition"
+                >
+                  -
+                </button>
+                <span className="px-2 md:text-lg">{quantity}</span>
+                <button
+                  onClick={incrementQuantity}
+                  className="appearance-none inline-flex items-center justify-center rounded-lg border border-black w-5 h-5 text-xs text-black focus:outline-none hover:bg-black hover:text-white transition"
+                >
+                  +
+                </button> </div> )}
+
             </div>
             <div>
               <button

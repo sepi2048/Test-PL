@@ -13,17 +13,33 @@ export async function getStaticProps() {
 
   const products = data.filter(({ active }) => active);
 
+
+
   return {
     props: {
       products,
     },
     revalidate: 60,
   };
+  
 }
+
+
+let digital_products = [];
+
 
 function IndexPage({ products }) {
   return (
     <>
+
+
+      {products.map(( prod ) => {
+        var exists = prod.has.digital_delivery ? true : false;
+        if (exists) { digital_products.push(prod.id); }
+      })}
+
+      {/* console.log(digital_products) */ }
+
       <Head>
         <title>ChopChop</title>
       </Head>

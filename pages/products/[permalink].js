@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
 import { commerce } from "../../lib/commerce";
-import { useCartDispatch } from "../../context/cart";
+import { useCartDispatch, useCartState } from "../../context/cart";
 import { useThemeDispatch } from "../../context/theme";
 import { useModalDispatch } from "../../context/modal";
 
@@ -15,8 +15,10 @@ import ProductImages from "../../components/ProductImages";
 import ProductAttributes from "../../components/ProductAttributes";
 import RelatedProducts from "../../components/RelatedProducts";
 
+
 export async function getStaticProps({ params }) {
   const { permalink } = params;
+
 
   const product = await commerce.products.retrieve(permalink, {
     type: "permalink",
@@ -44,6 +46,10 @@ export async function getStaticPaths() {
 }
 
 function ProductPage({ product }) {
+
+  const cart = useCartState();
+
+
   const { setCart } = useCartDispatch();
   const {
     variant_groups: variantGroups,
@@ -64,6 +70,26 @@ function ProductPage({ product }) {
       }, {}),
     [product.permalink]
   );
+
+  // Has digital and already in cart
+  //console.log(product.id, Object.keys(cart.line_items).length);
+  let alreadyExists = false;
+  let isDigital = false;
+
+  cart.line_items.forEach((item) => { 
+    if (item.product_id === product.id) { 
+        alreadyExists = true;
+
+        if (product.has.digital_delivery && !product.has.physical_delivery) {
+          isDigital = true;
+        }
+
+    }
+  });
+  
+  // cart.line_items.product_id)
+  //var alreadyExists = digital_ids.includes(product_id) ? true : false;
+
 
   const [selectedVariants, setSelectedVariants] = React.useState(
     initialVariants
@@ -88,19 +114,44 @@ function ProductPage({ product }) {
       .then(({ cart }) => {
         setCart(cart);
 
+
+
         return cart;
       })
-      .then(({ subtotal }) =>
-        toast(
-          `${product.name} is now in your cart. Your subtotal is now ${subtotal.formatted_with_symbol}. Click to view what's in your cart.`,
-          {
-            onClick: openModal,
-          }
-        )
-      )
+      .then(() => {
+        let onlyDigitalDelivery = false;
+
+        if( (product.has.digital_delivery) || (product.has.digital_delivery && product.has.physical_delivery) ) {
+            onlyDigitalDelivery = true;
+        }
+        
+        if (onlyDigitalDelivery) { openModal(); } 
+        else {
+          toast(
+            `${product.name} is now in your cart. Click to view what's in your cart.`,
+            {
+              onClick: openModal,
+            }
+          )
+        }
+
+      })
       .catch(() => {
         toast.error("Please try again.");
       });
+
+      // const alreadyExistsAndDigitalonly = false;
+      // if (alreadyExists && onlyDigitalDelivery) { alreadyExistsAndDigitalonly = true }
+      // console.log("alreadyExistsAndDigitalonly", alreadyExistsAndDigitalonly);
+
+
+      let addToCartButton = <Button onClick={addToCart}>Add to Cart</Button>;
+
+      if (alreadyExists && isDigital) { 
+        addToCartButton = <Button onClick={openModal}>Open Cart</Button>; 
+      } 
+
+
 
   return (
     <React.Fragment>
@@ -149,8 +200,8 @@ function ProductPage({ product }) {
                     onChange={handleVariantChange}
                   />
                 </div>
-
-                <Button onClick={addToCart}>Add to Bag</Button>
+                  {addToCartButton}
+                
               </div>
 
               <div

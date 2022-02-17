@@ -3,6 +3,10 @@ import { useCycle } from "framer-motion";
 
 import { commerce } from "../lib/commerce";
 
+//import { useCheckoutDispatch } from ".//checkout";
+
+
+
 const CartStateContext = createContext();
 const CartDispatchContext = createContext();
 
@@ -34,9 +38,11 @@ export const CartProvider = ({ children }) => {
     getCart();
   }, []);
 
+
   const getCart = async () => {
     try {
       const cart = await commerce.cart.retrieve();
+      //generateToken(cart.cart_id);
 
       dispatch({ type: SET_CART, payload: cart });
     } catch (err) {
@@ -44,7 +50,23 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const generateToken = async (cartId) => {
+    if (!cartId) return;
+
+    try {
+      const payload = await commerce.checkout.generateToken(cartId, {
+        type: "cart",
+      });
+      dispatch({ type: SET_CART, payload });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   const setCart = async (payload) => dispatch({ type: SET_CART, payload });
+
+  
 
   const showCart = () => {
     toggle();

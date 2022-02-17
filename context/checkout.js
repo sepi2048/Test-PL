@@ -13,7 +13,7 @@ const SET_ERROR = "SET_ERROR";
 const RESET = "RESET";
 
 const initialState = {
-  currentStep: "extrafields",
+  currentStep: "digital",
   processing: false,
   error: null,
 };
@@ -41,15 +41,12 @@ const reducer = (state, action) => {
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
-
 };
-
-
-
-
 
 export const CheckoutProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+
 
   const generateToken = async (cartId) => {
     if (!cartId) return;
@@ -58,10 +55,9 @@ export const CheckoutProvider = ({ children }) => {
       const payload = await commerce.checkout.generateToken(cartId, {
         type: "cart",
       });
-
       dispatch({ type: SET_CHECKOUT, payload });
     } catch (err) {
-      // noop
+      console.log(err);
     }
   };
 
@@ -75,7 +71,7 @@ export const CheckoutProvider = ({ children }) => {
 
       dispatch({ type: SET_LIVE, payload: live });
     } catch (err) {
-      // noop
+      console.log(err);
     }
   };
 
@@ -84,7 +80,7 @@ export const CheckoutProvider = ({ children }) => {
 
   const nextStepFrom = (currentStep) => {
     switch (currentStep) {
-      case "extrafields":
+      case "digital":
         return state.collects.shipping_address ? "shipping" : "billing";
       case "shipping":
       default:
@@ -92,7 +88,7 @@ export const CheckoutProvider = ({ children }) => {
     }
   };
 
-  const capture = (values) => commerce.checkout.capture(state.id, values);
+  const capture = (values) => ( commerce.checkout.capture(state.id, values) );
 
 
 
@@ -103,7 +99,7 @@ export const CheckoutProvider = ({ children }) => {
 
   const reset = () => dispatch({ type: RESET });
 
-  return ( 
+  return (
     <CheckoutDispatchContext.Provider
       value={{
         generateToken,
@@ -117,7 +113,7 @@ export const CheckoutProvider = ({ children }) => {
       }}
     >
       <CheckoutStateContext.Provider value={state}>
-        {children} 
+        {children}
       </CheckoutStateContext.Provider>
     </CheckoutDispatchContext.Provider>
   );

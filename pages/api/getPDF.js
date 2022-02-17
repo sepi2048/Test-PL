@@ -25,16 +25,32 @@ export default async function handler(req, res) {
 
     try {
 
-        const {id} = req.query;
+        const {id, dwnld} = req.query;
+        //const {dwnld} = req.query;
         const jsonData = await getAPI(id);
 
         const fullname = jsonData.billing.name;
-        const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
+        //const access_url = jsonData.fulfillment.digital.downloads[0].packages[0].access_link;
+        //const access_url = "https://api.chec.io/fulfill//"+ id +"/"+ dwnld;
 
         const ref_id = jsonData.customer_reference.split("-").pop(); // remove customer_reference prefix
 
         // add ref_id to filename
-        let filename  = jsonData.fulfillment.digital.downloads[0].packages[0].name;
+        //let filename  = jsonData.fulfillment.digital.downloads[0].packages[0].name;  // UNIQUE Name!!!!!
+        
+        let filename, access_url;
+
+        jsonData.fulfillment.digital.downloads.map((download) => {
+
+            download.packages.map((packages) => {
+                if (packages.id === dwnld) {
+                    filename = packages.name;
+                    access_url = packages.access_link;
+                    //console.log(packages);
+                }
+            });
+        });
+
         filename = filename.split(".").shift(); // Remove file extention
         filename = filename + "-(" + ref_id + ").pdf";
 
@@ -71,9 +87,9 @@ export async function getAPI(id) {
         
         const jsonData = await response.json()
 
-        let is_expired = jsonData.fulfillment.digital.downloads[0].is_expired; // (if not exist) or (if exists and true) = True, (If exist and false) = True
+        let is_expired = jsonData.fulfillment.digital.downloads[0].is_expired; // // UNIQUE Name!!!! (if not exist) or (if exists and true) = True, (If exist and false) = True
         if ( (typeof is_expired === 'undefined') || (is_expired == false) ) { 
-            is_expired = false;
+            is_expired = false; // ER DENNE NØDVENDIG?
         } else {
             is_expired = true;
             res.status(200).send({

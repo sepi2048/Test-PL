@@ -1,11 +1,12 @@
+import { commerce } from "../../lib/commerce";
+
 import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 
-import { useCartDispatch } from "../../context/cart";
+import { useCartDispatch, useCartState } from "../../context/cart";
 import { useCheckoutState, useCheckoutDispatch } from "../../context/checkout";
 
-import ExtraFieldsForm from "./ExtraFieldsForm";
 import DigitalForm from "./DigitalForm";
 import ShippingForm from "./ShippingForm";
 import BillingForm from "./BillingForm";
@@ -17,10 +18,12 @@ import LoadingSVG from "../../svg/loading.svg";
 
 
 
-function Checkout({ cartId }) {
-  const [order, setOrder] = useState();
+
+function Checkout({ cartId, digital_ids }) {
+  const [ order, setOrder] = useState();
   const { reset: resetCart } = useCartDispatch();
   const { currentStep, id, live } = useCheckoutState();
+
   const {
     generateToken,
     setCurrentStep,
@@ -51,6 +54,8 @@ function Checkout({ cartId }) {
       billing: { firstname, lastname, region: county_state, ...billing },
       ...data
     } = values;
+
+
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -93,14 +98,13 @@ function Checkout({ cartId }) {
       },
     };
 
-    //console.log(checkoutPayload);
-
 
     try {
       const newOrder = await capture({
         ...checkoutPayload,
         payment: {
           gateway: "stripe",
+          //gateway: process.env.STRIPE_GWAY_ID,
           stripe: {
             payment_method_id: paymentMethod.id,
           },
@@ -136,7 +140,8 @@ function Checkout({ cartId }) {
         const newOrder = await capture({
           ...checkoutPayload,
           payment: {
-            gateway: "stripe",
+          gateway: "stripe",
+          //gateway: process.env.STRIPE_GWAY_ID,
             stripe: {
               payment_intent_id: paymentIntent.id,
             },
@@ -152,8 +157,6 @@ function Checkout({ cartId }) {
     }
   };
 
-  //console.log("useCheckoutState() from Checkout.js: ", useCheckoutState());
-
   const handleOrderSuccess = (order) => {
     setOrder(order);
     setCurrentStep("success");
@@ -161,7 +164,7 @@ function Checkout({ cartId }) {
   };
 
   const onSubmit = (values) => {
-    if (currentStep === "billing" || currentStep === "extrafields") {
+    if (currentStep === "billing" || currentStep === "digital") {
       return captureOrder(values);
     }
 
@@ -182,12 +185,13 @@ function Checkout({ cartId }) {
         onSubmit={handleSubmit(onSubmit)}
         className="h-full flex flex-col justify-between pt-6 md:pt-12"
       >
-        {currentStep === "extrafields" && <DigitalForm />}
+        {currentStep === "digital" && <DigitalForm digital_ids={digital_ids}/>}
         {currentStep === "shipping" && <ShippingForm />}
         {currentStep === "billing" && <BillingForm />}
         {currentStep === "success" && <Success {...order} />}
 
-        {order ? <OrderSummary {...order} /> : <CheckoutSummary {...live} />}
+        { order ? <OrderSummary {...order} /> : <CheckoutSummary {...live} />}
+
       </form>
     </FormProvider>
   );

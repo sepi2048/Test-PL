@@ -57,6 +57,39 @@ exports.handler = async function(req, res) {
     }));
 
 
+    const expiry_options = { year: 'numeric', month: 'short', day: 'numeric'};
+    const url = "/api/getPDF?id="+id+"&dwnld=";
+
+
+    // date between two dates (https://jsfiddle.net/cqn2fepm/1/)
+    function daysUtilExpiry(endDate) {
+
+        const today  = new Date();
+    
+        const minute = 1000 * 60;
+        const hour = minute * 60;
+        const day = hour * 24;
+    
+        const diffInMs = new Date(endDate*1000) - new Date(today);
+        const days = Math.round(diffInMs / day);
+        
+        return days;
+        
+    }
+  
+  
+    const downloadData = data.fulfillment.digital.downloads.map((download) => {
+
+        download.packages.map((packages) => ({
+
+          productName: product_name,
+          watermark: url+packages.id,
+          expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
+          days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
+        }))
+
+      });
+
     // Get ebook expiry date if exists
     let expiry = false;
     if (data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date !== null) {
@@ -95,6 +128,7 @@ exports.handler = async function(req, res) {
         dynamic_template_data: {
             total: data.payload.order.subtotal.formatted_with_symbol,
             items: orderLineItems,
+            downloads: downloadData, // TEST
             receipt: true,
             name: data.payload.billing.name,
             address01: data.payload.billing.street,
@@ -102,7 +136,7 @@ exports.handler = async function(req, res) {
             state: data.payload.billing.county_state,
             zip : data.payload.billing.postal_zip_code,
             orderId : data.payload.id,
-            expiry : expiry,
+            //expiry : expiry,
             customerRef : data.payload.customer_reference,
             orderCreated : created,
         },
