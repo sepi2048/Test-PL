@@ -78,15 +78,17 @@ exports.handler = async function(req, res) {
         
     }
   
-  
-    const downloadData = data.fulfillment.digital.downloads.map((download) => {
+    let downloadData = 0;
+    
+ data.fulfillment.digital.downloads.map((download) => {
 
-        download.packages.map((packages) => ({
+        downloadData = download.packages.map((packages) => ({
 
           productName: product_name,
           watermark: url+packages.id,
           expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
           days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
+
         }))
 
       });
