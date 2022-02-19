@@ -57,8 +57,9 @@ exports.handler = async function(req, res) {
     }));
 
 
+    const orderId = data.payload.id;
     const expiry_options = { year: 'numeric', month: 'short', day: 'numeric'};
-    const url = "/api/getPDF?id="+id+"&dwnld=";
+    const url = "/api/getPDF?id="+orderId+"&dwnld=";
 
 
     // date between two dates (https://jsfiddle.net/cqn2fepm/1/)
@@ -135,7 +136,7 @@ exports.handler = async function(req, res) {
             city: data.payload.billing.town_city,
             state: data.payload.billing.county_state,
             zip : data.payload.billing.postal_zip_code,
-            orderId : data.payload.id,
+            orderId : orderId,
             //expiry : expiry,
             customerRef : data.payload.customer_reference,
             orderCreated : created,
