@@ -135,7 +135,7 @@ exports.handler = async function(req, res) {
         dynamic_template_data: {
             total: data.payload.order.subtotal.formatted_with_symbol,
             items: orderLineItems,
-            downloads: downloadData, // TEST
+            //downloads: downloadData, // TEST
             receipt: true,
             name: data.payload.billing.name,
             address01: data.payload.billing.street,
