@@ -80,20 +80,20 @@ exports.handler = async function(req, res) {
 
     console.log("data.fulfillment.digital: ", data.fulfillment.digital);
     
-    const downloadData = data.fulfillment.digital.downloads.map((download) => {
+    // const downloadData = data.fulfillment.digital.downloads.map((download) => {
 
-        console.log("download: ", download);
+    //     console.log("download: ", download);
 
-        download.packages.map((packages) => ({
+    //     download.packages.map((packages) => ({
 
-          productName: packages.product_name,
-          watermark: url+packages.id,
-          expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
-          days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
+    //       productName: packages.product_name,
+    //       watermark: url+packages.id,
+    //       expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
+    //       days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
 
-        }))
+    //     }))
 
-      });
+    //   });
 
 
 

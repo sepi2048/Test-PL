@@ -9,7 +9,7 @@ function CheckoutSummary({ has, fulfillment, order, id, extra_fields }) {
   {
     const downloadData = (fulfillment.digital.downloads.map((download) => {
 
-      console.log(download); // TEST
+      console.log("download.packages " , download.packages); // TEST
 
       download.packages.map((packages) => ({
   
@@ -21,13 +21,13 @@ function CheckoutSummary({ has, fulfillment, order, id, extra_fields }) {
   
     }));
   
-    console.log(downloadData);
+    console.log("downloadData ", downloadData);
 
   }
 
 
   // create an downloadData object
-  console.log(order);
+ // console.log(order);
 
 
 
