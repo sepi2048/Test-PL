@@ -6,18 +6,35 @@ function CheckoutSummary({ has, fulfillment, order, id, extra_fields }) {
   const url = "/api/getPDF?id="+id+"&dwnld=";
 
 
-  {fulfillment.digital.downloads.map((download, index) => {
+  {
+    const downloadData = (fulfillment.digital.downloads.map((download) => {
 
-    download.packages.map((packages) => {
+      console.log(download); // TEST
 
-      console.log(url+packages.id);
-      console.log(url+packages);
+      download.packages.map((packages) => ({
+  
+        watermark: url+packages.id,
+        //expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
+        //days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
+  
+      }))
+  
+    }));
+  
+    console.log(downloadData);
 
-    } 
-    )
-  })}
+  }
 
+
+  // create an downloadData object
   console.log(order);
+
+
+
+
+
+
+
 
 
 

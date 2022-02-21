@@ -77,14 +77,16 @@ exports.handler = async function(req, res) {
         return days;
         
     }
-  
-    let downloadData = 0;
+
+    console.log("data.fulfillment.digital: ", data.fulfillment.digital);
     
- data.fulfillment.digital.downloads.map((download) => {
+    const downloadData = data.fulfillment.digital.downloads.map((download) => {
 
-        downloadData = download.packages.map((packages) => ({
+        console.log("download: ", download);
 
-          productName: product_name,
+        download.packages.map((packages) => ({
+
+          productName: packages.product_name,
           watermark: url+packages.id,
           expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
           days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
@@ -92,6 +94,8 @@ exports.handler = async function(req, res) {
         }))
 
       });
+
+
 
     // Get ebook expiry date if exists
     let expiry = false;
