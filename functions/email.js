@@ -78,11 +78,11 @@ exports.handler = async function(req, res) {
         
     }
 
-    //console.log("data.fulfillment.digital.downloads: ", data.fulfillment.digital.downloads);
+    console.log("data.payload.fulfillment.digital.downloads: ", data.payload.fulfillment.digital.downloads);
     
-    // const downloadData = data.fulfillment.digital.downloads.map((download) => {
+    const downloadData = data.fulfillment.payload.digital.downloads.map((download) => {
 
-    //     console.log("download: ", download);
+        console.log("download: ", download);
 
     //     download.packages.map((packages) => ({
 
@@ -93,7 +93,7 @@ exports.handler = async function(req, res) {
 
     //     }))
 
-    //   });
+    });
 
 
 
