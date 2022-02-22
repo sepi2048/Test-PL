@@ -98,13 +98,13 @@ exports.handler = async function(req, res) {
 
 
     // Get ebook expiry date if exists
-    let expiry = false;
-    if (data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date !== null) {
+    // let expiry = false;
+    // if (data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date !== null) {
 
-        const getExpiryDate = data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date;
-        let expiry_options = { year: 'numeric', month: 'short', day: 'numeric'};
-        expiry = new Date(getExpiryDate * 1000).toLocaleString('default', expiry_options); // TEST
-    } 
+    //     const getExpiryDate = data.payload.fulfillment.digital.downloads[0].lifespan.expiry_date;
+    //     let expiry_options = { year: 'numeric', month: 'short', day: 'numeric'};
+    //     expiry = new Date(getExpiryDate * 1000).toLocaleString('default', expiry_options); // TEST
+    // } 
 
     //console.log("expiry: " + expiry); 
 
