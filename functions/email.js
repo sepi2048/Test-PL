@@ -78,7 +78,7 @@ exports.handler = async function(req, res) {
         
     }
 
-    console.log("data.fulfillment.digital: ", data.fulfillment.digital);
+    console.log("data.fulfillment.digital.downloads: ", data.fulfillment.digital.downloads);
     
     // const downloadData = data.fulfillment.digital.downloads.map((download) => {
 
