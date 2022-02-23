@@ -78,11 +78,12 @@ exports.handler = async function(req, res) {
         
     }
 
-    console.log("data.payload.fulfillment.digital.downloads: ", data.payload.fulfillment.digital.downloads);
+   //console.log("data.payload.fulfillment.digital.downloads: ", data.payload.fulfillment.digital.downloads);
     
-    const downloadData = data.payload.fulfillment.digital.downloads.map((download) => {
+    const downloadData = data.payload.fulfillment.digital.downloads.map((download) => ({
 
-        console.log("download: ", download);
+           productName: download.product_name,
+
 
     //     download.packages.map((packages) => ({
 
@@ -93,8 +94,9 @@ exports.handler = async function(req, res) {
 
     //     }))
 
-    });
+    }));
 
+    console.log("download: ", downloadData);
 
 
     // Get ebook expiry date if exists
