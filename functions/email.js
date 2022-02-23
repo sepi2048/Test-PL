@@ -78,23 +78,23 @@ exports.handler = async function(req, res) {
         
     }
 
-   //console.log("data.payload.fulfillment.digital.downloads: ", data.payload.fulfillment.digital.downloads);
+   console.log("data.payload.fulfillment.digital.downloads: ", data.payload.fulfillment.digital.downloads);
     
-    const downloadData = data.payload.fulfillment.digital.downloads.map((download) => ({
+    const downloadData = data.payload.fulfillment.digital.downloads.map((download) => {
 
-           productName: download.product_name,
+        //productName: download.product_name
 
 
-    //     download.packages.map((packages) => ({
+        download.packages.map((packages) => ({
 
-    //       productName: packages.product_name,
-    //       watermark: url+packages.id,
-    //       expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
-    //       days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
+          productName: packages.product_name,
+          watermark: url+packages.id,
+          expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
+          days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
 
-    //     }))
+        }))
 
-    }));
+    });
 
     console.log("download: ", downloadData);
 
