@@ -78,11 +78,11 @@ exports.handler = async function(req, res) {
         
     }
 
-// https://jsfiddle.net/mwkp8ys9/1/ 
+// https://jsfiddle.net/9gf3qk2a/1/
 
    console.log("data.payload.fulfillment.digital.downloads: ", JSON.stringify(data.payload.fulfillment.digital.downloads));
     
-   const downloadData = data.map((download) => ({
+   const downloadData = data.payload.fulfillment.digital.downloads.map((download) => ({
 
     productName: download.product_name,
    
