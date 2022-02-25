@@ -78,26 +78,27 @@ exports.handler = async function(req, res) {
         
     }
 
+// https://jsfiddle.net/mwkp8ys9/1/ 
+
    console.log("data.payload.fulfillment.digital.downloads: ", JSON.stringify(data.payload.fulfillment.digital.downloads));
     
-    const downloadData = data.payload.fulfillment.digital.downloads.map((download) => {
+   const downloadData = data.map((download) => ({
 
-        //productName: download.product_name
-
-
-        download.packages.map((packages) => ({
-
-          productName: packages.product_name,
-          watermark: url+packages.id,
-          expiry: packages.lifespan.expiry_date ? new Date(packages.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
-          days: packages.lifespan.expiry_date ? daysUtilExpiry(packages.lifespan.expiry_date) : false
-
-        }))
-
-    });
-
-    console.log("download: ", downloadData);
-
+    productName: download.product_name,
+   
+    download: download.packages.map((packages) => ({
+   
+       watermark: url+packages.id,
+       id: packages.id,
+   
+     })),
+   
+    expiry: download.lifespan.expiry_date ? new Date(download.lifespan.expiry_date * 1000).toLocaleString('default', expiry_options) : false,
+    days: download.lifespan.expiry_date ? daysUtilExpiry(download.lifespan.expiry_date) : false
+   
+   }));
+   
+   console.log("download: ", downloadData);
 
     // Get ebook expiry date if exists
     // let expiry = false;
