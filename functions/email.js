@@ -80,7 +80,7 @@ exports.handler = async function(req, res) {
 
 // https://jsfiddle.net/9gf3qk2a/1/
 
-   console.log("data.payload.fulfillment.digital.downloads: ", JSON.stringify(data.payload.fulfillment.digital.downloads));
+   //console.log("data.payload.fulfillment.digital.downloads: ", JSON.stringify(data.payload.fulfillment.digital.downloads));
     
    const downloadData = data.payload.fulfillment.digital.downloads.map((download) => ({
 
@@ -98,7 +98,7 @@ exports.handler = async function(req, res) {
    
    }));
    
-   console.log("download: ", downloadData);
+   //console.log("download: ", JSON.stringify(downloadData));
 
     // Get ebook expiry date if exists
     // let expiry = false;
@@ -138,7 +138,7 @@ exports.handler = async function(req, res) {
         dynamic_template_data: {
             total: data.payload.order.subtotal.formatted_with_symbol,
             items: orderLineItems,
-            //downloads: downloadData, // TEST
+            downloads: downloadData, // TEST
             receipt: true,
             name: data.payload.billing.name,
             address01: data.payload.billing.street,
@@ -152,6 +152,9 @@ exports.handler = async function(req, res) {
         },
         template_id: process.env.SENDGRID_TEMPLATE_ID
     };
+
+    console.log("emailPayload: ", JSON.stringify(emailPayload));
+
 
     let confirmationMail = {};
     try {
