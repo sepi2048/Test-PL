@@ -1,16 +1,23 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { marked } from 'marked';
-import Link from 'next/link';
-import Image from 'next/image';
-import Layout from '@/components/Layout';
-import { formatDate } from '@/utils/formatDate';
-import { readingTime } from '@/utils/readingTime';
-import { getAuthors } from '@/libs/getAuthors';
-import { truncateString } from '@/utils/truncateString';
-import siteConfig from '@/config/site.config.json';
-import useScripts from '@/components/Scripts';
+//import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { marked } from "marked";
+import Link from "next/link";
+import Image from "next/image";
+import Layout from "@/components/Layout";
+import { formatDate } from "@/utils/formatDate";
+import { readingTime } from "@/utils/readingTime";
+
+import { getAuthors } from "pages/api/api-contentful/getAuthors";
+
+import { truncateString } from "@/utils/truncateString";
+import siteConfig from "@/config/site.config.json";
+import useScripts from "@/components/Scripts";
+import { createClient } from "contentful";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+
+import { documentToReactComponents as renderRichText } from "@contentful/rich-text-react-renderer";
+
 import {
   IconBrandTwitter,
   IconBrandFacebook,
@@ -20,19 +27,66 @@ import {
   IconCalendarEvent,
   IconClock,
   IconArrowUpRight,
-} from '@tabler/icons';
+} from "@tabler/icons";
+
+const options = {
+  // bug fix: https://github.com/contentful/rich-text/issues/126
+  renderNode: {
+    [BLOCKS.LIST_ITEM]: (node) => {
+      return <li>{node.content[0].content[0].value}</li>;
+    },
+    [BLOCKS.EMBEDDED_ASSET]: (node) => {
+      return (
+        <Image
+          src={`https:${node.data.target.fields.file.url}`}
+          height={node.data.target.fields.file.details.image.height}
+          width={node.data.target.fields.file.details.image.width}
+        />
+      );
+    },
+    [INLINES.HYPERLINK]: (node) => {
+      if (node.data.uri.includes("player.vimeo.com/video")) {
+        return (
+          <div class="ratio ratio-16x9">
+            <iframe
+              title="Unique Title 001"
+              src={node.data.uri}
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
+          </div>
+        );
+      } else if (node.data.uri.includes("youtube.com/embed")) {
+        return (
+          <div class="ratio ratio-16x9">
+            <iframe
+              title="Unique Title 002"
+              src={node.data.uri}
+              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
+          </div>
+        );
+      }
+    },
+  },
+};
 
 export default function PostPage({
   slug,
   content,
-  frontMatter: { title, author, date, image, description, tags },
+  frontMatter: { title, author, date, image, description, categories, tags },
   authors,
 }) {
-  let pageUrl = `${siteConfig.baseURL.replace(/\/$|$/, '/')}blog/${slug}`;
+  let pageUrl = `${siteConfig.baseURL.replace(/\/$|$/, "/")}blog/${slug}`;
+
+  //console.log(slug);
+
   return (
     <Layout metaTitle={title} metaDescription={description} ogImage={image}>
       <section className="section-sm pb-0">
-        <div className="container">
+        <div className="container pb-5">
           <div className="row justify-content-center">
             <div className="col-lg-10">
               <div className="mb-5">
@@ -42,12 +96,12 @@ export default function PostPage({
                   <li className="list-inline-item mt-2">
                     <Link
                       href={`/author/${author
-                        .replace(/ /g, '-')
+                        .replace(/ /g, "-")
                         .toLowerCase()}`}
                     >
                       <a className="card-meta-author">
                         {authors.map((authorPage, i) =>
-                          author.replace(/ /g, '-').toLowerCase() ===
+                          author.replace(/ /g, "-").toLowerCase() ===
                           authorPage.authorSlug ? (
                             <span key={i}>
                               <Image
@@ -59,7 +113,7 @@ export default function PostPage({
                               />
                             </span>
                           ) : (
-                            ''
+                            ""
                           )
                         )}
                         <i className="d-inline-block ms-2 ps-1 fst-normal">
@@ -99,7 +153,7 @@ export default function PostPage({
               </div>
             </div>
             <div className="col-lg-2 post-share-block order-1 order-lg-0 mt-5 mt-lg-0">
-              <div className="position-sticky" style={{ top: 150 + 'px' }}>
+              <div className="position-sticky" style={{ top: 150 + "px" }}>
                 <span className="d-inline-block mb-3 small">SHARE</span>
                 <ul className="social-share icon-box">
                   <li className="d-inline-block d-lg-block me-2 mb-2">
@@ -163,14 +217,16 @@ export default function PostPage({
             <div className="col-lg-8 post-content-block order-0 order-lg-2">
               <div
                 className="content"
-                dangerouslySetInnerHTML={{ __html: marked.parse(content) }}
-              ></div>
+                // dangerouslySetInnerHTML={{ __html: marked.parse(content) }}
+              >
+                {renderRichText(content, options)}
+              </div>
               <ul className="post-meta-tag list-unstyled list-inline mt-5">
                 <li className="list-inline-item">Tags: </li>
                 {tags.map((t, i) => (
                   <li key={i} className="list-inline-item">
-                    <Link href={`/tags/${t.replace(/ /g, '-').toLowerCase()}`}>
-                      <a className="bg-white">{t}</a>
+                    <Link href={`/tags/${t.replace(/ /g, "-").toLowerCase()}`}>
+                      <a>{t}</a>
                     </Link>
                   </li>
                 ))}
@@ -183,11 +239,11 @@ export default function PostPage({
               <div className="col-lg-10">
                 <div className="d-block d-md-flex">
                   <Link
-                    href={`/author/${author.replace(/ /g, '-').toLowerCase()}`}
+                    href={`/author/${author.replace(/ /g, "-").toLowerCase()}`}
                   >
                     <a>
                       {authors.map((authorPage, i) =>
-                        author.replace(/ /g, '-').toLowerCase() ===
+                        author.replace(/ /g, "-").toLowerCase() ===
                         authorPage.authorSlug ? (
                           <span key={i}>
                             <Image
@@ -202,7 +258,7 @@ export default function PostPage({
                             />
                           </span>
                         ) : (
-                          ''
+                          ""
                         )
                       )}
                     </a>
@@ -211,35 +267,37 @@ export default function PostPage({
                     <h3 className="h4 mb-3">
                       <Link
                         href={`/author/${author
-                          .replace(/ /g, '-')
+                          .replace(/ /g, "-")
                           .toLowerCase()}`}
                       >
-                        <a className="text-dark">{author}</a>
+                        <a className="text-white">{author}</a>
                       </Link>
                     </h3>
                     {authors.map((authorPage, i) =>
-                      author.replace(/ /g, '-').toLowerCase() ===
+                      author.replace(/ /g, "-").toLowerCase() ===
                       authorPage.authorSlug ? (
                         <div
                           key={i}
-                          dangerouslySetInnerHTML={{
+                          /*                           dangerouslySetInnerHTML={{
                             __html: marked.parse(
                               truncateString(authorPage.authorContent, 150)
                             ),
-                          }}
-                        ></div>
+                          }} */
+                        >
+                          {renderRichText(authorPage.authorContent, options)}
+                        </div>
                       ) : (
-                        ''
+                        ""
                       )
                     )}
                     <div className="content">
                       <Link
                         href={`/author/${author
-                          .replace(/ /g, '-')
+                          .replace(/ /g, "-")
                           .toLowerCase()}`}
                       >
-                        <a className="text-dark">
-                          See all posts by this author{' '}
+                        <a className="text-white">
+                          See all posts by this author{" "}
                           <i>
                             <IconArrowUpRight size={20} />
                           </i>
@@ -254,34 +312,59 @@ export default function PostPage({
         </div>
       </section>
 
-      {useScripts('/js/lightense/lightense.min.js', 'body', true)}
+      {useScripts("/js/lightense/lightense.min.js", "body", true)}
     </Layout>
   );
 }
 
 export async function getStaticPaths() {
-  const blogDirFiles = fs.readdirSync(path.join('content/blog'));
-  const blogs = blogDirFiles.filter((f) => f.includes('.md'));
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+  });
 
-  const paths = blogs.map((filename) => ({
-    params: {
-      slug: filename.replace('.md', ''),
-    },
-  }));
+  const data = await client.getEntries({ content_type: "blog" });
 
   return {
-    paths,
-    fallback: false,
+    paths: data.items.map((item) => ({
+      params: { slug: item.fields.slug },
+    })),
+    fallback: true,
   };
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const fileContents = fs.readFileSync(
-    path.join('content/blog', slug + '.md'),
-    'utf8'
-  );
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+  });
 
-  const { data: frontMatter, content } = matter(fileContents);
+  // Hent basert på slug
+
+  const blog = await client.getEntries({
+    content_type: "blog",
+    limit: 1,
+    "fields.slug": slug,
+  });
+
+  const tag_len = blog.items[0].fields.tag.length;
+  const tags = [];
+
+  for (var i = 0; i < tag_len; i++) {
+    tags.push(blog.items[0].fields.tag[i].fields.tagName);
+  }
+
+  var slug = blog.items[0].fields.slug;
+  var content = blog.items[0].fields.content;
+  var frontMatter = {
+    title: blog.items[0].fields.title,
+    image: "https:" + blog.items[0].fields.image.fields.file.url,
+    date: blog.items[0].fields.date,
+    author: blog.items[0].fields.author.fields.name,
+    description: blog.items[0].fields.description,
+    categories: [],
+    tags: tags,
+  };
 
   return {
     props: {

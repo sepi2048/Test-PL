@@ -9,7 +9,7 @@ export default function Pagination({ currentPage, numberOfPages }) {
   return (
     <>
       <div className="col-12">
-        <nav className="text-center mt-5">
+        <nav className="text-center mt-5- p-5">
           <ul className="pagination justify-content-center border border-white rounded d-inline-flex">
             <li className={`page-item ${isFirst ? "disabled" : ""}`}>
               <Link href={`/blog/page/${currentPage - 1}`}>

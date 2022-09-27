@@ -1,26 +1,25 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import Post from '@/components/Post';
-import Layout from '@/components/Layout';
-import { getPosts } from '@/libs/getPosts';
-import { getAuthors } from '@/libs/getAuthors';
-import PageHeaderTaxo from '@/components/PageHeaderTaxonomy';
+import Post from "@/components/Post";
+import Layout from "@/components/Layout";
+import PageHeaderTaxo from "@/components/PageHeaderTaxonomy";
+
+import { getAuthors } from "pages/api/api-contentful/getAuthors";
+import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
+import { createClient } from "contentful";
 
 export default function TagSingle({ authors, posts, tag }) {
   let flatPosts = posts.flat();
   function getUniquePostsBy(flatPosts, key) {
     return [...new Map(flatPosts.map((item) => [item[key], item])).values()];
   }
-  const uniquePosts = getUniquePostsBy(flatPosts, 'slug');
+  const uniquePosts = getUniquePostsBy(flatPosts, "slug");
 
   return (
     <Layout
       metaTitle={`Showing posts from - ${
-        tag.charAt(0).toUpperCase() + tag.slice(1).replace(/-/g, ' ')
+        tag.charAt(0).toUpperCase() + tag.slice(1).replace(/-/g, " ")
       }`}
     >
-      <div className="container">
+      <div className="container pb-5">
         <PageHeaderTaxo title={tag} />
 
         <div className="row gy-5 gx-4 g-xl-5">
@@ -36,23 +35,16 @@ export default function TagSingle({ authors, posts, tag }) {
 }
 
 export async function getStaticPaths() {
-  const file = fs.readdirSync(path.join('content/blog'));
-  const allTags = file.map((file) => {
-    const dirFileContents = fs.readFileSync(
-      path.join('content/blog', file),
-      'utf-8'
-    );
-    const { data: frontmatter } = matter(dirFileContents);
-
-    return frontmatter.tags;
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_KEY,
   });
 
-  const flatTags = allTags.flat();
-  const uniqueTags = [...new Set(flatTags)];
+  const tag_data = await client.getEntries({ content_type: "tag" });
 
-  const paths = uniqueTags.map((t) => ({
+  const paths = tag_data.items.map((i) => ({
     params: {
-      tagname: t.toString().replace(/ /g, '-').toLowerCase(),
+      tagname: i.fields.tagName.toString().replace(/ /g, "-").toLowerCase(),
     },
   }));
 
@@ -63,31 +55,33 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const file = fs.readdirSync(path.join('content/blog'));
-  const posts = file.map((file) => {
-    const dirFileContents = fs.readFileSync(
-      path.join('content/blog', file),
-      'utf-8'
-    );
-    const { data: frontMatter } = matter(dirFileContents);
-    const filterFm = frontMatter.tags.filter(
-      (c) => c.toLowerCase().replace(/ /g, '-') === params.tagname
-    );
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+  });
 
-    const post = getPosts();
-    const data = post.filter((e) => {
-      return e.frontMatter.tags.some((a) => {
-        return filterFm.indexOf(a) != -1;
-      });
+  const tag_data = await client.getEntries({ content_type: "tag" });
+
+  const filterTagMatch = tag_data.items.filter(
+    (i) =>
+      i.fields.tagName.toString().replace(/ /g, "-").toLowerCase() ===
+      params.tagname
+  );
+
+  const filterTag = filterTagMatch[0].fields.tagName;
+
+  const posts = getBlogPosts();
+
+  const tag_posts = posts.filter((e) => {
+    return e.frontMatter.tags.some((a) => {
+      return filterTag.indexOf(a) != -1;
     });
-
-    return data;
   });
 
   return {
     props: {
       authors: getAuthors(),
-      posts: posts,
+      posts: tag_posts,
       tag: params.tagname,
     },
   };

@@ -1,0 +1,91 @@
+
+#logoWrap {
+  padding: 5% 0 0 0;
+  margin: 0;
+  color: white;
+  overflow: hidden;
+  background-color: #2d2d2d; /*170b0b*/
+  width: 100%;
+  height: 100vh; /* WP-Divi remove*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /*visibility:hidden;*/
+  scale: 1;
+
+}
+
+#upperWrap {
+  display: flex;
+    flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#upperWrap{
+  overflow: hidden;
+  width: 310px;
+  height: 250px;
+  line-height: 250px;
+}
+
+
+svg#logoPoker {
+  height: 250px;
+  width: 250px;
+  padding-bottom: 12px;
+  visibility: hidden;
+}
+
+
+#greenDecor {
+  visibility: hidden;
+}
+
+#lower {
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  #upperWrap,
+  #lowerWrap {
+    width: 500px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  #upperWrap,
+  #lowerWrap {
+    width: 620px;
+  }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  #upperWrap,
+  #lowerWrap {
+    width: 800px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

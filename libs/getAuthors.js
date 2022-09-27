@@ -1,24 +1,28 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { createClient } from "contentful";
 
-const authorDirFiles = fs.readdirSync(path.join('content/author'));
-const authors = authorDirFiles.filter((f) => f.includes('.md'));
+const client = createClient({
+  space: process.env.CONTENTFUL_SPACE_ID,
+  accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+});
+
+const auth_data = await client.getEntries({ content_type: "author" });
 
 export function getAuthors() {
-  const returnDirFiles = authors.map((filename) => {
-    const authorSlug = filename.replace('.md', '');
-    const dirFileContents = fs.readFileSync(
-      path.join('content/author', filename),
-      'utf-8'
-    );
-    const { data: authorFrontMatter, content } = matter(dirFileContents);
+  var authors = [];
 
-    return {
-      authorSlug,
-      authorFrontMatter,
-      authorContent: content,
-    };
-  });
-  return returnDirFiles;
+  var auth_len = auth_data.items.length;
+  for (var i = 0; i < auth_len; i++) {
+    authors.push({
+      authorSlug: auth_data.items[i].fields.name
+        .toString()
+        .replace(/ /g, "-")
+        .toLowerCase(),
+      authorContent: auth_data.items[i].fields.description,
+      authorFrontMatter: {
+        title: auth_data.items[i].fields.name,
+        image: "https:" + auth_data.items[i].fields.image.fields.file.url,
+      },
+    });
+  }
+  return authors;
 }

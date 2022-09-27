@@ -54,7 +54,7 @@ export default function PageHeaderBlock({ title }) {
                   <Link href="/">
                     <a>
                       <i
-                        className="d-inline-block text-dark"
+                        className="d-inline-block text-white"
                         style={{ transform: 'translateY(-' + 2 + 'px)' }}
                       >
                         <IconHome size={16} />

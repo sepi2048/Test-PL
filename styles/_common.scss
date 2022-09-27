@@ -1,5 +1,10 @@
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 body {
-  color: $gray;
+  color: $white;
   background-color: $body-background;
   font-family: $font-secondary;
   font-size: 16px;
@@ -8,6 +13,7 @@ body {
     font-size: 15px;
   }
 }
+
 p {
   line-height: 1.8;
 }
@@ -45,8 +51,7 @@ ul, ol {
     margin-bottom: 55px;
   }
   span {
-    background-image: url("data:image/svg+xml,%3Csvg width='298' height='32' viewBox='0 0 298 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 17.1944C62.6418 7.28318 174.478 -8.49028 296 27' stroke='%23F6BFB3' stroke-width='9'/%3E%3C/svg%3E%0A");
-    background-size: 260px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='298' height='32' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M1 17.194C62.642 7.284 174.478-8.49 296 27' stroke='%23F6BFB3' stroke-width='9' style='stroke:%2345ca63;stroke-opacity:1'/%3e%3c/svg%3e");    background-size: 260px;
     background-repeat: no-repeat;
     background-position: bottom;
     padding: 0 12px;
@@ -85,14 +90,14 @@ ul, ol {
 		}
 	}
 	&.btn-primary {
-		background-color: $color-primary !important;
-		border: 2px solid $color-primary;
+		background-color: transparent !important;
+		border: 2px solid $white;
 		&:hover,
 		&:active,
 		&:focus {
-			background-color: $dark !important;
+			background-color: $color-primary !important;
 			color: $white;
-			border-color: $dark;
+			border-color: $white;
 		}
 	}
 	&.btn-outline-primary {
@@ -157,7 +162,7 @@ ul, ol {
 // search block style
 .search-toggle {
   background-color: transparent;
-
+  color: $white;
   border: 0;
   transition: .3s ease;
   padding: 0 15px 0 20px;
@@ -178,7 +183,7 @@ ul, ol {
   }
 
   &:hover {
-    background-color: rgba($color-primary, .1);
+    background-color: $color-primary;
     color: $dark;
   }
 }
@@ -206,7 +211,7 @@ ul, ol {
   left: 0;
   height: auto;
   width: 100vw;
-  background-color: $white;
+  background-color: $black;
   z-index: 9999988999889;
   padding: 45px 50px;
   transform: translateY(-100%);
@@ -232,7 +237,7 @@ ul, ol {
     font-size: 18px;
     width: 200px;
     max-width: 100%;
-    padding-bottom: 12px;
+    padding: 10px;
     margin: auto;
     border-radius: 0;
     letter-spacing: -1px;
@@ -582,7 +587,7 @@ ul, ol {
   }
   &:focus {
     box-shadow: none;
-    color: $dark;
+    color: $white;
     border-color: $color-primary;
     ~.input-group-append {
       .input-group-text {
@@ -641,15 +646,20 @@ a.text-dark:hover {
 .bg-dark {
   background-color: $dark !important
 }
-.text-gray:hover {
-  color: $color-primary;
+.bg-gray {
+  background-color: $gray !important
 }
+
+.text-gray {
+  color: $gray;
+}
+
 
 
 // footer style
 footer {
-  background: $white;
-  background: linear-gradient(180deg, $body-background 0%, $white 55%);
+  background: $color-primary;
+  //background: linear-gradient(180deg, $body-background 0%, $white 55%);
   .icon-box a {
     color: rgba($dark, .7);
     @extend .rounded;
@@ -659,6 +669,7 @@ footer {
       border-color: $color-primary;
     }
   }
+  margin-top: auto;
 }
 .footer-menu {
   li {
@@ -682,6 +693,7 @@ footer {
 }
 .copyright-text {
   color: rgba($dark, .7);
+  font-weight: bold;
   a {
     color: rgba($dark, .7);
   }

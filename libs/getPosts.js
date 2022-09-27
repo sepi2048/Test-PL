@@ -22,5 +22,6 @@ export function getPosts() {
       content,
     };
   });
+  // console.log(returnDirFiles);
   return returnDirFiles.sort(sortByDate);
 }

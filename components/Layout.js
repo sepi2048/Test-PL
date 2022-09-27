@@ -1,8 +1,14 @@
-import Head from 'next/head';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import useScripts from '@/components/Scripts';
-import siteConfig from '@/config/site.config.json';
+import useScripts from "@/components/Scripts";
+import Header from "@/components/Header";
+import { motion } from "framer-motion";
+import Head from "next/head";
+import siteConfig from "@/config/site.config.json";
+
+const variants = {
+  hidden: { opacity: 0, x: -200, y: 0 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: 0, y: 0 },
+};
 
 export default function Layout({
   metaTitle,
@@ -42,26 +48,19 @@ export default function Layout({
           href={siteConfig.favicon}
           type="image/x-icon"
         />
-
-        <link
-          href="https://fonts.googleapis.com/css2?family=Crete+Round&family=Work+Sans:wght@500;600&display=swap"
-          rel="stylesheet"
-        />
       </Head>
 
       <Header />
 
-      {children}
-
-      <Footer />
+      <motion.main
+        initial="hidden"
+        animate="enter"
+        exit="exit"
+        variants={variants}
+        transition={{ type: "linear" }}
+      >
+        {children}
+      </motion.main>
     </>
   );
 }
-
-Layout.defaultProps = {
-  metaTitle: siteConfig.metaData.title,
-  metaDescription: siteConfig.metaData.description,
-  metaAuthor: siteConfig.metaData.author,
-  metaKeyword: siteConfig.metaData.keyword,
-  ogImage: siteConfig.metaData.ogImage,
-};

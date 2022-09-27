@@ -1,4 +1,25 @@
 export const readingTime = (content) => {
+  if (typeof content === "object") {
+    const blog_posts = [];
+    const single_blog_post = [];
+
+    var post = content.content;
+
+    for (var a = 0; a < post.length; a++) {
+      var single_content = post[a].content;
+
+      var text = "";
+
+      for (var b = 0; b < single_content.length; b++) {
+        text += single_content[b].value;
+      }
+      single_blog_post.push(text);
+    }
+
+    blog_posts.push(single_blog_post.flat().join(" "));
+    content = single_blog_post.flat().join(" ");
+  }
+
   const WPS = 275 / 60;
 
   var images = 0;

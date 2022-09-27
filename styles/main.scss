@@ -87,8 +87,14 @@
     }
   }
 }
-.post-title {
-  color: $dark;
+.post-title, .post-title-list {
+  color: $color-primary;
+  transition: 0.3s;
+  letter-spacing: 0.025em;
+}
+
+.post-title-list:hover {
+  color: $gray;
   transition: 0.3s;
 }
 
@@ -135,8 +141,9 @@
       margin-right: .5rem;
     }
     a {
-      background-color: rgba($color-primary, .1);
-      color: $gray;
+      background-color:$gray;
+      //background-color: rgba($color-primary, .1);
+      color: $white;
       padding: 6px 10px;
       border-radius: 2px;
       transition: 0.15s;
@@ -167,23 +174,34 @@
     width: 100%;
   }
 }
+
+.author-post-count{
+  color: $color-primary;
+}
+
 .single-post-similer,
 .disqus-comment,
 .single-post-author {
   margin-top: 100px;
+  margin-bottom: 50px;
 }
+
+.tag-category-box:hover,
+.tag-category-box span:hover {
+  color: $dark;
+}
+
 .post-meta-tag {
   a {
     display: inline-block;
-    background-color: #f7f8fa;
-    color: $gray;
+    background-color: $gray;
+    color: $white;
     padding: 6px 13px;
     font-size: 15px;
     @extend .rounded;
 
     &:hover {
-      background-color: transparent;
-      color: $color-primary;
+      background-color: $color-primary;
     }
   }
 }
@@ -193,8 +211,11 @@
   h2 {
     margin-top: 40px;
     line-height: 1;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
     position: relative;
+    padding: 10px 20px !important;
+    border-radius: 4px;
+    background-color: $gray;
     i {
       position: absolute;
       font-size: 80px;
@@ -257,20 +278,39 @@
     }
   }
   ::-webkit-input-placeholder {
-    color: rgba($dark, .7);
+    color: rgba($white, .7);
   }
   :-ms-input-placeholder {
-    color: rgba($dark, .7);
+    color: rgba($white, .7);
   }
   ::placeholder {
-    color: rgba($dark, .7);
+    color: rgba($white, .7);
   }
   button.input-group-text {
     color: $dark;
+    background-color: $white;
     &:hover {
       border-color: $color-primary;
       background-color: $color-primary;
       color: $white;
     }
   }
+}
+
+
+
+table {
+  --bs-table-bg: transparent;
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: #212529;
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+  --bs-table-active-color: #212529;
+  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+  --bs-table-hover-color: #212529;
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  vertical-align: top;
+  border-color: #dee2e6;
 }

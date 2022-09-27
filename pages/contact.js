@@ -1,9 +1,10 @@
-import { marked } from 'marked';
-import Layout from '@/components/Layout';
-import PageHeaderBlock from '@/components/PageHeader';
-import contactForm from '@/config/contactForm.json';
-import { getSinglePage } from '@/libs/getSinglePage';
-import { IconMailForward, IconPhone, IconBrandTelegram } from '@tabler/icons';
+import { marked } from "marked";
+import Layout from "@/components/Layout";
+import PageHeaderBlock from "@/components/PageHeader";
+import contactForm from "@/config/contactForm.json";
+import { getSinglePage } from "@/libs/getSinglePage";
+import { IconMailForward, IconPhone, IconBrandTelegram } from "@tabler/icons";
+import MultiStepForm from "@/components/Flop/MultiStepForm";
 
 export default function Contact({ contact: { frontMatter } }) {
   return (
@@ -11,7 +12,7 @@ export default function Contact({ contact: { frontMatter } }) {
       <PageHeaderBlock title={frontMatter.title} />
 
       <section>
-        <div className="container">
+        <div className="container pb-5">
           <div className="row gy-5 justify-content-center">
             <div className="col-lg-5 col-md-10 ms-lg-auto me-lg-0 me-auto">
               <div className="mb-5">
@@ -21,7 +22,7 @@ export default function Contact({ contact: { frontMatter } }) {
                   dangerouslySetInnerHTML={{
                     __html: marked.parseInline(frontMatter.contact.content),
                   }}
-                ></p>
+                ></p>{" "}
               </div>
               <div>
                 <h2
@@ -35,7 +36,7 @@ export default function Contact({ contact: { frontMatter } }) {
                 <p className="mb-2 content">
                   <i className="me-2 d-inline-block mb-0">
                     <IconMailForward size={16} />
-                  </i>{' '}
+                  </i>{" "}
                   <a href={`mailto:${frontMatter.contact.email_address}`}>
                     {frontMatter.contact.email_address}
                   </a>
@@ -43,10 +44,10 @@ export default function Contact({ contact: { frontMatter } }) {
                 <p className="mb-0 content">
                   <i
                     className="me-2"
-                    style={{ transform: 'translateY(' + -2 + 'px)' }}
+                    style={{ transform: "translateY(" + -2 + "px)" }}
                   >
                     <IconPhone size={17} />
-                  </i>{' '}
+                  </i>{" "}
                   {frontMatter.contact.phone_number}
                 </p>
               </div>
@@ -94,7 +95,7 @@ export default function Contact({ contact: { frontMatter } }) {
                     className="btn btn-primary"
                     aria-label="Send Message"
                   >
-                    Send{' '}
+                    Send{" "}
                     <i className="ms-1">
                       <IconBrandTelegram size={18} />
                     </i>
@@ -112,7 +113,7 @@ export default function Contact({ contact: { frontMatter } }) {
 export async function getStaticProps() {
   return {
     props: {
-      contact: getSinglePage('content/contact.md'),
+      contact: getSinglePage("content/contact.md"),
     },
   };
 }

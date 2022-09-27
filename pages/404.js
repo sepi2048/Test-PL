@@ -1,11 +1,21 @@
 import Link from "next/link";
 import Layout from "@/components/Layout";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function PageNotFound() {
+  const router = useRouter();
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.push("/");
+    }, 4000);
+  }, []);
+
   return (
     <Layout metaTitle={"Page Not Found"}>
       <section className="section-sm pb-0">
-        <div className="container">
+        <div className="container pb-5">
           <div className="row">
             <div className="col-12">
               <div className="text-center">

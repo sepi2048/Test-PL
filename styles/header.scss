@@ -42,7 +42,15 @@
 
   .nav-item {
     &.active .nav-link {
-      color: $color-primary !important;
+      //color: $color-primary !important;
+      background-color: #45ca63;
+      color: $white !important;
+    }
+
+    &.active .nav-link:hover {
+      //color: $color-primary !important;
+      background-color: #45ca63;
+      color: $dark !important;
     }
 
     &.dropdown .nav-link {
@@ -79,14 +87,17 @@
     }
 
     .nav-link {
-      color: $dark !important;
+      color: $white !important;
       padding: 10px 20px !important;
       border-radius: 4px;
     }
     &:hover .nav-link {
-      background-color: rgba($color-primary, .1);
-      color: $dark !important;
+      //background-color: rgba($color-primary, .1);
+      color: $color-primary!important;
+
     }
+
+
     @media (min-width:991px) {
       &.dropdown .nav-link.dropdown-toggle {
         padding-right: 35px !important;
@@ -128,20 +139,24 @@
   }
   .dropdown-item.active,
   .dropdown-item:active {
-    color: $color-primary;
-    background-color: transparent;
+   // background-color: transparent;
+   background-color: $color-primary;
+   color: $white!important;
   }
+
+
   .dropdown-item:focus,
   .dropdown-item:hover {
     color: $color-primary;
-    background-color: rgba($color-primary, .1);
+    // background-color: rgba($color-primary, .1);
   }
+  
 
   .navbar-light .navbar-toggler {
     border-color: transparent;
     padding: 0;
     font-size: 38px;
-    color: $dark;
+    color: $white;
     transition: .3s ease;
     
     &:focus {

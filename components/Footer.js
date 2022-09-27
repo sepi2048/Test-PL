@@ -1,12 +1,12 @@
-import { IconUserPlus } from '@tabler/icons';
-import siteConfig from '@/config/site.config.json';
-import subscription from '@/config/subscription.json';
+import { IconUserPlus } from "@tabler/icons";
+import siteConfig from "@/config/site.config.json";
+import subscription from "@/config/subscription.json";
 
 export default function Footer() {
   return (
     <footer>
       <div className="container">
-        <div className="section">
+        {/*         <div className="section">
           <div className="row justify-content-center align-items-center">
             <div className="col-xl-6 col-lg-8 col-md-10">
               <div className="newsletter-block">
@@ -76,11 +76,11 @@ export default function Footer() {
                     </div>
                   </form>
                 </div>
-              </div>
+              </div> 
             </div>
           </div>
-        </div>
-        <div className="pb-5">
+        </div>*/}
+        <div className="p-5">
           <div className="row">
             <div className="col-lg-12 text-center">
               <p className="mb-0 copyright-text content">

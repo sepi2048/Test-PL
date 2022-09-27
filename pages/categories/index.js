@@ -1,8 +1,9 @@
-import Link from 'next/link';
-import PageHeaderBlock from '@/components/PageHeader';
-import Layout from '@/components/Layout';
-import { getPosts } from '@/libs/getPosts';
-import { IconColorSwatch } from '@tabler/icons';
+import Link from "next/link";
+import PageHeaderBlock from "@/components/PageHeader";
+import Layout from "@/components/Layout";
+import { IconColorSwatch } from "@tabler/icons";
+
+import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
 
 export default function Categories({ posts }) {
   const allCategories = posts.map(
@@ -29,16 +30,16 @@ export default function Categories({ posts }) {
     <Layout metaTitle="Categories">
       <PageHeaderBlock title="Categories" />
 
-      <div className="container">
+      <div className="container pb-5">
         <div className="row g-4 justify-content-center text-center">
           {uniqueCategories.map((category, i) => (
             <div key={i} className="col-lg-4 col-md-6">
               <Link
                 href={`/categories/${category
-                  .replace(/ /g, '-')
+                  .replace(/ /g, "-")
                   .toLowerCase()}`}
               >
-                <a className="p-4 rounded bg-white d-block is-hoverable">
+                <a className="p-4 rounded bg-gray d-block is-hoverable">
                   <i className="mt-1 mb-2 d-inline-block">
                     <IconColorSwatch size={30} />
                   </i>
@@ -57,7 +58,7 @@ export default function Categories({ posts }) {
 export async function getStaticProps() {
   return {
     props: {
-      posts: getPosts(),
+      posts: getBlogPosts(),
     },
   };
 }

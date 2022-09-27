@@ -22,9 +22,9 @@ export default function Author({
             placeholder="blur"
             blurDataURL={image}
           />
-          <h4 className="text-dark mt-4 mb-1">{title}</h4>
+          <h4 className="text-white mt-4 mb-1">{title}</h4>
           <p className="mb-0">
-            <span className="fw-bold text-black">
+            <span className="fw-bold author-post-count">
               {postCount[title] < 9 ? `0${postCount[title]}` : postCount[title]}
             </span>{' '}
             Published posts

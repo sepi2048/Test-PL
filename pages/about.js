@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import { marked } from 'marked';
-import Layout from '@/components/Layout';
-import PageHeaderBlock from '@/components/PageHeader';
-import Author from '@/components/Author';
-import { getAuthors } from '@/libs/getAuthors';
-import { getPosts } from '@/libs/getPosts';
-import { getSinglePage } from '@/libs/getSinglePage';
+import Image from "next/image";
+import { marked } from "marked";
+import Layout from "@/components/Layout";
+import PageHeaderBlock from "@/components/PageHeader";
+import Author from "@/components/Author";
+import { getAuthors } from "pages/api/api-contentful/getAuthors";
+import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
+import { getSinglePage } from "@/libs/getSinglePage";
 
 export default function About({ authors, posts, about: { frontMatter } }) {
   const allAuthor = posts.map((author) => author.frontMatter.author);
@@ -22,11 +22,11 @@ export default function About({ authors, posts, about: { frontMatter } }) {
       <PageHeaderBlock title={frontMatter.title} />
 
       <section>
-        <div className="container">
+        <div className="container pb-5">
           <div className="row justify-content-center">
             <div className="col-lg-10 text-center">
               <h2
-                className="text-dark mb-0"
+                className="text-white mb-0"
                 dangerouslySetInnerHTML={{
                   __html: marked.parseInline(frontMatter.intro.title),
                 }}
@@ -95,9 +95,9 @@ export default function About({ authors, posts, about: { frontMatter } }) {
 export async function getStaticProps() {
   return {
     props: {
-      about: getSinglePage('content/about.md'),
+      about: getSinglePage("content/about.md"),
+      posts: getBlogPosts(),
       authors: getAuthors(),
-      posts: getPosts(),
     },
   };
 }

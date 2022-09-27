@@ -1,18 +1,39 @@
-import Link from 'next/link';
-import Layout from '@/components/Layout';
-import BannerBlock from '@/components/Banner';
-import Post from '@/components/Post';
-import { getPosts } from '@/libs/getPosts';
-import { getAuthors } from '@/libs/getAuthors';
-import { getSinglePage } from '@/libs/getSinglePage';
-import { IconNewSection } from '@tabler/icons';
+import Link from "next/link";
+import Layout from "@/components/Layout";
+import BannerBlock from "@/components/Banner";
+import Post from "@/components/Post";
+import { getAuthors } from "pages/api/api-contentful/getAuthors";
+import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
+import { IconNewSection } from "@tabler/icons";
+import MailingList from "@/components/MailingList";
+import MailingListSendgrid from "@/components/MailingListSendgrid";
+
+/*TODO
+1) Check every page console 
+2) Banner? 
+3) Speed original
+4) Compare files to orginal
+5) Mailinglist
+6) github
+7) Poker calc*/
 
 export default function Home({ authors, posts, banner }) {
   return (
     <Layout>
-      <BannerBlock banner={banner} />
+      {/* <BannerBlock banner={banner} /> */}
 
-      <div className="container">
+      <section className="section overflow-hidden banner">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              {/* <MailingList /> */}
+              <MailingListSendgrid />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="container pb-5">
         <div className="row">
           <div className="col-12 text-center">
             <h2 className="section-title">
@@ -39,16 +60,84 @@ export default function Home({ authors, posts, banner }) {
           </div>
         </div>
       </div>
+      <div className="container">
+        <div className="row"></div>
+      </div>
     </Layout>
   );
 }
 
 export async function getStaticProps() {
+  /*   const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID,
+    accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+  });
+
+  const blog = await client.getEntries({ content_type: "blog" });
+
+  var posts = [];
+  var len = blog.items.length;
+  for (var i = 0; i < len; i++) {
+    const tag_len = blog.items[i].fields.tag.length;
+    const tags = [];
+
+    for (var j = 0; j < tag_len; j++) {
+      tags.push(blog.items[i].fields.tag[j].fields.tagName);
+    }
+
+    const cat_len = blog.items[i].fields.category.length;
+    const cats = [];
+
+    for (var k = 0; k < cat_len; k++) {
+      cats.push(blog.items[i].fields.category[k].fields.categoryName);
+    }
+
+    posts.push({
+      slug: blog.items[i].fields.slug,
+      content: blog.items[i].fields.content,
+      frontMatter: {
+        title: blog.items[i].fields.title,
+        image: "https:" + blog.items[i].fields.image.fields.file.url,
+        date: blog.items[i].fields.date,
+        author: blog.items[i].fields.author.fields.name,
+        description: blog.items[i].fields.description,
+        categories: cats,
+        tags: tags,
+      },
+    });
+  } */
+  /* 
+  const auth_data = await client.getEntries({ content_type: "author" });
+
+  var authors = [];
+
+  var auth_len = auth_data.items.length;
+  for (var i = 0; i < auth_len; i++) {
+    authors.push({
+      authorSlug: auth_data.items[i].fields.name
+        .toString()
+        .replace(/ /g, "-")
+        .toLowerCase(),
+      authorContent: auth_data.items[i].fields.description,
+      authorFrontMatter: {
+        title: auth_data.items[i].fields.name,
+        image: "https:" + auth_data.items[i].fields.image.fields.file.url,
+      },
+    });
+  } */
+
   return {
     props: {
+      posts: getBlogPosts(),
       authors: getAuthors(),
-      posts: getPosts().slice(0, 6),
-      banner: getSinglePage('content/_index.md'),
     },
+    revalidate: 1,
   };
 }
+
+// https://stackoverflow.com/questions/72474803/error-the-top-level-await-experiment-is-not-enabled-set-experiments-toplevelaw
+// WORKS, BUT SLOW
+
+// https://stackoverflow.com/questions/71059620/reusing-getstaticprops-in-next-js
+
+//https://www.reddit.com/r/nextjs/comments/m44nap/reuse_data_fetched_from_getstaticprops_into/

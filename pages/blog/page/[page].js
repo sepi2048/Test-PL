@@ -1,19 +1,22 @@
-import fs from 'fs';
-import path from 'path';
-import Layout from '@/components/Layout';
-import Post from '@/components/Post';
-import { getPosts } from '@/libs/getPosts';
-import { getAuthors } from '@/libs/getAuthors';
-import PageHeaderBlock from '@/components/PageHeader';
-import postConfig from '@/config/site.config.json';
-import Pagination from '@/components/Pagination';
+/* import fs from "fs";
+import path from "path"; */
+import Layout from "@/components/Layout";
+import Post from "@/components/Post";
+import PageHeaderBlock from "@/components/PageHeader";
+import postConfig from "@/config/site.config.json";
+import Pagination from "@/components/Pagination";
+
+import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
+import { getAuthors } from "pages/api/api-contentful/getAuthors";
+import { getPosts } from "pages/api/api-contentful/getPosts";
+
+//import { getPosts } from "@/libs/getPosts";
 
 export default function Blog({ authors, posts, currentPage, numberOfPages }) {
   return (
     <Layout metaTitle="All Posts">
       <PageHeaderBlock title="All posts" />
-
-      <div className="container">
+      <div className="container pb-5">
         <div className="row gy-5 gx-4 g-xl-5">
           {posts.map((post, i) => (
             <div key={i} className="col-lg-6">
@@ -29,8 +32,8 @@ export default function Blog({ authors, posts, currentPage, numberOfPages }) {
 }
 
 export async function getStaticPaths() {
-  const blogDirFiles = fs.readdirSync(path.join('content/blog'));
-  const numberOfPages = Math.ceil(blogDirFiles.length / postConfig.postPerPage);
+  const blogs = getBlogPosts();
+  const numberOfPages = Math.ceil(blogs.length / postConfig.postPerPage);
 
   let paths = [];
 
@@ -47,10 +50,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const blogDirFiles = fs.readdirSync(path.join('content/blog'));
-  const blogs = blogDirFiles.filter((f) => f.includes('.md'));
+  const blogs = getBlogPosts();
 
-  const returnDirFiles = getPosts();
+  const returnDirFiles = await getPosts();
 
   const page = parseInt(params && params.page) || 1;
   const numberOfPages = Math.ceil(blogs.length / postConfig.postPerPage);

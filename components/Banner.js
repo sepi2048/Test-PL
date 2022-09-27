@@ -4,8 +4,8 @@ export default function BannerBlock({ banner: { frontMatter } }) {
       <div className="container">
         <div className="row">
           <div className="col-lg-9 col-md-11 mx-auto text-center position-relative">
-            <h1 className="h1 text-dark mb-0">{frontMatter.title}</h1>
-            <svg
+            <h1 className="h1 text-white mb-0">{frontMatter.title}</h1>
+{/*             <svg
               className="wave text-primary"
               width="650"
               viewBox="0 0 484 120"
@@ -68,7 +68,7 @@ export default function BannerBlock({ banner: { frontMatter } }) {
                 d="M280.204 73.1675C280.033 73.5566 279.797 73.807 279.677 73.7176C279.677 73.7176 279.677 73.7176 279.447 73.4627C279.276 73.2704 279.276 73.2704 279.276 73.2704C279.17 73.0289 279.206 72.8903 279.354 72.9574C279.502 73.0334 280.135 72.859 280.393 72.7338C280.652 72.6086 281.381 72.3626 281.4 72.4923C281.418 72.622 281.751 72.9171 281.903 73.0468C282.06 73.1809 281.732 73.6281 281.404 73.7399C281.404 73.7399 281.404 73.7399 281.003 73.5476C280.213 73.1675 280.213 73.1675 280.213 73.1675H280.204Z"
                 fill="currentColor"
               />
-            </svg>
+            </svg> */}
           </div>
         </div>
       </div>

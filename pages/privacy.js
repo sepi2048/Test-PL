@@ -12,7 +12,7 @@ export default function About({ privacy: { frontMatter, content } }) {
       <PageHeaderBlock title={frontMatter.title} />
 
       <section>
-        <div className="container">
+        <div className="container pb-5">
           <div className="row justify-content-center">
             <div className="col-lg-10">
               <div

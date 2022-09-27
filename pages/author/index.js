@@ -1,11 +1,12 @@
-import Link from 'next/link';
-import Layout from '@/components/Layout';
-import PageHeaderBlock from '@/components/PageHeader';
-import Author from '@/components/Author';
-import { getAuthors } from '@/libs/getAuthors';
-import Post from '@/components/Post';
-import { getPosts } from '@/libs/getPosts';
-import { IconNewSection } from '@tabler/icons';
+import Link from "next/link";
+import Layout from "@/components/Layout";
+import PageHeaderBlock from "@/components/PageHeader";
+import Author from "@/components/Author";
+import Post from "@/components/Post";
+import { IconNewSection } from "@tabler/icons";
+
+import { getAuthors } from "pages/api/api-contentful/getAuthors";
+import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
 
 export default function Authors({ authors, posts }) {
   const allAuthor = posts.map((author) => author.frontMatter.author);
@@ -38,13 +39,13 @@ export default function Authors({ authors, posts }) {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <hr className="bg-primary" />
+              <hr className="bg-gray" />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section-sm pb-0">
+      <section className="section-sm pb-5">
         <div className="container">
           <div className="row">
             <div className="col-12 text-center">
@@ -82,8 +83,8 @@ export default function Authors({ authors, posts }) {
 export async function getStaticProps() {
   return {
     props: {
-      authors: getAuthors(),
-      posts: getPosts(),
+      authors: getAuthors(), // all authors posts
+      posts: getBlogPosts(), // all author posts getBlogPosts()
     },
   };
 }
