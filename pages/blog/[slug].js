@@ -47,7 +47,7 @@ const options = {
     [INLINES.HYPERLINK]: (node) => {
       if (node.data.uri.includes("player.vimeo.com/video")) {
         return (
-          <div class="ratio ratio-16x9">
+          <div className="ratio ratio-16x9">
             <iframe
               title="Unique Title 001"
               src={node.data.uri}
@@ -58,7 +58,7 @@ const options = {
         );
       } else if (node.data.uri.includes("youtube.com/embed")) {
         return (
-          <div class="ratio ratio-16x9">
+          <div className="ratio ratio-16x9">
             <iframe
               title="Unique Title 002"
               src={node.data.uri}
