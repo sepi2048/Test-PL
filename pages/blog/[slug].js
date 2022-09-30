@@ -76,12 +76,18 @@ const options = {
 export default function PostPage({
   slug,
   content,
-  frontMatter: { title, author, date, image, description, categories, tags },
+  frontMatter: {
+    title = null,
+    author,
+    date,
+    image,
+    description,
+    categories,
+    tags,
+  },
   authors,
 }) {
   let pageUrl = `${siteConfig.baseURL.replace(/\/$|$/, "/")}blog/${slug}`;
-
-  //console.log(slug);
 
   return (
     <Layout metaTitle={title} metaDescription={description} ogImage={image}>
