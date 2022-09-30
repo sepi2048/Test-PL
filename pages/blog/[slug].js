@@ -76,21 +76,17 @@ const options = {
 export default function PostPage({
   slug,
   content,
-  frontMatter: {
-    title = null,
-    author,
-    date,
-    image,
-    description,
-    categories,
-    tags,
-  },
+  frontMatter: { title, author, date, image, description, categories, tags },
   authors,
 }) {
   let pageUrl = `${siteConfig.baseURL.replace(/\/$|$/, "/")}blog/${slug}`;
 
   return (
-    <Layout metaTitle={title} metaDescription={description} ogImage={image}>
+    /*frontMatter ?*/ <Layout
+      metaTitle={title}
+      metaDescription={description}
+      ogImage={image}
+    >
       <section className="section-sm pb-0">
         <div className="container pb-5">
           <div className="row justify-content-center">
@@ -317,10 +313,9 @@ export default function PostPage({
           </div>
         </div>
       </section>
-
       {useScripts("/js/lightense/lightense.min.js", "body", true)}
     </Layout>
-  );
+  ); // : null;
 }
 
 export async function getStaticPaths() {
@@ -335,7 +330,7 @@ export async function getStaticPaths() {
     paths: data.items.map((item) => ({
       params: { slug: item.fields.slug },
     })),
-    fallback: true,
+    fallback: "blocking", // https://stackoverflow.com/questions/69341571/typeerror-cannot-read-property-title-of-undefined-nextjs
   };
 }
 
