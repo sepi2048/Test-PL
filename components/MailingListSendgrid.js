@@ -32,7 +32,7 @@ const MailingListSendgrid = () => {
     } else {
       setLoading(true);
       axios
-        .put("api/mailingList", {
+        .put("api/MailingList", {
           mail,
         })
         .then((result) => {
