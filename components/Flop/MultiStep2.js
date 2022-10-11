@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
+
+import Link from "@mui/material/Link";
+
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -90,6 +93,22 @@ const Step2 = (props) => {
   ];
   const [positionValue, setpositionValue] = React.useState(1);
 
+  const newHand = () => {
+    setCurrentStep(1);
+    setFormData({
+      card1: "",
+      card2: "",
+      suited: false,
+      hand: "",
+      position: "BT",
+      potState: "",
+      limpers: 0,
+      ip: false,
+      action: "",
+    });
+    console.log("New Hand");
+  };
+
   const handleSlideChange = (event, newValue) => {
     setpositionValue(newValue);
 
@@ -131,6 +150,12 @@ const Step2 = (props) => {
     setFormData({ ...formData, limpers: limpCount });
     console.log(limpCount, formData.limpers);
   };
+
+  // Cold calling and set mining
+
+  const setMining = ["22", "33", "44", "55"];
+
+  const nuts = ["AA", "AKs", "AKo", "KK"];
 
   const limpRange = [
     "AA",
@@ -270,7 +295,7 @@ const Step2 = (props) => {
         "22",
       ],
       limpers: limpRange,
-      raisers: [setMining, nuts],
+      raisers: [...setMining, ...nuts],
     },
     CO: {
       first: [
@@ -331,7 +356,7 @@ const Step2 = (props) => {
         "22",
       ],
       limpers: limpRange,
-      raisers: [setMining, nuts],
+      raisers: [...setMining, ...nuts],
     },
     MP: {
       first: [
@@ -373,7 +398,7 @@ const Step2 = (props) => {
         "44",
       ],
       limpers: limpRange,
-      raisers: [setMining, nuts],
+      raisers: [...setMining, ...nuts],
     },
     EP: {
       first: [
@@ -406,7 +431,7 @@ const Step2 = (props) => {
         "55",
       ],
       limpers: limpRange,
-      raisers: [setMining, nuts],
+      raisers: [...setMining, ...nuts],
     },
     SB: {
       first: [
@@ -466,9 +491,9 @@ const Step2 = (props) => {
         "22",
       ],
       limpers: limpRange,
-      raisers: [setMining, nuts],
+      raisers: [...setMining, ...nuts],
     },
-    BB: { first: [null], limpers: [], raisers: [setMining, nuts] },
+    BB: { first: [null], limpers: [], raisers: [...setMining, ...nuts] },
   };
 
   const allPair = [
@@ -488,21 +513,20 @@ const Step2 = (props) => {
   ];
   const broadways = [];
 
-  const setMining = ["22", "33", "44", "55"];
-
-  const nuts = ["AA", "AKs", "AKo", "KK"];
-
   const evaluate = () => {
     setCurrentStep(currentStep + 1);
     updateLimpCount();
 
-    console.log(formData.position);
+    console.log(positionRange);
 
     if (
       positionRange[formData.position][formData.potState].includes(
         formData.hand
       )
     ) {
+      console.log("Pot State: ", formData.potState);
+      console.log(positionRange[formData.position][formData.potState]);
+
       if (formData.potState === "first") {
         setFormData({ ...formData, action: "Raise $6" });
       } else if (formData.potState === "limpers") {
@@ -511,10 +535,11 @@ const Step2 = (props) => {
           : 3 + 1 + formData.limpers;
         setFormData({ ...formData, action: "Raise $" + limpRaise });
       } else if (formData.potState === "raisers") {
-        if (hand == nuts) {
+        if (nuts.includes(formData.hand)) {
           setFormData({ ...formData, action: "3bet (re-raise the raise)" });
         }
-        if (hand == setMining) {
+
+        if (setMining.includes(formData.hand)) {
           setFormData({ ...formData, action: "Call" });
         }
       }
@@ -672,6 +697,16 @@ const Step2 = (props) => {
                   <Button variant="contained" onClick={evaluate}>
                     Continue
                   </Button>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} alignItems="center" justify="center">
+              <Box textAlign="center">
+                <FormControl className="flop-calc-link">
+                  <Link component="button" onClick={newHand}>
+                    New Hand
+                  </Link>
                 </FormControl>
               </Box>
             </Grid>

@@ -7,9 +7,10 @@ import Submit from "./MultiStepSubmit";
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Raisers
-  // Validation
+  // Validation (shake)
   // Styling of Last page
+  // New hand discret link for 1, form 2
+  // clean all code
 
   const [formData, setFormData] = useState({
     card1: "",
@@ -22,13 +23,6 @@ const MultiStepForm = () => {
     ip: false,
     action: "",
   });
-  const handleChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-    //console.log(formData);
-  };
 
   const next = () => {
     setCurrentStep(currentStep + 1);

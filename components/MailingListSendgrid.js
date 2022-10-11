@@ -4,16 +4,21 @@ import { useState } from "react";
 
 import { IconUserPlus } from "@tabler/icons";
 import subscription from "@/config/subscription.json";
+import { resolveHref } from "next/dist/shared/lib/router/router";
+
+import ReactLoading from "react-loading";
 
 const MailingListSendgrid = () => {
   const [isError, setIsError] = useState(true);
   const [shakeIt, setshakeIt] = useState(false);
   const [mail, setMail] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
 
   const subscribe = () => {
     const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+
+    setMail("");
 
     if (!regEx.test(mail) && mail !== "") {
       setIsError(true);
@@ -23,7 +28,7 @@ const MailingListSendgrid = () => {
         setshakeIt(false);
       }, 1000);
     } else if (mail === "") {
-      setIsError(false);
+      setIsError(true);
       setshakeIt(true);
       setMessage("Email is Empty");
       setTimeout(() => {
@@ -31,27 +36,26 @@ const MailingListSendgrid = () => {
       }, 1000);
     } else {
       setLoading(true);
+
       axios
         .put("api/MailingList", {
           mail,
         })
         .then((result) => {
           if (result.status === 200) {
-            toast.success(result.data.message);
+            setIsError(false);
+            setMessage(result.data.message);
             setLoading(false);
           }
         })
         .catch((err) => {
-          console.log(err);
+          setMessage(err.data.message);
           setLoading(false);
         });
 
       setMessage(null);
-      setIsError(true);
       setshakeIt(false);
     }
-
-    // Success handelibg??
   };
   return (
     <div className="container">
@@ -71,6 +75,8 @@ const MailingListSendgrid = () => {
                   type="email"
                   className={`form-control required email w-auto text-center text-sm-start`}
                   placeholder={subscription.formPlaceholder}
+                  value={mail}
+                  autoComplete="email"
                   required
                 ></input>
 
@@ -79,18 +85,31 @@ const MailingListSendgrid = () => {
                   name="subscribe"
                   onClick={subscribe}
                   className="input-group-text justify-content-center"
+                  disabled={isLoading}
                 >
-                  <i className="me-2">
-                    <IconUserPlus size={16} />
-                  </i>
-                  {subscription.formButtonLabel}
+                  {isLoading ? (
+                    <i className="pb-2 me-2">
+                      <ReactLoading
+                        type="spin"
+                        color="#2d2d2d"
+                        height={19}
+                        width={19}
+                      />
+                    </i>
+                  ) : (
+                    <i className="me-2">
+                      <IconUserPlus size={16} />
+                    </i>
+                  )}
+
+                  {isLoading ? "Loading.." : subscription.formButtonLabel}
                 </button>
               </div>
 
               <div className="message">
                 <p
                   className={`${shakeIt ? "shakeit" : ""} ${
-                    isError ? "error" : "warning"
+                    isError ? "error" : "success"
                   }`}
                 >
                   {message}

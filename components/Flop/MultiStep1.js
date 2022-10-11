@@ -131,6 +131,8 @@ const allPairs = [
 
 const Step1 = (props) => {
   const { formData, setFormData, currentStep, setCurrentStep } = props;
+  const [shakeIt, setshakeIt] = useState(false);
+  const [submitActive, setsubmitActive] = useState(true);
 
   const hand = (cards) => {
     const replace = (num) => {
@@ -156,17 +158,23 @@ const Step1 = (props) => {
   };
 
   const cards =
-    formData.card !== "" && formData.card2 !== ""
+    formData.card2 !== "" && formData.card2 !== ""
       ? hand([formData.card1, formData.card2])
       : "No hand";
 
   const fold = neverPlay.includes(cards) ? true : false;
 
   const evaluate = () => {
-    fold ? setCurrentStep(3) : setCurrentStep(currentStep + 1);
-    fold
-      ? setFormData({ ...formData, action: "Fold" })
-      : setFormData({ ...formData, hand: cards });
+    if (cards !== "No hand") {
+      fold ? setCurrentStep(3) : setCurrentStep(currentStep + 1);
+      fold
+        ? setFormData({ ...formData, action: "Fold" })
+        : setFormData({ ...formData, hand: cards });
+    } else {
+      setTimeout(() => {
+        setshakeIt(true);
+      }, 1000);
+    }
   };
 
   return (
@@ -195,6 +203,7 @@ const Step1 = (props) => {
                   First Card
                 </InputLabel>
                 <Select
+                  className={`${shakeIt ? "shakeValidation" : ""}`}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   displayEmpty
