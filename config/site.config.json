@@ -1,12 +1,12 @@
 {
   "metaData": {
     "title" : "PokerLighthouse || For The Thinking Player",
-    "description" : "Qurno - a minimal nextjs blog template",
-    "author" : "PlatolTheme",
-    "keyword" : "qurno, minimal, react, nextjs, blog, template",
-    "ogImage" : "https://qurno-nextjs.vercel.app/images/ogimage.jpg"
+    "description" : "PokerLighthouse - For The Thinking Player",
+    "author" : "Hero",
+    "keyword" : "poker, microstakes, casino, study, blog",
+    "ogImage" : "https://pokerlighthouse.com/images/ogimage.jpg"
   },
-  "baseURL" : "https://qurno-nextjs.vercel.app/",
+  "baseURL" : "https://pokerlighthouse.com",
   "logo" : "/images/pokerlighthouse-logo-25x25.svg",
   "logoText" : "PokerLighthouse",
   "favicon" : "/images/favicon.png",

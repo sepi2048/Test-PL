@@ -18,15 +18,13 @@ export default async function handler(req, res) {
       )
       .then((result) => {
         res.status(200).send({
-          message:
-            "Your email has been succesfully added to the mailing list. Welcome 👋",
+          message: "Your email has been added to the mailing list. Welcome 👋",
         });
         res.end();
       })
       .catch((err) => {
         res.status(500).send({
-          message:
-            "Oups, there was a problem with your subscription, please try again or contact us",
+          message: "Oups, there was a problem, please try again or contact us",
         });
         res.end();
       });

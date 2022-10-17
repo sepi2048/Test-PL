@@ -15,7 +15,10 @@ import MailingListSendgrid from "@/components/MailingListSendgrid";
 4) Compare files to orginal
 5) Mailinglist
 6) github
-7) Poker calc*/
+7) Poker calc
+
+8) Clean Quoro files
+9) */
 
 export default function Home({ authors, posts, banner }) {
   return (

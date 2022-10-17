@@ -3,8 +3,8 @@ import Layout from "@/components/Layout";
 import PageHeaderBlock from "@/components/PageHeader";
 import contactForm from "@/config/contactForm.json";
 import { getSinglePage } from "@/libs/getSinglePage";
-import { IconMailForward, IconPhone, IconBrandTelegram } from "@tabler/icons";
-import MultiStepForm from "@/components/Flop/MultiStepForm";
+import { IconMailForward, IconPhone, IconBrandInstagram } from "@tabler/icons";
+import ContactForm from "@/components/Contact";
 
 export default function Contact({ contact: { frontMatter } }) {
   return (
@@ -46,70 +46,23 @@ export default function Contact({ contact: { frontMatter } }) {
                     className="me-2"
                     style={{ transform: "translateY(" + -2 + "px)" }}
                   >
-                    <IconPhone size={17} />
-                  </i>{" "}
-                  {frontMatter.contact.phone_number}
+                    <IconBrandInstagram size={17} />
+                  </i>
+                  <a
+                    href={`https://instagram.com/${frontMatter.contact.instagram_account}`}
+                  >
+                    {frontMatter.contact.instagram_account}
+                  </a>
                 </p>
               </div>
             </div>
-
-            <div className="col-lg-5 me-lg-auto ms-lg-0 ms-auto">
-              <h2 className="h3 mb-4">Contact form</h2>
-
-              <form
-                className="row g-4"
-                action={contactForm.contactFormAction}
-                method="POST"
-                target="_blank"
-              >
-                <div className="col-md-12">
-                  <textarea
-                    className="form-control"
-                    placeholder="Ask question or just say Hi"
-                    rows="4"
-                    name="message"
-                    required
-                  ></textarea>
-                </div>
-                <div className="col-md-12">
-                  <input
-                    type="email"
-                    className="form-control"
-                    placeholder="Email address"
-                    name="email"
-                    required
-                  />
-                </div>
-                <div className="col-md-12">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your name here"
-                    name="name"
-                    required
-                  />
-                </div>
-                <div className="col-12">
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    aria-label="Send Message"
-                  >
-                    Send{" "}
-                    <i className="ms-1">
-                      <IconBrandTelegram size={18} />
-                    </i>
-                  </button>
-                </div>
-              </form>
-            </div>
+            <ContactForm />
           </div>
         </div>
       </section>
     </Layout>
   );
 }
-
 export async function getStaticProps() {
   return {
     props: {

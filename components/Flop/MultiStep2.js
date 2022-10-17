@@ -3,18 +3,12 @@ import Box from "@mui/material/Box";
 
 import Link from "@mui/material/Link";
 
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
 
-import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
 
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
 import Stack from "@mui/material/Stack";
 
 import ToggleButton from "@mui/material/ToggleButton";
@@ -25,7 +19,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 
 import Grid from "@mui/material/Grid";
@@ -33,14 +26,8 @@ import Grid from "@mui/material/Grid";
 import Slider from "@mui/material/Slider";
 
 const Step2 = (props) => {
-  const {
-    formData,
-    setFormData,
-    currentStep,
-    setCurrentStep,
-    handleChange,
-    next,
-  } = props;
+  const { formData, setFormData, currentStep, setCurrentStep } = props;
+  const [message, setMessage] = useState(null);
 
   const theme = createTheme({
     palette: {
@@ -106,7 +93,6 @@ const Step2 = (props) => {
       ip: false,
       action: "",
     });
-    console.log("New Hand");
   };
 
   const handleSlideChange = (event, newValue) => {
@@ -132,6 +118,7 @@ const Step2 = (props) => {
     // +
     if (limpCount < 10) {
       setLimpCount(limpCount + 1);
+      setFormData({ ...formData, limpers: limpCount + 1 });
     } else {
       limpError = true;
     }
@@ -141,14 +128,10 @@ const Step2 = (props) => {
     // -
     if (limpCount > 1) {
       setLimpCount(limpCount - 1);
+      setFormData({ ...formData, limpers: limpCount - 1 });
     } else {
       limpError = true;
     }
-  };
-
-  const updateLimpCount = () => {
-    setFormData({ ...formData, limpers: limpCount });
-    console.log(limpCount, formData.limpers);
   };
 
   // Cold calling and set mining
@@ -514,37 +497,38 @@ const Step2 = (props) => {
   const broadways = [];
 
   const evaluate = () => {
-    setCurrentStep(currentStep + 1);
-    updateLimpCount();
+    if (formData.potState !== "") {
+      setCurrentStep(currentStep + 1);
+      if (
+        positionRange[formData.position][formData.potState].includes(
+          formData.hand
+        )
+      ) {
+        if (formData.potState === "first") {
+          setFormData({ ...formData, action: "Raise $6" });
+        } else if (formData.potState === "limpers") {
+          const limpRaise = formData.ip
+            ? 3 + formData.limpers
+            : 3 + 1 + formData.limpers;
+          setFormData({ ...formData, action: "Raise $" + limpRaise });
+        } else if (formData.potState === "raisers") {
+          if (nuts.includes(formData.hand)) {
+            //setFormData({ ...formData, action: "3bet (re-raise the raise)" });
+            setFormData({ ...formData, action: "3bet" });
+          }
 
-    console.log(positionRange);
-
-    if (
-      positionRange[formData.position][formData.potState].includes(
-        formData.hand
-      )
-    ) {
-      console.log("Pot State: ", formData.potState);
-      console.log(positionRange[formData.position][formData.potState]);
-
-      if (formData.potState === "first") {
-        setFormData({ ...formData, action: "Raise $6" });
-      } else if (formData.potState === "limpers") {
-        const limpRaise = formData.ip
-          ? 3 + formData.limpers
-          : 3 + 1 + formData.limpers;
-        setFormData({ ...formData, action: "Raise $" + limpRaise });
-      } else if (formData.potState === "raisers") {
-        if (nuts.includes(formData.hand)) {
-          setFormData({ ...formData, action: "3bet (re-raise the raise)" });
+          if (setMining.includes(formData.hand)) {
+            setFormData({ ...formData, action: "Call" });
+          }
         }
-
-        if (setMining.includes(formData.hand)) {
-          setFormData({ ...formData, action: "Call" });
-        }
+      } else {
+        setFormData({ ...formData, action: "Fold" });
       }
     } else {
-      setFormData({ ...formData, action: "Fold" });
+      setMessage("Select pot state");
+      setTimeout(() => {
+        setMessage(null);
+      }, 6000);
     }
   };
 
@@ -587,7 +571,7 @@ const Step2 = (props) => {
             </Grid>
 
             <Grid item xs={12}>
-              <FormControl sx={{ ml: 2.5, my: 2, width: 270 }}>
+              <FormControl sx={{ ml: 2.5, my: 1, width: 270 }}>
                 <ToggleButtonGroup
                   value={formData.potState}
                   exclusive
@@ -595,6 +579,7 @@ const Step2 = (props) => {
                     setFormData({
                       ...formData,
                       potState: e.target.value,
+                      limpers: limpCount, // if limp=1, update at first change
                     });
                   }}
                   aria-label="text alignment"
@@ -611,6 +596,9 @@ const Step2 = (props) => {
                   </ToggleButton>
                 </ToggleButtonGroup>
               </FormControl>
+              <div className="px-4">
+                <p style={{ color: "red" }}>{message}</p>
+              </div>
             </Grid>
 
             {formData.potState == "limpers" ? (

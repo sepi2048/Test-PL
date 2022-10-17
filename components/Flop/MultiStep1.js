@@ -12,12 +12,23 @@ import Switch from "@mui/material/Switch";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 
 import Grid from "@mui/material/Grid";
 
-import Slider from "@mui/material/Slider";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    border: 0,
+    borderRadius: 3,
+    backgroundImage: "linear-gradient(45deg, #2d2d2d, #45ca63);",
+    "-webkit-background-clip": "text",
+    "-webkit-text-fill-color": "transparent",
+    fontSize: "16px",
+    fontWeight: "bolder",
+  },
+});
 
 const theme = createTheme({
   palette: {
@@ -131,8 +142,9 @@ const allPairs = [
 
 const Step1 = (props) => {
   const { formData, setFormData, currentStep, setCurrentStep } = props;
-  const [shakeIt, setshakeIt] = useState(false);
-  const [submitActive, setsubmitActive] = useState(true);
+  const [message, setMessage] = useState(null);
+
+  const classes = useStyles();
 
   const hand = (cards) => {
     const replace = (num) => {
@@ -141,8 +153,6 @@ const Step1 = (props) => {
       }
       return num;
     };
-
-    //suited = formData.suited ? "s" : "o";
 
     const royalty = { 14: "A", 13: "K", 12: "Q", 11: "J", 10: "T" };
     const sorted = cards.sort((a, b) => b - a);
@@ -171,9 +181,10 @@ const Step1 = (props) => {
         ? setFormData({ ...formData, action: "Fold" })
         : setFormData({ ...formData, hand: cards });
     } else {
+      setMessage("Select both cards");
       setTimeout(() => {
-        setshakeIt(true);
-      }, 1000);
+        setMessage(null);
+      }, 6000);
     }
   };
 
@@ -192,8 +203,8 @@ const Step1 = (props) => {
         <Card sx={{ width: 325, border: 0, boxShadow: 5, borderRadius: 5 }}>
           <CardContent>
             <Grid item xs={12}>
-              <FormControl sx={{ m: 1.5, width: 200 }}>
-                Preflop Calculator
+              <FormControl sx={{ m: 1.5, width: 200 }} className={classes.root}>
+                PreFlop Calculator (NL2)
               </FormControl>
             </Grid>
 
@@ -203,7 +214,6 @@ const Step1 = (props) => {
                   First Card
                 </InputLabel>
                 <Select
-                  className={`${shakeIt ? "shakeValidation" : ""}`}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   displayEmpty
@@ -258,6 +268,9 @@ const Step1 = (props) => {
                   <MenuItem value={2}>2</MenuItem>
                 </Select>
               </FormControl>
+              <div className="px-2">
+                <p style={{ color: "red" }}>{message}</p>
+              </div>
             </Grid>
 
             <Grid item xs={12}>

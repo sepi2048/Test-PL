@@ -1,10 +1,8 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useState } from "react";
 
 import { IconUserPlus } from "@tabler/icons";
 import subscription from "@/config/subscription.json";
-import { resolveHref } from "next/dist/shared/lib/router/router";
 
 import ReactLoading from "react-loading";
 
@@ -49,6 +47,7 @@ const MailingListSendgrid = () => {
           }
         })
         .catch((err) => {
+          setIsError(true);
           setMessage(err.data.message);
           setLoading(false);
         });
