@@ -18,6 +18,8 @@ import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
 import { documentToReactComponents as renderRichText } from "@contentful/rich-text-react-renderer";
 
+import MailingListSendgrid from "@/components/MailingListSendgrid";
+
 import {
   IconBrandTwitter,
   IconBrandFacebook,
@@ -308,6 +310,13 @@ export default function PostPage({
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className="container">
+            <div className="row">
+              <div className="col-12 newsletter-blog-single">
+                <MailingListSendgrid />
               </div>
             </div>
           </div>

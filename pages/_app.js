@@ -9,7 +9,7 @@ import siteConfig from "@/config/site.config.json";
 
 import FirstLoad from "@/components/FirstLoad";
 
-export default function QurnoApp({
+export default function PokerLighthouseApp({
   Component,
   pageProps,
   router,
@@ -56,16 +56,6 @@ export default function QurnoApp({
           href={siteConfig.favicon}
           type="image/x-icon"
         />
-
-        <link
-          href="https://fonts.googleapis.com/css2?family=Crete+Round&family=Work+Sans:wght@500;600&display=swap"
-          rel="stylesheet"
-        />
-
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500&display=swap"
-          rel="stylesheet"
-        />
       </Head>
 
       <AppContext.Provider
@@ -89,7 +79,7 @@ export default function QurnoApp({
   );
 }
 
-QurnoApp.defaultProps = {
+PokerLighthouseApp.defaultProps = {
   metaTitle: siteConfig.metaData.title,
   metaDescription: siteConfig.metaData.description,
   metaAuthor: siteConfig.metaData.author,

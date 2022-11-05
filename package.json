@@ -1,7 +1,7 @@
 {
-  "name": "qurno-nextjs",
+  "name": "pokerlighthouse-nextjs",
   "author": "Platol",
-  "description": "Packages For Qurno Next.js Template",
+  "description": "Packages For PokerLighthouse Next.js Template",
   "version": "1.0.0",
   "license": "Themeforest Standard Licence",
   "private": true,

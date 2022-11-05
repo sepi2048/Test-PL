@@ -62,57 +62,70 @@ const MailingListSendgrid = () => {
         <div className="row justify-content-center align-items-center">
           <div className="col-xl-6 col-lg-8 col-md-10">
             <div className="newsletter-block">
-              <h2 className="section-title text-center mb-4">
-                {subscription.title}
-              </h2>
-
-              <div className="input-group flex-column flex-sm-row flex-nowrap flex-sm-nowrap">
-                <input
-                  onChange={(e) => {
-                    setMail(e.target.value);
-                  }}
-                  type="email"
-                  className={`form-control required email w-auto text-center text-sm-start`}
-                  placeholder={subscription.formPlaceholder}
-                  value={mail}
-                  autoComplete="email"
-                  required
-                ></input>
-
-                <button
-                  type="submit"
-                  name="subscribe"
-                  onClick={subscribe}
-                  className="input-group-text justify-content-center"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <i className="pb-2 me-2">
-                      <ReactLoading
-                        type="spin"
-                        color="#2d2d2d"
-                        height={19}
-                        width={19}
-                      />
-                    </i>
-                  ) : (
-                    <i className="me-2">
-                      <IconUserPlus size={16} />
-                    </i>
-                  )}
-
-                  {isLoading ? "Loading.." : subscription.formButtonLabel}
-                </button>
+              <div className="section-title text-center mb-4">
+                <img
+                  className="rounded rotated freebie"
+                  src="/images/freebie-hardcover.png"
+                  height="200"
+                  width="150"
+                />
+              </div>
+              <div className="section-title text-center newsletter-bg-primary">
+                <br />
+                <h2 className="section-title text-center m-4">
+                  {subscription.title}
+                </h2>
               </div>
 
-              <div className="message">
-                <p
-                  className={`${shakeIt ? "shakeit" : ""} ${
-                    isError ? "error" : "success"
-                  }`}
-                >
-                  {message}
-                </p>
+              <div className="newsletter-bg-black">
+                <div className="input-group flex-column flex-sm-row flex-nowrap flex-sm-nowrap">
+                  <input
+                    onChange={(e) => {
+                      setMail(e.target.value);
+                    }}
+                    type="email"
+                    className={`form-control required email w-auto text-center text-sm-start`}
+                    placeholder={subscription.formPlaceholder}
+                    value={mail}
+                    autoComplete="email"
+                    required
+                  ></input>
+
+                  <button
+                    type="submit"
+                    name="subscribe"
+                    onClick={subscribe}
+                    className="input-group-text justify-content-center"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <i className="pb-2 me-2">
+                        <ReactLoading
+                          type="spin"
+                          color="#2d2d2d"
+                          height={19}
+                          width={19}
+                        />
+                      </i>
+                    ) : (
+                      <i className="me-2">
+                        <IconUserPlus size={16} />
+                      </i>
+                    )}
+
+                    {isLoading ? "Loading.." : subscription.formButtonLabel}
+                  </button>
+                </div>
+
+                <div className="message">
+                  <p
+                    className={`${shakeIt ? "shakeit" : ""} ${
+                      isError ? "error" : "success"
+                    }`}
+                  >
+                    {message}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

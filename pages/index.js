@@ -29,7 +29,6 @@ export default function Home({ authors, posts, banner }) {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              {/* <MailingList /> */}
               <MailingListSendgrid />
             </div>
           </div>
