@@ -238,7 +238,7 @@ export default function PostPage({
             </div>
           </div>
 
-          <div className="single-post-author">
+          {/*           <div className="single-post-author">
             <div className="row justify-content-center">
               <div className="col-lg-10">
                 <div className="d-block d-md-flex">
@@ -282,11 +282,7 @@ export default function PostPage({
                       authorPage.authorSlug ? (
                         <div
                           key={i}
-                          /*                           dangerouslySetInnerHTML={{
-                            __html: marked.parse(
-                              truncateString(authorPage.authorContent, 150)
-                            ),
-                          }} */
+  
                         >
                           {renderRichText(authorPage.authorContent, options)}
                         </div>
@@ -312,7 +308,8 @@ export default function PostPage({
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+
           <div className="container">
             <div className="row">
               <div className="col-12 newsletter-blog-single">
