@@ -7,7 +7,7 @@ import { DrawSVGPlugin } from "../gsap-files/DrawSVGPlugin.min.js";
 
 export default function FirstLoad({ children }) {
   //const [loading, setLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

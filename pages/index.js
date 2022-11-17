@@ -25,7 +25,7 @@ import { useState, useEffect } from "react";
 8) Clean Quoro files
 9) */
 
-export default function Home({ authors, posts, banner }) {
+export default function Home({ authors, posts }) {
   const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
@@ -38,7 +38,6 @@ export default function Home({ authors, posts, banner }) {
   return (
     <>
       <Layout>
-        <BannerBlock banner={banner} />
         <section className="section overflow-hidden banner">
           <div className="container">
             <div className="row">
