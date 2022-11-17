@@ -38,7 +38,7 @@ export default function Home({ authors, posts, banner }) {
   return (
     <>
       <Layout>
-        {/* <BannerBlock banner={banner} /> */}
+        <BannerBlock banner={banner} />
         <section className="section overflow-hidden banner">
           <div className="container">
             <div className="row">
