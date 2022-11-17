@@ -46,7 +46,7 @@ const options = {
         />
       );
     },
-    [INLINES.HYPERLINK]: (node) => {
+    [INLINES.HYPERLINK]: (node, children) => {
       if (node.data.uri.includes("player.vimeo.com/video")) {
         return (
           <div className="ratio ratio-16x9">
@@ -69,6 +69,23 @@ const options = {
               allowFullScreen
             ></iframe>
           </div>
+        );
+      } else if (node.data.uri.includes("/pokerbot")) {
+        return (
+          <a
+            href={node.data.uri}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-center poker-bot-button"
+          >
+            {children}
+          </a>
+        );
+      } else {
+        return (
+          <a href={node.data.uri} target="_blank" rel="noopener noreferrer">
+            {children}
+          </a>
         );
       }
     },
@@ -237,7 +254,6 @@ export default function PostPage({
               </ul>
             </div>
           </div>
-
           {/*           <div className="single-post-author">
             <div className="row justify-content-center">
               <div className="col-lg-10">
@@ -309,7 +325,8 @@ export default function PostPage({
               </div>
             </div>
           </div> */}
-
+          <br />
+          <hr />
           <div className="container">
             <div className="row">
               <div className="col-12 newsletter-blog-single">
@@ -360,6 +377,10 @@ export async function getStaticProps({ params: { slug } }) {
   for (var i = 0; i < tag_len; i++) {
     tags.push(blog.items[0].fields.tag[i].fields.tagName);
   }
+
+  //console.log(blog.items[0].fields.author);
+
+  // console.log(JSON.stringify(blog.items[0].fields.author, null, 5));
 
   var slug = blog.items[0].fields.slug;
   var content = blog.items[0].fields.content;

@@ -1,4 +1,5 @@
 import { createClient } from "contentful";
+import { sortByDate } from "@/utils/sortByDate";
 
 export async function getBlogPosts() {
   const client = createClient({
@@ -42,5 +43,7 @@ export async function getBlogPosts() {
     });
   }
 
-  return posts;
+  return posts.sort(sortByDate);
+
+  // return posts;
 }

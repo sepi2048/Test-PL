@@ -1,0 +1,27 @@
+body.modal-open {
+    padding-right: 0 !important;
+  }
+
+.modal-body {
+    padding: 0;
+}
+
+.special_modal .modal-content{
+    background-color: $gray;
+ }
+
+ .special_modal .modal-header { 
+    border-bottom: 0;
+ }
+
+ .special_modal .modal-content .col-lg-8{
+    width: 100%;
+ }
+
+ .special_modal .modal-content .col-xl-6 {
+    width: 95%;
+ }
+
+ .special_modal .modal-content .modal-title .h4 {
+    color: #333;
+ }

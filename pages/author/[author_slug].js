@@ -91,14 +91,14 @@ export default function AuthorSingle({
                 </div>
                 <div className="col-lg-9 col-md-12">
                   <p className="mb-2">
-                    <span className="fw-bold text-black">
+                    <span className="fw-bold text-primary">
                       {postCount[title] < 9
                         ? `0${postCount[title]}`
                         : postCount[title]}
                     </span>{" "}
                     Published posts
                   </p>
-                  <h1 className="h3 text-dark mb-3">{title}</h1>
+                  <h1 className="h3 text-primary mb-3">{title}</h1>
                   <div className="content">
                     <div
                     /*         dangerouslySetInnerHTML={{

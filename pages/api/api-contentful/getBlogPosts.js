@@ -26,6 +26,14 @@ export function getBlogPosts() {
       cats.push(blog.items[i].fields.category[k].fields.categoryName);
     }
 
+    /*     console.log(
+      blog.items[i].fields.title,
+      " : ",
+      JSON.stringify(blog.items[i].fields.author.fields.name, null, 5)
+    ); */
+
+    //console.log(JSON.stringify(blog.items[i]));
+
     posts.push({
       slug: blog.items[i].fields.slug,
       content: blog.items[i].fields.content,

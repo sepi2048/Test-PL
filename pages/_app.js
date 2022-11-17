@@ -1,5 +1,6 @@
 import "@/styles/bootstrap.scss";
 import "@/styles/globals.scss";
+
 import { useState, useEffect } from "react";
 import { AppContext } from "@/components/UseContext";
 import { AnimatePresence } from "framer-motion";

@@ -5,20 +5,32 @@
       "link": "/"
     },
     {
-      "name": "Poker Bot",
-      "link": "/pokerbot"
+      "name": "About",
+      "link": "/about"
     },
     {
       "name": "Blog",
-      "link": "/blog",
+      "link": "/blog"
+    },
+    {
+      "name": "Archive",
+      "link": "/blog/archive"
+    },
+    {
+      "name": "Pages",
+      "link": "#",
       "submenu": [
         {
           "name": "Author",
           "link": "/author"
         },
         {
-          "name": "Archive",
-          "link": "/blog/archive"
+          "name": "Author Single",
+          "link": "/author/chris-impey"
+        },
+        {
+          "name": "Elements",
+          "link": "/blog/elements"
         },
         {
           "name": "Tags",
@@ -29,14 +41,18 @@
           "link": "/categories"
         },
         {
+          "name": "Tag Single",
+          "link": "/tags/machine"
+        },
+        {
+          "name": "Category Single",
+          "link": "/categories/ai"
+        },
+        {
           "name": "Privacy",
           "link": "/privacy"
         }
       ]
-    },
-    {
-      "name": "About",
-      "link": "/about"
     },
     {
       "name": "Contact",

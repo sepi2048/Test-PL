@@ -5,6 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
+import Link from "@mui/material/Link";
+
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
@@ -144,7 +146,7 @@ const Step1 = (props) => {
   const { formData, setFormData, currentStep, setCurrentStep } = props;
   const [message, setMessage] = useState(null);
 
-  const classes = useStyles();
+  //const classes = useStyles();
 
   const hand = (cards) => {
     const replace = (num) => {
@@ -203,8 +205,10 @@ const Step1 = (props) => {
         <Card sx={{ width: 325, border: 0, boxShadow: 5, borderRadius: 5 }}>
           <CardContent>
             <Grid item xs={12}>
-              <FormControl sx={{ m: 1.5, width: 200 }} className={classes.root}>
-                PreFlop Calculator (NL2)
+              <FormControl
+                sx={{ m: 1.5, width: 250 }} /* className={classes.root} */
+              >
+                🤖 PreFlop Poker Bot (NL2) 🤖
               </FormControl>
             </Grid>
 
@@ -303,6 +307,16 @@ const Step1 = (props) => {
                   Continue
                 </Button>
               </FormControl>
+            </Grid>
+
+            <Grid item xs={12} alignItems="center" justify="center">
+              <Box textAlign="center">
+                <FormControl className="flop-calc-link">
+                  <Link href="/blog/the-legal-poker-bot">
+                    How does this bot work?
+                  </Link>
+                </FormControl>
+              </Box>
             </Grid>
           </CardContent>
         </Card>

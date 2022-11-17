@@ -90,7 +90,7 @@
 .post-title, .post-title-list {
   color: $color-primary;
   transition: 0.3s;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.075em;
 }
 
 .post-title-list:hover {
@@ -206,6 +206,28 @@
   }
 }
 
+.poker-bot-button {
+  text-decoration: none !important;
+  padding: 11px 28px;
+  color: $gray;
+  font-weight: bold;
+  border: 0;
+  transition: 0.2s ease-out;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background-color: $color-primary !important;
+  border: 2px solid #ffffff;
+  text-align:center;
+  display:block;
+}
+
+.poker-bot-button:hover {   
+  transition: 0.2s ease-out;
+  background-color: $gray !important; 
+  color: #ffffff !important;
+}
+
 // archive post block style
 .archive-block {
   h2 {
@@ -247,6 +269,36 @@
   }
 }
 
+// Poker Bot
+h2.pokerbot {
+  --bg-size: 400%;
+  --color-one: hsl(134, 56%, 53%);
+  --color-two: hsl(0, 0%, 13%);
+  font-size: 100px;
+  background: linear-gradient(
+                90deg,
+                var(--color-one),
+                var(--color-two),
+                var(--color-one)
+              ) 0 0 / var(--bg-size) 100%;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: move-bg 10s infinite linear;
+}
+
+@media only screen and (max-width: 450px) {
+  h2.pokerbot {
+    font-size: 70px;
+  }
+}
+
+@keyframes move-bg {
+  to {
+    background-position: var(--bg-size) 0;
+  }
+}
+
 // newsletter-block style
 .newsletter-blog-single {
   margin-top: 100px;
@@ -256,10 +308,16 @@
   .input-group-text,
   .form-control {
     background-color: transparent;
-    //background-color: $dark;
-    margin: 0 8px;
+    margin: 5px 0px;
     color: $white;
   }
+  @media only screen and (min-width: 576px) {
+    .form-control {
+      background-color: transparent;
+      margin: 5px;
+    }
+  }
+  
   .input-group-text {
     padding: 0 1.5rem;
     height: 50px;

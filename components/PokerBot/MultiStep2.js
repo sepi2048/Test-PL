@@ -548,7 +548,7 @@ const Step2 = (props) => {
           <CardContent>
             <Grid item xs={12}>
               <FormControl sx={{ m: 1.5, width: 270 }}>
-                Table Position & Actions
+                🚨 Table Position & Actions 🚨
               </FormControl>
             </Grid>
 

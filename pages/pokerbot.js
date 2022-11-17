@@ -1,12 +1,12 @@
 import Layout from "@/components/Layout";
 import PageHeaderBlock from "@/components/PageHeader";
 
-import MultiStepForm from "@/components/Flop/MultiStepForm";
+import MultiStepForm from "@/components/PokerBot/MultiStepForm";
 
-export default function Flop() {
+export default function PokerBot() {
   return (
-    <Layout metaTitle="Flop">
-      <PageHeaderBlock title="Preflop" />
+    <Layout metaTitle="PokerBot">
+      <PageHeaderBlock title="PokerBot" />
 
       <section>
         <div className="container pb-5">

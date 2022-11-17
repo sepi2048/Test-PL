@@ -16,6 +16,7 @@ body {
 
 p {
   line-height: 1.8;
+  letter-spacing: .085em;
 }
 ul, ol {
   padding: 0;
@@ -101,6 +102,7 @@ ul, ol {
 }
 
 // Flop Calc
+.flop-calc-link a,
 .flop-calc-link button {
   color: $gray;
   display: inline-block;
@@ -374,6 +376,8 @@ ul, ol {
     word-break: break-word;
     overflow-wrap: break-word;
     margin-bottom: 25px;
+    line-height: 1.75em;
+    letter-spacing: .06em;
     &:first-child {
       margin-top: 0;
     }

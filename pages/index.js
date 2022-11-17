@@ -5,8 +5,13 @@ import Post from "@/components/Post";
 import { getAuthors } from "pages/api/api-contentful/getAuthors";
 import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
 import { IconNewSection } from "@tabler/icons";
-import MailingList from "@/components/MailingList";
 import MailingListSendgrid from "@/components/MailingListSendgrid";
+import ModalMailingList from "@/components/ModalMailingList";
+import MultiStepForm from "@/components/PokerBot/MultiStepForm";
+import Button from "react-bootstrap/Button";
+import { useState, useEffect } from "react";
+
+//import { useState } from "react";
 
 /*TODO
 1) Check every page console 
@@ -21,51 +26,71 @@ import MailingListSendgrid from "@/components/MailingListSendgrid";
 9) */
 
 export default function Home({ authors, posts, banner }) {
+  const [modalShow, setModalShow] = useState(false);
+
+  useEffect(() => {
+    // open newsletter modal after x seconds
+    setTimeout(() => {
+      setModalShow(true);
+    }, 7500);
+  }, []);
+
   return (
-    <Layout>
-      {/* <BannerBlock banner={banner} /> */}
+    <>
+      <Layout>
+        {/* <BannerBlock banner={banner} /> */}
+        <section className="section overflow-hidden banner">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
+                <MultiStepForm />
+              </div>
+              <div className="col-auto col-lg-6 order-first order-lg-last mx-auto">
+                <h2 className="pokerbot">
+                  The (legal) <br />
+                  Poker Bot
+                </h2>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <br />
+        <br />
+        <ModalMailingList show={modalShow} onHide={() => setModalShow(false)} />
 
-      <section className="section overflow-hidden banner">
-        <div className="container">
+        <div className="container pb-5">
           <div className="row">
-            <div className="col-12">
-              <MailingListSendgrid />
+            <div className="col-12 text-center">
+              <h2 className="section-title">
+                <span>Recent posts</span>
+              </h2>
+            </div>
+          </div>
+          <div className="row gy-5 gx-4 g-xl-5">
+            {posts.map((post, i) => (
+              <div key={i} className="col-lg-6">
+                <Post post={post} authors={authors} />
+              </div>
+            ))}
+
+            <div className="col-12 text-center">
+              <Link href={`/blog`}>
+                <a className="btn btn-primary mt-5" aria-label="View all posts">
+                  <i className="me-2">
+                    <IconNewSection size={16} />
+                  </i>
+                  View all posts
+                </a>
+              </Link>
             </div>
           </div>
         </div>
-      </section>
-
-      <div className="container pb-5">
-        <div className="row">
-          <div className="col-12 text-center">
-            <h2 className="section-title">
-              <span>Recent posts</span>
-            </h2>
-          </div>
+        <div className="container">
+          <div className="row"></div>
         </div>
-        <div className="row gy-5 gx-4 g-xl-5">
-          {posts.map((post, i) => (
-            <div key={i} className="col-lg-6">
-              <Post post={post} authors={authors} />
-            </div>
-          ))}
-
-          <div className="col-12 text-center">
-            <Link href={`/blog`}>
-              <a className="btn btn-primary mt-5" aria-label="View all posts">
-                <i className="me-2">
-                  <IconNewSection size={16} />
-                </i>
-                View all posts
-              </a>
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="row"></div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }
 
@@ -127,6 +152,8 @@ export async function getStaticProps() {
       },
     });
   } */
+
+  //console.log(JSON.stringify(getBlogPosts(), null, 2));
 
   return {
     props: {
