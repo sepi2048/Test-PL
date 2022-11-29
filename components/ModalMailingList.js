@@ -12,11 +12,7 @@ export default function ModalMailingList(props) {
       centered
       className="special_modal" //Add class name here
     >
-      <Modal.Header closeButton>
-        {/*         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title> */}
-      </Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <MailingListSendgrid />
       </Modal.Body>
