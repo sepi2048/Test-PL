@@ -1,29 +1,12 @@
 import Link from "next/link";
 import Layout from "@/components/Layout";
-import BannerBlock from "@/components/Banner";
 import Post from "@/components/Post";
 import { getAuthors } from "pages/api/api-contentful/getAuthors";
 import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
 import { IconNewSection } from "@tabler/icons";
-import MailingListSendgrid from "@/components/MailingListSendgrid";
 import ModalMailingList from "@/components/ModalMailingList";
 import MultiStepForm from "@/components/PokerBot/MultiStepForm";
-import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
-
-//import { useState } from "react";
-
-/*TODO
-1) Check every page console 
-2) Banner? 
-3) Speed original
-4) Compare files to orginal
-5) Mailinglist
-6) github
-7) Poker calc
-
-8) Clean Quoro files
-9) */
 
 export default function Home({ authors, posts }) {
   const [modalShow, setModalShow] = useState(false);

@@ -6,12 +6,16 @@ import subscription from "@/config/subscription.json";
 
 import ReactLoading from "react-loading";
 
-const MailingListSendgrid = () => {
+const MailingListSendgrid = (props) => {
   const [isError, setIsError] = useState(true);
   const [shakeIt, setshakeIt] = useState(false);
   const [mail, setMail] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
+
+  // Used both as modal and regular component
+  const PropsIsEmpty = Object.keys(props).length === 0;
+  //console.log(PropsIsEmpty); // false
 
   const subscribe = () => {
     const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
@@ -36,7 +40,7 @@ const MailingListSendgrid = () => {
       setLoading(true);
 
       axios
-        .put("api/MailingList", {
+        .put("/api/MailingList", {
           mail,
         })
         .then((result) => {
@@ -44,6 +48,11 @@ const MailingListSendgrid = () => {
             setIsError(false);
             setMessage(result.data.message);
             setLoading(false);
+            PropsIsEmpty
+              ? console.log("No Modal")
+              : setTimeout(() => {
+                  props.onSubmit();
+                }, 4000);
           }
         })
         .catch((err) => {
@@ -52,6 +61,7 @@ const MailingListSendgrid = () => {
           setLoading(false);
         });
 
+      setIsError(false);
       setMessage(null);
       setshakeIt(false);
     }

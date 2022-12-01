@@ -1,6 +1,6 @@
 import useScripts from "@/components/Scripts";
 import Header from "@/components/Header";
-import { motion } from "framer-motion";
+//import { motion } from "framer-motion";
 import Head from "next/head";
 import siteConfig from "@/config/site.config.json";
 
@@ -52,15 +52,15 @@ export default function Layout({
 
       <Header />
 
-      <motion.main
+      {/*       <motion.main
         initial="hidden"
         animate="enter"
         exit="exit"
         variants={variants}
         transition={{ type: "linear" }}
-      >
-        {children}
-      </motion.main>
+      > */}
+      {children}
+      {/* </motion.main> */}
     </>
   );
 }

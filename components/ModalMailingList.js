@@ -14,7 +14,7 @@ export default function ModalMailingList(props) {
     >
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
-        <MailingListSendgrid />
+        <MailingListSendgrid onSubmit={() => props.onHide()} />
       </Modal.Body>
     </Modal>
   );
