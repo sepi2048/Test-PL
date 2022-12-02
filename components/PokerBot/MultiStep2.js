@@ -505,12 +505,12 @@ const Step2 = (props) => {
         )
       ) {
         if (formData.potState === "first") {
-          setFormData({ ...formData, action: "Raise $6" });
+          setFormData({ ...formData, action: "Raise $0.06" });
         } else if (formData.potState === "limpers") {
           const limpRaise = formData.ip
             ? 3 + formData.limpers
             : 3 + 1 + formData.limpers;
-          setFormData({ ...formData, action: "Raise $" + limpRaise });
+          setFormData({ ...formData, action: "Raise $" + limpRaise / 100 });
         } else if (formData.potState === "raisers") {
           if (nuts.includes(formData.hand)) {
             //setFormData({ ...formData, action: "3bet (re-raise the raise)" });
