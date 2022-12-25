@@ -5,10 +5,13 @@ description: "This a dummy meta description of about page"
 #intro
 intro:
   title: "Poker Lighthouse, <br> Your beacon through stormy poker seas."
-  description: "If ever a place existed where your poker path ahead of you could become enlightened, this site is the place you are searching for. It’s your chance to find your way through the darkness of a poker beginners journey.
-  
-  
-  On this page you will find all you need to know to start your poker path the right way. From how to train your intuition, how to play your cards right and why you NOT should rely on luck in the game of poker. You will also find helping recourses like the <b>LEGAL</b>, free to use «Poker Bot» and the 3-Step, downloadable «Beginner Guide». "
+  description: "Welcome to Poker Lighthouse, the beacon of hope for aspiring poker players. Are you ready to navigate the rough waters of the poker world and emerge a skilled player? Look no further, as Poker Lighthouse is here to guide you on your journey.
+
+  As you delve into the mysterious world of poker, you'll discover the secrets to playing your cards right and mastering the game. With the help of Poker Lighthouse, you'll learn how to sharpen your intuition, make strategic decisions, and leave luck behind as you strive for victory.
+
+  But the journey doesn't have to be daunting – Poker Lighthouse has all the resources you need to get started on the right foot. With our LEGAL poker bot and comprehensive beginner's guide, you'll have all the tools you need to succeed.
+
+  So don't let the darkness hold you back. Follow the light of Poker Lighthouse and let us guide you to poker mastery. With our expert guidance and comprehensive resources, you'll be well on your way to becoming a skilled poker player in no time."
 
   # about images
   images:

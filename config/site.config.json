@@ -1,9 +1,9 @@
 {
   "metaData": {
     "title" : "PokerLighthouse || For The Thinking Player",
-    "description" : "PokerLighthouse - For The Thinking Player",
-    "author" : "Hero",
-    "keyword" : "poker, microstakes, casino, study, blog",
+    "description" : "Welcome to PokerLighthouse, the ultimate resource for poker beginners. Learn the fundamentals of the game, master your strategy, and improve your skills with our expert guides and resources. Whether you're just starting out or looking to take your game to the next level, PokerLighthouse has everything you need to succeed at the poker table.",
+    "author" : "Lightkeeper",
+    "keyword" : "poker, microstakes, casino, study, poker begginer",
     "ogImage" : "https://pokerlighthouse.com/images/ogimage.jpg"
   },
   "baseURL" : "https://pokerlighthouse.com",
@@ -11,5 +11,5 @@
   "logoText" : "PokerLighthouse",
   "favicon" : "/images/favicon.png",
   "postPerPage" : 2,
-  "copyright" : "© 2022 PokerLighthouse. All rights reserved."
+  "copyright" : "© 2023 PokerLighthouse. All rights reserved."
 }
