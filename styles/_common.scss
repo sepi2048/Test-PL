@@ -375,9 +375,8 @@ ul, ol {
   * {
     word-break: break-word;
     overflow-wrap: break-word;
-    margin-bottom: 25px;
-    line-height: 1.75em;
-    letter-spacing: .06em;
+    margin-bottom: 2.25rem;
+    line-height: 1.625;
     &:first-child {
       margin-top: 0;
     }
