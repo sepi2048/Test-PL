@@ -33,6 +33,7 @@
     }
     .card-body {
       padding: 0;
+      p {font-size: 18px;}
       a:hover {
         color: inherit;
         .post-title {
@@ -167,6 +168,11 @@
     width: 100%;
   }
 }
+
+.post-content p {
+  font-size: 18px;
+}
+
 .post-content-block {
   width: calc(83.33333334% - 174px);
   @include desktop {
@@ -191,6 +197,7 @@
 }
 
 .post-meta-tag {
+  margin-top: 7rem!important;
   a {
     display: inline-block;
     background-color: $gray;
@@ -219,6 +226,7 @@
   border: 2px solid #ffffff;
   text-align:center;
   display:block;
+  top: 25px;
 }
 
 .poker-bot-button:hover {   

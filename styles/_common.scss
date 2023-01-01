@@ -375,7 +375,7 @@ ul, ol {
   * {
     word-break: break-word;
     overflow-wrap: break-word;
-    margin-bottom: 2.25rem;
+   /* margin-bottom: 2.25rem;*/
     line-height: 1.625;
     &:first-child {
       margin-top: 0;
@@ -390,6 +390,7 @@ ul, ol {
   h1, h2, h3, h4, h5, h6 {
     margin-top: 35px;
   }
+  h2 {margin-bottom: 0rem;}
   a {
     text-decoration: underline;
     img {

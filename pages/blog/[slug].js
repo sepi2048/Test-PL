@@ -111,7 +111,7 @@ export default function PostPage({
           <div className="row justify-content-center">
             <div className="col-lg-10">
               <div className="mb-5">
-                <h3 className="h1 mb-4 post-title">{title}</h3>
+                <h1 className="mb-4 post-title">{title}</h1>
 
                 <ul className="card-meta list-inline mb-2">
                   <li className="list-inline-item mt-2">
@@ -235,7 +235,7 @@ export default function PostPage({
                 </ul>
               </div>
             </div>
-            <div className="col-lg-8 post-content-block order-0 order-lg-2">
+            <div className="col-lg-8 post-content post-content-block order-0 order-lg-2">
               <div
                 className="content"
                 // dangerouslySetInnerHTML={{ __html: marked.parse(content) }}
