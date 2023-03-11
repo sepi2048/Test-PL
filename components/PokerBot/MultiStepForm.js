@@ -7,11 +7,6 @@ import Submit from "./MultiStepSubmit";
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Validation (shake)
-  // Styling of Last page
-  // New hand discret link for 1, form 2
-  // clean all code
-
   const [formData, setFormData] = useState({
     card1: "",
     card2: "",
