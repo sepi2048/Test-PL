@@ -276,35 +276,7 @@
   }
 }
 
-// Poker Bot
-h2.pokerbot {
-  --bg-size: 400%;
-  --color-one: hsl(134, 56%, 53%);
-  --color-two: hsl(0, 0%, 13%);
-  font-size: 100px;
-  background: linear-gradient(
-                90deg,
-                var(--color-one),
-                var(--color-two),
-                var(--color-one)
-              ) 0 0 / var(--bg-size) 100%;
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: move-bg 15s infinite linear;
-}
 
-@media only screen and (max-width: 450px) {
-  h2.pokerbot {
-    font-size: 70px;
-  }
-}
-
-@keyframes move-bg {
-  to {
-    background-position: var(--bg-size) 0;
-  }
-}
 
 // newsletter-block style
 .newsletter-blog-single {

@@ -1,0 +1,132 @@
+.navigator-title {
+    margin: 2px auto;
+    margin-bottom: 20px;
+
+}
+
+.navigator-title p {
+    font-size: 26px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #2d2d2d;
+}
+
+.navigator-title small {
+    color: #777;
+}
+
+
+svg#app-icon {
+    height: 60px;
+    width: 60px;
+    margin-bottom: 12px;
+
+}
+
+.navigator-dropdown-label {
+    line-height: none !important;
+    font-size: 15px !important;
+}
+    
+.navigator-dropdown {
+    text-align: center;
+    text-align-last: center;
+    -moz-text-align-last: center;
+}
+
+.navigator-dropdown div {
+    font-weight: 700;
+    color: $gray;
+}
+
+.navigator-switch {
+    color: #777;
+}
+
+
+// Flop Calc
+.navigator-link a,
+.navigator-link button {
+  color: #777;
+  display: inline-block;
+  text-decoration: none;
+  padding: bottom 1.5px;
+  margin-top: 15px;
+  font-size: 14px;
+  background-image: linear-gradient($gray 0 0);
+  background-position: 0 100%; /*OR bottom left*/
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  transition:
+    background-size 0.3s,
+    background-position 0s 0.3s; /*change after the size immediately*/
+	&:hover {
+    color: $dark;
+    background-position: 100% 100%; /*OR bottom right*/
+    background-size: 100% 2px;
+  }
+}
+
+
+
+// Poker Bot
+h2.pokerbot {
+    --bg-size: 400%;
+    --color-one: hsl(134, 56%, 53%);
+    --color-two: hsl(0, 0%, 55%);
+    font-size: 120px;
+  /*   background: linear-gradient(
+                  90deg,
+                  var(--color-one),
+                  var(--color-two),
+                  var(--color-one)
+                ) 0 0 / var(--bg-size) 100%; */
+/*                 background-image: linear-gradient(
+                    to right,
+                    #462523 0,
+                    #cb9b51 22%, 
+                    #f6e27a 45%,
+                    #f6f2c0 50%,
+                    #f6e27a 55%,
+                    #cb9b51 78%,
+                    #462523 100%
+                    ); */
+                    background-image: linear-gradient(
+                        to right,
+                        #308d45 0,
+                        #6ad482 22%, 
+                        #3eb559 45%,                        
+                        #45ca63 50%,
+                        #3eb559 55%,
+                        #6ad482 78%,
+                        #308d45 100%
+                        );
+    color: transparent;
+    background-clip: text;
+    text-align: center;
+    -webkit-background-clip: text;
+    animation: move-bg 15s infinite linear;
+  }
+  
+  @media only screen and (max-width: 450px) {
+    h2.pokerbot {
+      font-size: 70px;
+    }
+  }
+  
+  @keyframes move-bg {
+    to {
+      background-position: var(--bg-size) 0;
+    }
+  }
+
+
+  .flex-container {
+    display: flex;
+  
+    /*this centers the text horizontally*/
+    justify-content: center;
+  
+    /*this centers the text vertically*/
+    align-items: center;
+  }  

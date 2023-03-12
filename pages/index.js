@@ -27,12 +27,11 @@ export default function Home({ authors, posts }) {
               <div className="col-lg-6">
                 <MultiStepForm />
               </div>
-              <div className="col-auto col-lg-6 order-first order-lg-last mx-auto">
+              <div className="col-auto col-lg-6 order-first order-lg-last mx-auto flex-container ">
                 <h2 className="pokerbot">
-                  The (legal) <br />
-                  Poker Bot
+                  Dominate the <br />
+                  Poker Table
                 </h2>
-                <p></p>
               </div>
             </div>
           </div>

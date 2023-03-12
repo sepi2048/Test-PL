@@ -20,31 +20,45 @@ import Grid from "@mui/material/Grid";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
-  root: {
-    border: 0,
-    borderRadius: 3,
-    backgroundImage: "linear-gradient(45deg, #2d2d2d, #45ca63);",
-    "-webkit-background-clip": "text",
-    "-webkit-text-fill-color": "transparent",
-    fontSize: "16px",
-    fontWeight: "bolder",
-  },
-});
-
 const theme = createTheme({
+  root: {
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "blue",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "red",
+    },
+  },
   palette: {
     primary: {
       main: "#45ca63",
       contrastText: "#fff",
     },
+    secondary: {
+      main: "#505050",
+    },
+    /*     text: {
+      primary: "#45ca63",
+    }, */
+    typography: {
+      fontWeightLight: 400,
+      fontWeightRegular: 500,
+      fontWeightMedium: 600,
+      fontWeightBold: 700,
+    },
   },
-  typography: {
-    // fontFamily: "Quicksand",
-    fontWeightLight: 400,
-    fontWeightRegular: 500,
-    fontWeightMedium: 600,
-    fontWeightBold: 700,
+  components: {
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          "&.MuiFormLabel-root": {
+            backgroundColor: "#897709",
+            color: "#fff",
+            border: "#fff",
+          },
+        },
+      },
+    },
   },
 });
 
@@ -205,21 +219,47 @@ const Step1 = (props) => {
         <Card sx={{ width: 325, border: 0, boxShadow: 5, borderRadius: 5 }}>
           <CardContent>
             <Grid item xs={12}>
-              <FormControl
-                sx={{ m: 1.5, width: 250 }} /* className={classes.root} */
-              >
-                🤖 PreFlop Poker Bot (NL2) 🤖
-              </FormControl>
+              <Box textAlign="center">
+                <FormControl>
+                  <div className="navigator-title">
+                    <svg
+                      id="app-icon"
+                      version="1.1"
+                      viewBox="0 0 60 60"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        id="path2"
+                        d="m13.725 46.275 21.75-10.725 10.725-21.75-21.75 10.725zm16.275-13.275q-1.275 0-2.1375-0.8625t-0.8625-2.1375 0.8625-2.1375 2.1375-0.8625 2.1375 0.8625 0.8625 2.1375-0.8625 2.1375-2.1375 0.8625zm0 27q-6.15 0-11.625-2.3625t-9.5625-6.45-6.45-9.5625-2.3625-11.625q0-6.225 2.3625-11.7t6.45-9.525 9.5625-6.4125 11.625-2.3625q6.225 0 11.7 2.3625t9.525 6.4125 6.4125 9.525 2.3625 11.7q0 6.15-2.3625 11.625t-6.4125 9.5625-9.525 6.45-11.7 2.3625zm0-4.5q10.65 0 18.075-7.4625t7.425-18.038q0-10.65-7.425-18.075t-18.075-7.425q-10.575 0-18.038 7.425t-7.4625 18.075q0 10.575 7.4625 18.038t18.038 7.4625z"
+                        fill="#2d2d2d"
+                        stroke-width="1.5"
+                      />
+                    </svg>
+
+                    <p>Poker Navigator</p>
+                    <small>
+                      Get the upper hand with powerful insights at your
+                      fingertips.
+                    </small>
+                  </div>
+                </FormControl>
+              </Box>
             </Grid>
 
             <Grid item xs={12}>
               <FormControl sx={{ m: 0.5, width: 135 }}>
-                <InputLabel id="demo-simple-select-label">
+                <InputLabel
+                  id="demo-simple-select-label"
+                  className="navigator-dropdown-label"
+                  color="secondary"
+                >
                   First Card
                 </InputLabel>
                 <Select
+                  className="navigator-dropdown"
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
+                  color="secondary"
                   displayEmpty
                   value={formData.card1}
                   label="First Card"
@@ -227,49 +267,289 @@ const Step1 = (props) => {
                     setFormData({ ...formData, card1: e.target.value })
                   }
                 >
-                  <MenuItem value={14}>A</MenuItem>
-                  <MenuItem value={13}>K</MenuItem>
-                  <MenuItem value={12}>Q</MenuItem>
-                  <MenuItem value={11}>J</MenuItem>
-                  <MenuItem value={10}>T</MenuItem>
-                  <MenuItem value={9}>9</MenuItem>
-                  <MenuItem value={8}>8</MenuItem>
-                  <MenuItem value={7}>7</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={14}
+                  >
+                    A
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={13}
+                  >
+                    K
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={12}
+                  >
+                    Q
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={11}
+                  >
+                    J
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={10}
+                  >
+                    T
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={9}
+                  >
+                    9
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={8}
+                  >
+                    8
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={7}
+                  >
+                    7
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={6}
+                  >
+                    6
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={5}
+                  >
+                    5
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={4}
+                  >
+                    4
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={3}
+                  >
+                    3
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={2}
+                  >
+                    2
+                  </MenuItem>
                 </Select>
               </FormControl>
 
               <FormControl sx={{ m: 0.5, width: 135 }}>
-                <InputLabel id="demo-simple-select-label">
+                <InputLabel
+                  id="demo-simple-select-label"
+                  className="navigator-dropdown-label"
+                  color="secondary"
+                >
                   Second Card
                 </InputLabel>
                 <Select
+                  className="navigator-dropdown"
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   displayEmpty
                   value={formData.card2}
                   label="Second Card"
+                  color="secondary"
                   onChange={(e) =>
                     setFormData({ ...formData, card2: e.target.value })
                   }
                 >
-                  <MenuItem value={14}>A</MenuItem>
-                  <MenuItem value={13}>K</MenuItem>
-                  <MenuItem value={12}>Q</MenuItem>
-                  <MenuItem value={11}>J</MenuItem>
-                  <MenuItem value={10}>T</MenuItem>
-                  <MenuItem value={9}>9</MenuItem>
-                  <MenuItem value={8}>8</MenuItem>
-                  <MenuItem value={7}>7</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={14}
+                  >
+                    A
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={13}
+                  >
+                    K
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={12}
+                  >
+                    Q
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={11}
+                  >
+                    J
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={10}
+                  >
+                    T
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={9}
+                  >
+                    9
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={8}
+                  >
+                    8
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={7}
+                  >
+                    7
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={6}
+                  >
+                    6
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={5}
+                  >
+                    5
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={4}
+                  >
+                    4
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={3}
+                  >
+                    3
+                  </MenuItem>
+                  <MenuItem
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "#505050",
+                    }}
+                    value={2}
+                  >
+                    2
+                  </MenuItem>
                 </Select>
               </FormControl>
               <div className="px-2">
@@ -299,6 +579,7 @@ const Step1 = (props) => {
                     />
                   }
                   label="Suited"
+                  className="navigator-switch"
                 />
               </FormControl>
 
@@ -311,10 +592,8 @@ const Step1 = (props) => {
 
             <Grid item xs={12} alignItems="center" justify="center">
               <Box textAlign="center">
-                <FormControl className="flop-calc-link">
-                  <Link href="/blog/the-legal-poker-bot">
-                    How does this bot work?
-                  </Link>
+                <FormControl className="navigator-link">
+                  <Link href="/blog/the-legal-poker-bot">Learn More</Link>
                 </FormControl>
               </Box>
             </Grid>
