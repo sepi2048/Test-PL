@@ -31,6 +31,7 @@ export default function Layout({
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="keyword" content={metaKeyword} />
         <meta name="author" content={metaAuthor} />
+        <meta name="title" content={metaTitle} />
         <meta name="description" content={metaDescription} />
 
         <meta property="og:title" content={metaTitle} />
