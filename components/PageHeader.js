@@ -1,45 +1,45 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { IconHome } from '@tabler/icons';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { IconHome } from "@tabler/icons";
 
 export default function PageHeaderBlock({ title }) {
-  const convertBreadcrumb = (string) => {
+  /*   const convertBreadcrumb = (string) => {
     return (
       string
-        .replace(/-/g, ' ')
-        .replace(/oe/g, 'ö')
-        .replace(/ae/g, 'ä')
-        .replace(/ue/g, 'ü')
+        .replace(/-/g, " ")
+        .replace(/oe/g, "ö")
+        .replace(/ae/g, "ä")
+        .replace(/ue/g, "ü")
         .charAt(0)
-        .toUpperCase() + string.slice(1).replace(/-/g, ' ')
+        .toUpperCase() + string.slice(1).replace(/-/g, " ")
     );
   };
-
+ */
   const router = useRouter();
-  const [breadcrumbs, setBreadcrumbs] = useState(null);
+  // const [breadcrumbs, setBreadcrumbs] = useState(null);
 
   useEffect(() => {
     if (router) {
-      const linkPath = router.asPath.split('/');
+      const linkPath = router.asPath.split("/");
       linkPath.shift();
 
       const pathArray = linkPath.slice(0, 1).map((path, i) => {
         return {
-          breadcrumb: path,
-          href: '/' + linkPath.slice(0, i + 1).join('/'),
+          // breadcrumb: path,
+          href: "/" + linkPath.slice(0, i + 1).join("/"),
         };
       });
 
-      setBreadcrumbs(pathArray);
+      // setBreadcrumbs(pathArray);
     }
   }, [router]);
 
-  if (!breadcrumbs) {
-    return null;
-  }
+  // if (!breadcrumbs) {
+  //   return null;
+  // }
 
-  return (
+  return title ? (
     <>
       <section className="section-sm">
         <div className="container">
@@ -55,7 +55,7 @@ export default function PageHeaderBlock({ title }) {
                     <a>
                       <i
                         className="d-inline-block text-white"
-                        style={{ transform: 'translateY(-' + 2 + 'px)' }}
+                        style={{ transform: "translateY(-" + 2 + "px)" }}
                       >
                         <IconHome size={16} />
                       </i>
@@ -63,7 +63,7 @@ export default function PageHeaderBlock({ title }) {
                     </a>
                   </Link>
                 </li>
-                {breadcrumbs.map((breadcrumb, i) => {
+                {/*                 {breadcrumbs.map((breadcrumb, i) => {
                   return (
                     <li key={i} className="list-inline-item">
                       <Link href={breadcrumb.href}>
@@ -73,12 +73,21 @@ export default function PageHeaderBlock({ title }) {
                       </Link>
                     </li>
                   );
-                })}
+                })} */}
               </ul>
             </div>
           </div>
         </div>
       </section>
+    </>
+  ) : (
+    <>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   );
 }

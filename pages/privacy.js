@@ -1,7 +1,7 @@
-import { marked } from 'marked';
-import Layout from '@/components/Layout';
-import PageHeaderBlock from '@/components/PageHeader';
-import { getSinglePage } from '@/libs/getSinglePage';
+import { marked } from "marked";
+import Layout from "@/components/Layout";
+import PageHeaderBlock from "@/components/PageHeader";
+import { getSinglePage } from "@/libs/getSinglePage";
 
 export default function About({ privacy: { frontMatter, content } }) {
   return (
@@ -9,7 +9,8 @@ export default function About({ privacy: { frontMatter, content } }) {
       metaTitle={frontMatter.title}
       metaDescription={frontMatter.description}
     >
-      <PageHeaderBlock title={frontMatter.title} />
+      {/* <PageHeaderBlock title={frontMatter.title} /> */}
+      <PageHeaderBlock title="" />
 
       <section>
         <div className="container pb-5">
@@ -32,7 +33,7 @@ export default function About({ privacy: { frontMatter, content } }) {
 export async function getStaticProps() {
   return {
     props: {
-      privacy: getSinglePage('content/privacy.md'),
+      privacy: getSinglePage("content/privacy.md"),
     },
   };
 }

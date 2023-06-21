@@ -19,7 +19,8 @@ export default function About({ authors, posts, about: { frontMatter } }) {
       metaTitle={frontMatter.title}
       metaDescription={frontMatter.description}
     >
-      <PageHeaderBlock title={frontMatter.title} />
+      {/* <PageHeaderBlock title={frontMatter.title} /> */}
+      <PageHeaderBlock title="" />
 
       <section>
         <div className="container pb-5">
@@ -31,6 +32,17 @@ export default function About({ authors, posts, about: { frontMatter } }) {
                   __html: marked.parseInline(frontMatter.intro.title),
                 }}
               ></h2>
+            </div>
+          </div>
+
+          <div className="row justify-content-center">
+            <div className="col-lg-10">
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{
+                  __html: marked.parse(frontMatter.intro.description),
+                }}
+              ></div>
             </div>
           </div>
 
@@ -53,17 +65,6 @@ export default function About({ authors, posts, about: { frontMatter } }) {
                   />
                 </div>
               ))}
-            </div>
-          </div>
-
-          <div className="row justify-content-center">
-            <div className="col-lg-10 text-center">
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{
-                  __html: marked.parse(frontMatter.intro.description),
-                }}
-              ></div>
             </div>
           </div>
 

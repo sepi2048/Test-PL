@@ -5,7 +5,7 @@ import { getAuthors } from "pages/api/api-contentful/getAuthors";
 import { getBlogPosts } from "pages/api/api-contentful/getBlogPosts";
 import { IconNewSection } from "@tabler/icons";
 import ModalMailingList from "@/components/ModalMailingList";
-import MultiStepForm from "@/components/PokerBot/MultiStepForm";
+import MultiStepForm from "@/components/PokerNav/MultiStepForm";
 import { useState, useEffect } from "react";
 
 export default function Home({ authors, posts }) {

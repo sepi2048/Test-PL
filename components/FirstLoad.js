@@ -68,7 +68,7 @@ export default function FirstLoad({ children }) {
 
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 6500);
+    }, 5500);
   }, []);
 
   return !loading ? (

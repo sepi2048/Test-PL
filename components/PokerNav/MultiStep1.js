@@ -18,8 +18,6 @@ import CardContent from "@mui/material/CardContent";
 
 import Grid from "@mui/material/Grid";
 
-import { makeStyles } from "@material-ui/core/styles";
-
 const theme = createTheme({
   root: {
     "& .MuiOutlinedInput-notchedOutline": {
@@ -32,10 +30,12 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#45ca63",
-      contrastText: "#fff",
+      contrastText: "#505050",
+      fontWeightBold: 900,
     },
     secondary: {
       main: "#505050",
+      fontWeight: 900,
     },
     /*     text: {
       primary: "#45ca63",
@@ -62,82 +62,96 @@ const theme = createTheme({
   },
 });
 
+// Updated
 const neverPlay = [
+  "K7o",
   "K6o",
   "K5o",
+  "K5s",
   "K4o",
+  "K4s",
   "K3o",
+  "K3s",
   "K2o",
-  "T6o",
-  "96o",
-  "86o",
-  "T5o",
-  "95o",
-  "85o",
-  "T4o",
-  "94o",
-  "84o",
-  "T3o",
-  "93o",
-  "83o",
-  "T2o",
-  "92o",
-  "82o",
-  "75o",
-  "65o",
-  "74o",
-  "64o",
-  "73o",
-  "63o",
-  "72o",
-  "62o",
-  "54o",
-  "53o",
-  "52o",
-  "43o",
-  "42o",
-  "32o",
+  "K2s",
   "Q7o",
-  "J7o",
   "Q6o",
-  "J6o",
   "Q5o",
-  "J5o",
+  "Q5s",
   "Q4o",
-  "J4o",
+  "Q4s",
   "Q3o",
-  "J3o",
-  "Q2o",
-  "J2o",
-  "Q2s",
-  "J2s",
-  "T2s",
-  "92s",
-  "82s",
-  "72s",
-  "62s",
-  "52s",
-  "42s",
-  "32s",
   "Q3s",
-  "J3s",
-  "T3s",
-  "93s",
-  "83s",
-  "73s",
-  "63s",
-  "53s",
-  "J4s",
-  "T4s",
-  "94s",
-  "84s",
-  "74s",
+  "Q2o",
+  "Q2s",
+  "J7o",
+  "J6o",
+  "J5o",
   "J5s",
+  "J4o",
+  "J4s",
+  "J3o",
+  "J3s",
+  "J2o",
+  "J2s",
+  "T7o",
+  "T6o",
+  "T5o",
   "T5s",
+  "T4o",
+  "T4s",
+  "T3o",
+  "T3s",
+  "T2o",
+  "T2s",
+  "97o",
+  "96o",
+  "95o",
   "95s",
+  "94o",
+  "94s",
+  "93o",
+  "93s",
+  "92o",
+  "92s",
+  "86o",
+  "85o",
   "85s",
-  "J6s",
-  "T6s",
+  "84o",
+  "84s",
+  "83o",
+  "83s",
+  "82o",
+  "82s",
+  "76o",
+  "75o",
+  "75s",
+  "74o",
+  "74s",
+  "73o",
+  "73s",
+  "72o",
+  "72s",
+  "65o",
+  "65s",
+  "64o",
+  "64s",
+  "63o",
+  "63s",
+  "62o",
+  "62s",
+  "54o",
+  "54s",
+  "53o",
+  "53s",
+  "52o",
+  "52s",
+  "43o",
+  "43s",
+  "42o",
+  "42s",
+  "32o",
+  "32s",
 ];
 
 const allPairs = [
@@ -159,8 +173,6 @@ const allPairs = [
 const Step1 = (props) => {
   const { formData, setFormData, currentStep, setCurrentStep } = props;
   const [message, setMessage] = useState(null);
-
-  //const classes = useStyles();
 
   const hand = (cards) => {
     const replace = (num) => {
@@ -221,7 +233,7 @@ const Step1 = (props) => {
             <Grid item xs={12}>
               <Box textAlign="center">
                 <FormControl>
-                  <div className="navigator-title">
+                  <div className="navigator-title step1">
                     <svg
                       id="app-icon"
                       version="1.1"
@@ -236,11 +248,12 @@ const Step1 = (props) => {
                       />
                     </svg>
 
-                    <p>Poker Navigator</p>
+                    <p className="step1">Poker Navigator</p>
                     <small>
                       Get the upper hand with powerful insights at your
                       fingertips.
                     </small>
+                    <br />
                   </div>
                 </FormControl>
               </Box>
@@ -584,7 +597,11 @@ const Step1 = (props) => {
               </FormControl>
 
               <FormControl sx={{ m: 1.5, width: 125 }}>
-                <Button variant="contained" onClick={evaluate}>
+                <Button
+                  variant="contained"
+                  className="navigator-btn"
+                  onClick={evaluate}
+                >
                   Continue
                 </Button>
               </FormControl>
